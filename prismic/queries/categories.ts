@@ -1,31 +1,35 @@
 import Prismic from "@prismicio/client";
 import { DefaultClient } from "@prismicio/client/types/client";
 import { QueryOptions } from "@prismicio/client/types/ResolvedApi";
-import { Author, AuthorSchema } from "prismic/types/author";
 import { collect } from "../../lib/async/collect";
 import { fetchAll } from "../fetchAll";
+import { Category, CategorySchema } from "../types/category";
 
 export async function all(
 	client: DefaultClient,
 	options?: QueryOptions
-): Promise<Author[]> {
+): Promise<Category[]> {
 	const docs = await collect(
-		fetchAll(client, Prismic.predicates.at("document.type", "author"), options)
+		fetchAll(
+			client,
+			Prismic.predicates.at("document.type", "category"),
+			options
+		)
 	);
 
-	return docs.map((doc) => AuthorSchema.cast(doc));
+	return docs.map((doc) => CategorySchema.cast(doc));
 }
 
 export async function find(
 	client: DefaultClient,
 	uid: string,
 	options?: QueryOptions
-): Promise<Author | null> {
-	const doc = await client.getByUID("author", uid, options);
+): Promise<Category | null> {
+	const doc = await client.getByUID("category", uid, options);
 
 	if (!doc) {
 		return null;
 	}
 
-	return AuthorSchema.cast(doc);
+	return CategorySchema.cast(doc);
 }
