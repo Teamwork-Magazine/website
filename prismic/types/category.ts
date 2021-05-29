@@ -9,11 +9,6 @@ export interface Category {
 
 export type CategoryLink = Pick<Category, "name" | "slug">;
 
-export const UNCATEGORIZED: CategoryLink = {
-	slug: "uncategorized",
-	name: "Uncategorized",
-};
-
 export const CategorySchema = new Schema<Category>({
 	id(doc) {
 		return doc.id;

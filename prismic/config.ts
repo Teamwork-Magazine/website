@@ -1,21 +1,28 @@
-import { Document } from "@prismicio/client/types/documents"
+import { Document } from "@prismicio/client/types/documents";
+import { AuthorSchema } from "./types/author";
+import { ArticleSchema } from "./types/article";
+import { CategorySchema } from "./types/category";
+import * as Links from "./links";
 
-export const apiEndpoint = 'https://teamwork-magazine.cdn.prismic.io/api/v2'
+export const apiEndpoint = "https://teamwork-magazine.cdn.prismic.io/api/v2";
 
-export const accessToken = process.env.PRISMIC_ACCESS_TOKEN
+export const accessToken = process.env.PRISMIC_ACCESS_TOKEN;
 
 export const linkResolver = (doc: Document) => {
-	if (doc.type === 'author') {
-		return `/authors/${doc.uid}`
+	if (doc.type === "article") {
+		const article = ArticleSchema.cast(doc, ["slug"]);
+		return Links.article(article);
 	}
 
-	return '/'
-}
-
-export const hrefResolver = (doc: Document) => {
-	if (doc.type === 'author') {
-		return '/authors/[uid]'
+	if (doc.type === "author") {
+		const author = AuthorSchema.cast(doc, ["slug"]);
+		return Links.author(author);
 	}
 
-	return '/'
-}
+	if (doc.type === "category") {
+		const category = CategorySchema.cast(doc, ["slug"]);
+		return Links.category(category);
+	}
+
+	return `/${doc.uid ?? doc.id}`;
+};

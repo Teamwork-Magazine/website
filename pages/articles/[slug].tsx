@@ -1,50 +1,47 @@
 import React from "react";
-import { Article } from "prismic/types/article";
+import { ParsedUrlQuery } from "querystring";
 import { GetStaticPaths, GetStaticProps } from "next";
-import type { CategoryUrlParams } from ".";
+import { Article } from "prismic/types/article";
 import { createClient } from "prismic/client";
 import * as Articles from "prismic/queries/articles";
+import { hasRef } from "prismic/preview";
+import Link from "next/link";
+import * as Links from "prismic/links";
 
 interface ArticleProps {
 	preview: boolean;
-	article: Article | null;
+	article: Article;
 }
 
 export default function ArticlePage({ article }: ArticleProps) {
-	if (!article) {
-		return null;
-	}
-
-	return <h1>{article.title}</h1>;
+	return (
+		<article>
+			{article.category && (
+				<Link href={Links.category(article.category)}>
+					{article.category.name}
+				</Link>
+			)}
+			<h1>{article.title}</h1>
+		</article>
+	);
 }
 
-interface ArticleUrlParams extends CategoryUrlParams {
+interface ArticleUrlParams extends ParsedUrlQuery {
 	slug: string;
 }
 
 export const getStaticProps: GetStaticProps<ArticleProps, ArticleUrlParams> =
 	async ({ params, preview = false, previewData = {} }) => {
-		// @ts-ignore
-		const { ref } = previewData;
 		const client = createClient();
 		const article = await Articles.find(
 			client,
 			params.slug,
-			ref ? { ref } : {}
+			hasRef(previewData) ? { ref: previewData.ref } : {}
 		);
 
 		if (article === null) {
 			return {
 				notFound: true,
-			};
-		}
-
-		if (article.category.slug !== params.category) {
-			return {
-				redirect: {
-					destination: `/magazine/${article.category.slug}/${article.slug}`,
-					statusCode: 301,
-				},
 			};
 		}
 
@@ -61,9 +58,7 @@ export const getStaticPaths: GetStaticPaths<ArticleUrlParams> = async () => {
 	const articles = await Articles.all(client);
 
 	return {
-		paths: articles.map(
-			(article) => `/magazine/${article.category.slug}/${article.slug}`
-		),
+		paths: articles.map((article) => `/articles/${article.slug}`),
 		fallback: true,
 	};
 };

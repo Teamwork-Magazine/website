@@ -1,20 +1,17 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import ErrorPage from "next/error";
 import { createClient } from "prismic/client";
+import { hasRef } from "prismic/preview";
 import * as Categories from "prismic/queries/categories";
 import { Category } from "prismic/types/category";
 import { ParsedUrlQuery } from "querystring";
 
 interface CategoryProps {
 	preview: boolean;
-	category: Category | null;
+	category: Category;
 }
 
 export default function CategoryPage({ category }: CategoryProps) {
-	if (!category) {
-		return <ErrorPage statusCode={404} />;
-	}
-
 	return <h1>{category.name}</h1>;
 }
 
@@ -24,14 +21,18 @@ export interface CategoryUrlParams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps<CategoryProps, CategoryUrlParams> =
 	async ({ params, preview = false, previewData = {} }) => {
-		// @ts-ignore
-		const { ref } = previewData;
 		const client = createClient();
 		const category = await Categories.find(
 			client,
 			params.category,
-			ref ? { ref } : {}
+			hasRef(previewData) ? { ref: previewData.ref } : {}
 		);
+
+		if (!category) {
+			return {
+				notFound: true,
+			};
+		}
 
 		return {
 			props: {

@@ -1,20 +1,16 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import ErrorPage from "next/error";
 import { createClient } from "prismic/client";
+import { hasRef } from "prismic/preview";
 import * as Authors from "prismic/queries/authors";
 import { Author } from "prismic/types/author";
 import { ParsedUrlQuery } from "querystring";
 
 interface AuthorProps {
 	preview: boolean;
-	author: Author | null;
+	author: Author;
 }
 
 export default function AuthorPage({ author }: AuthorProps) {
-	if (!author) {
-		return <ErrorPage statusCode={404} />;
-	}
-
 	return <h1>{author.name}</h1>;
 }
 
@@ -24,10 +20,18 @@ interface AuthorUrlParams extends ParsedUrlQuery {
 
 export const getStaticProps: GetStaticProps<AuthorProps, AuthorUrlParams> =
 	async ({ params, preview = false, previewData = {} }) => {
-		// @ts-ignore
-		const { ref } = previewData;
 		const client = createClient();
-		const author = await Authors.find(client, params.slug, ref ? { ref } : {});
+		const author = await Authors.find(
+			client,
+			params.slug,
+			hasRef(previewData) ? { ref: previewData.ref } : {}
+		);
+
+		if (author === null) {
+			return {
+				notFound: true,
+			};
+		}
 
 		return {
 			props: {
