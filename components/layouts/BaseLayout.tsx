@@ -1,6 +1,11 @@
+import { ReactNode } from "react";
 import Header from "components/organisms/Header";
 
-export default function BaseLayout({ children }) {
+export interface BaseLayoutProps {
+	children?: ReactNode;
+}
+
+export default function BaseLayout({ children }: BaseLayoutProps) {
 	return (
 		<>
 			<Header />

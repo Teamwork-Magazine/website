@@ -1,7 +1,0 @@
-.grid {
-	display: grid;
-	padding: 4rem;
-	margin: 0;
-	grid-template-columns: repeat(auto-fill, minmax(32ch, 1fr));
-	gap: 4rem;
-}

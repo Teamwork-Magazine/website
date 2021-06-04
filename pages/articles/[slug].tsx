@@ -6,7 +6,7 @@ import { createClient } from "prismic/client";
 import * as Articles from "prismic/queries/articles";
 import { hasRef } from "prismic/preview";
 import Link from "next/link";
-import * as Links from "prismic/links";
+import { Routes } from "prismic/routes";
 
 interface ArticleProps {
 	preview: boolean;
@@ -17,7 +17,7 @@ export default function ArticlePage({ article }: ArticleProps) {
 	return (
 		<article>
 			{article.category && (
-				<Link href={Links.category(article.category)}>
+				<Link href={Routes.category(article.category)}>
 					{article.category.name}
 				</Link>
 			)}

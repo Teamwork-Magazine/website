@@ -1,6 +1,5 @@
 import ArticleSummary from "components/molecules/ArticleSummary";
 import { Article } from "prismic/types/article";
-import styles from "./ArticleGrid.module.css";
 
 export interface ArticleGridProps {
 	articles: Article[];
@@ -8,9 +7,9 @@ export interface ArticleGridProps {
 
 export default function ArticleGrid({ articles }: ArticleGridProps) {
 	return (
-		<ul className={styles.grid} role="list">
+		<ul>
 			{articles.map((article) => (
-				<li key={article.slug} className={styles.item}>
+				<li key={article.slug}>
 					<ArticleSummary article={article} />
 				</li>
 			))}

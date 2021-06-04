@@ -7,7 +7,7 @@ export interface ArticleSummaryProps {
 }
 
 export default function ArticleSummary({ article }: ArticleSummaryProps) {
-	const { title, blurb, thumbnail } = article;
+	const { title, category, blurb, thumbnail } = article;
 
 	return (
 		<article>

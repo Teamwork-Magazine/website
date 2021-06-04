@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import ErrorPage from "next/error";
 import { createClient } from "prismic/client";
 import { hasRef } from "prismic/preview";
 import * as Categories from "prismic/queries/categories";
@@ -16,7 +15,7 @@ export default function CategoryPage({ category }: CategoryProps) {
 }
 
 export interface CategoryUrlParams extends ParsedUrlQuery {
-	category: string;
+	slug: string;
 }
 
 export const getStaticProps: GetStaticProps<CategoryProps, CategoryUrlParams> =
@@ -24,7 +23,7 @@ export const getStaticProps: GetStaticProps<CategoryProps, CategoryUrlParams> =
 		const client = createClient();
 		const category = await Categories.find(
 			client,
-			params.category,
+			params.slug,
 			hasRef(previewData) ? { ref: previewData.ref } : {}
 		);
 
@@ -47,7 +46,7 @@ export const getStaticPaths: GetStaticPaths<CategoryUrlParams> = async () => {
 	const categories = await Categories.all(client);
 
 	return {
-		paths: categories.map((category) => `/magazine/${category.slug}`),
+		paths: categories.map((category) => `/category/${category.slug}`),
 		fallback: true,
 	};
 };
