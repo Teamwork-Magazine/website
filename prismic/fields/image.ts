@@ -20,7 +20,7 @@ export interface Image {
 	width: number;
 }
 
-interface ImageConfig {
+export interface ImageConfig {
 	label: string;
 	placeholder?: string;
 	group?: string;
@@ -37,8 +37,8 @@ export function image({
 }: ImageConfig): Field<Image | null> {
 	return new Field({
 		group,
-		cast(image: PrismicImage) {
-			if (!image) return null;
+		cast(image) {
+			if (!isPrismicImage(image)) return null;
 
 			const { alt, copyright: credit, url: src, dimensions } = image;
 
@@ -61,4 +61,12 @@ export function image({
 			};
 		},
 	});
+}
+
+function isPrismicImage(image: unknown): image is PrismicImage {
+	if (typeof image !== "object") return false;
+	if (!image) return false;
+	if (typeof (image as PrismicImage).url !== "string") return false;
+
+	return true;
 }

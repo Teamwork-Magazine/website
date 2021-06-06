@@ -25,7 +25,7 @@ export class Model<T extends Record<string, any>> {
 		selectedFields.forEach((key) => {
 			const input = key === "uid" ? doc.uid : doc.data[key];
 			const field = this.fields[key];
-			fields[key] = field.cast(input);
+			fields[key] = field.cast(input, doc);
 		});
 
 		return {
@@ -53,14 +53,6 @@ export class Model<T extends Record<string, any>> {
 			defintion[group][key] = toJSON();
 		});
 
-		const uidDef: UIDFieldDefinition = {
-			type: "UID",
-			config: {
-				label: "Slug",
-				placeholder: "url-slug",
-			},
-		};
-
 		return defintion;
 	}
 }
@@ -69,13 +61,11 @@ interface ModelDefinition {
 	[k: string]: Record<string, FieldDefinition>;
 }
 
-type WithStandardFields<T> = T & StandardFields;
-
-interface StandardFields {
+type WithStandardFields<T> = T & {
 	id: string;
 	uid: string;
 	tags: Tag[];
-}
+};
 
 interface Tag {
 	uid: string;

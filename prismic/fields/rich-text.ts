@@ -22,7 +22,7 @@ const ALL_FORMATS = [
 
 type Format = typeof ALL_FORMATS[number];
 
-interface RichTextConfig {
+export interface RichTextConfig {
 	label: string;
 	placeholder?: string;
 	group?: string;
@@ -36,15 +36,15 @@ export function richText({
 	group,
 	allowMultiple = false,
 	allowFormats: formats = ALL_FORMATS,
-}: RichTextConfig): Field<RichTextBlock[]> {
+}: RichTextConfig): Field<RichTextBlock[] | null> {
 	return new Field({
 		group,
 		cast(richText) {
-			if (richText && Array.isArray(richText)) {
+			if (richText && Array.isArray(richText) && richText.length > 0) {
 				return richText;
 			}
 
-			return [];
+			return null;
 		},
 		toJSON() {
 			const config = {

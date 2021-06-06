@@ -1,8 +1,22 @@
 import fs from "fs";
 import path from "path";
-import { Person } from "prismic/models/person";
+import * as Models from "prismic/models";
 
 const DIR = path.join("prismic", "__generated__", "content-types");
+
+const KB = 1024;
+const MB = KB * 1000;
+function humanSize(bytes: number): string {
+	if (bytes < KB) {
+		return `${bytes}B`;
+	} else if (bytes < MB) {
+		const kilobytes = bytes / KB;
+		return `${kilobytes.toFixed(2)}KB`;
+	} else {
+		const megabytes = bytes / MB;
+		return `${megabytes.toFixed(2)}MB`;
+	}
+}
 
 try {
 	fs.mkdirSync(DIR, { recursive: true });
@@ -13,9 +27,7 @@ try {
 	}
 }
 
-const models = [Person];
-
-for (const model of models) {
+for (const model of Object.values(Models)) {
 	const filename = model.name + ".json";
 
 	const definition = JSON.stringify(model, null, 2);
@@ -23,7 +35,7 @@ for (const model of models) {
 
 	try {
 		fs.writeFileSync(path.join(DIR, filename), buffer);
-		console.log(`✅ ${filename} (${buffer.byteLength}B)`);
+		console.log(`✅ ${filename} (${humanSize(buffer.byteLength)})`);
 	} catch (e) {
 		console.error(`❌ ${filename}`);
 		console.error(e);

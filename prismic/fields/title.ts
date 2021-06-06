@@ -1,19 +1,17 @@
 import { RichText } from "prismic-reactjs";
 import { Field } from "prismic/field";
 
-interface TitleConfig {
+export interface TitleConfig {
 	label: string;
 	placeholder?: string;
 	group?: string;
-	defaultValue?: string;
 }
 
 export function title({
 	label,
 	placeholder,
 	group,
-	defaultValue = "",
-}: TitleConfig): Field<string> {
+}: TitleConfig): Field<string | null> {
 	return new Field({
 		group,
 		cast(title) {
@@ -21,7 +19,7 @@ export function title({
 				return RichText.asText(title);
 			}
 
-			return defaultValue;
+			return null;
 		},
 		toJSON() {
 			return {

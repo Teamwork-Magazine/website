@@ -1,21 +1,18 @@
-import { Field } from "prismic/field";
+import { text } from "prismic/fields/text";
+import { Sluggable } from "./sluggable";
 
 export function SEO() {
 	return {
-		uid: new Field<string>({
+		...Sluggable(),
+		metaTitle: text({
+			label: "Meta Title (30-60 characters)",
+			placeholder: "Title for search results and social media",
 			group: "SEO",
-			cast(uid) {
-				return uid || null;
-			},
-			toJSON() {
-				return {
-					type: "UID",
-					config: {
-						label: "Slug",
-						placeholder: "url-slug",
-					},
-				};
-			},
+		}),
+		metaDescription: text({
+			label: "Meta Description (70-160 characters)",
+			placeholder: "Short description for search results and social media",
+			group: "SEO",
 		}),
 	};
 }
