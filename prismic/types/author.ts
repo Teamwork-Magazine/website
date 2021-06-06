@@ -1,3 +1,4 @@
+import { Document } from "@prismicio/client/types/documents";
 import { Schema } from "prismic/schema";
 
 export interface Author {
@@ -8,7 +9,7 @@ export interface Author {
 
 export type AuthorLink = Pick<Author, "name" | "slug">;
 
-export const AuthorSchema = new Schema<Author>({
+export const AuthorSchema = new Schema<Document, Author>({
 	id(doc) {
 		return doc.id;
 	},

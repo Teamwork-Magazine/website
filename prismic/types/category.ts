@@ -1,3 +1,4 @@
+import { Document } from "@prismicio/client/types/documents";
 import { RichText } from "prismic-reactjs";
 import { Schema } from "prismic/schema";
 
@@ -9,7 +10,7 @@ export interface Category {
 
 export type CategoryLink = Pick<Category, "name" | "slug">;
 
-export const CategorySchema = new Schema<Category>({
+export const CategorySchema = new Schema<Document, Category>({
 	id(doc) {
 		return doc.id;
 	},

@@ -1,3 +1,5 @@
+import { Schema } from "prismic/schema";
+
 interface Dimensions {
 	height: number;
 	width: number;
@@ -18,13 +20,10 @@ export interface Image {
 	width: number;
 }
 
-export function fromPrismic(image: PrismicImage) {
-	const { alt, copyright: credit, url: src, dimensions } = image;
-
-	return {
-		src,
-		alt,
-		credit,
-		...dimensions,
-	};
-}
+export const ImageSchema = new Schema<PrismicImage, Image>({
+	alt: ({ alt }) => alt,
+	credit: ({ copyright }) => copyright,
+	src: ({ url }) => url,
+	height: ({ dimensions }) => dimensions.height,
+	width: ({ dimensions }) => dimensions.width,
+});
