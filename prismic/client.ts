@@ -1,10 +1,14 @@
-import Prismic from '@prismicio/client'
-import { IncomingMessage } from 'node:http'
-import { apiEndpoint, accessToken } from './config'
+import Prismic from "@prismicio/client";
+import { IncomingMessage } from "node:http";
+import { apiEndpoint, accessToken } from "./config";
 
 export function createClient(req?: IncomingMessage) {
 	return Prismic.client(apiEndpoint, {
-		...accessToken && { accessToken },
-		...req && { req }
-	})
+		...(accessToken && { accessToken }),
+		...(req && { req }),
+	});
+}
+
+export interface RequestOptions {
+	fetchLinks: Set<string>;
 }

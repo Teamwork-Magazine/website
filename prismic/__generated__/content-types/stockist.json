@@ -1,0 +1,18 @@
+{
+  "Main": {
+    "name": {
+      "type": "StructuredText",
+      "config": {
+        "label": "Name",
+        "single": "heading1",
+        "useAsTitle": true
+      }
+    },
+    "location": {
+      "type": "Text",
+      "config": {
+        "label": "Location"
+      }
+    }
+  }
+}

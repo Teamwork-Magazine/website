@@ -1,24 +1,28 @@
 import { Document } from "@prismicio/client/types/documents";
 import slugify from "slugify";
-import { Field, FieldDefinition, UIDFieldDefinition } from "./field";
+import { Field, FieldDefinition } from "./field";
 
 type FieldMap<T extends Record<string, any>> = { [k in keyof T]: Field<T[k]> };
 
-export class Model<T extends Record<string, any>> {
-	readonly name: string;
+export type CastType<
+	N extends string,
+	T extends Record<string, any>,
+	K extends keyof T = keyof T
+> = WithStandardFields<N, Pick<T, K>>;
+
+export class Model<N extends string, T extends Record<string, any>> {
+	readonly name: N;
 	readonly fields: FieldMap<T>;
 
-	constructor(name: string, fields: FieldMap<T>) {
+	constructor(name: N, fields: FieldMap<T>) {
 		this.name = name;
 		this.fields = fields;
 	}
 
-	cast(doc: Document): WithStandardFields<T>;
-	cast<K extends keyof T>(
+	cast<K extends keyof T = keyof T>(
 		doc: Document,
-		include: K[]
-	): WithStandardFields<Pick<T, K>>;
-	cast<K extends keyof T>(doc: Document, include?: K[]) {
+		include?: K[]
+	): CastType<N, T, K> {
 		const fields = {} as Pick<T, K>;
 		const selectedFields = include ?? (Object.keys(this.fields) as K[]);
 
@@ -29,6 +33,7 @@ export class Model<T extends Record<string, any>> {
 		});
 
 		return {
+			typeName: this.name,
 			id: doc.id,
 			tags: doc.tags.map((tag) => ({
 				uid: slugify(tag),
@@ -61,9 +66,9 @@ interface ModelDefinition {
 	[k: string]: Record<string, FieldDefinition>;
 }
 
-type WithStandardFields<T> = T & {
+export type WithStandardFields<N extends string, T> = T & {
+	typeName: N;
 	id: string;
-	uid: string;
 	tags: Tag[];
 };
 

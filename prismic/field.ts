@@ -1,22 +1,28 @@
 import { Document } from "@prismicio/client/types/documents";
+import { RequestOptions } from "./client";
 
 type TransformFn<To, From = unknown> = (input: From, doc: Document) => To;
+
+type RequestHandler = (options: RequestOptions) => RequestOptions;
 
 interface FieldInit<T> {
 	group?: string;
 	cast: TransformFn<T>;
-	toJSON(): FieldDefinition;
+	toJSON: () => FieldDefinition;
+	onRequest?: RequestHandler;
 }
 
 export class Field<T> {
 	readonly group: string;
 	readonly cast: TransformFn<T>;
 	readonly toJSON: () => FieldDefinition;
+	readonly onRequest?: RequestHandler;
 
-	constructor({ group, cast, toJSON }: FieldInit<T>) {
+	constructor({ group, cast, toJSON, onRequest }: FieldInit<T>) {
 		this.group = group ?? "Main";
 		this.cast = cast;
 		this.toJSON = toJSON;
+		this.onRequest = onRequest;
 	}
 
 	map<T2>(transform: TransformFn<T2, T>): Field<T2> {
@@ -29,22 +35,17 @@ export class Field<T> {
 		});
 	}
 
-	default(
-		defaultValue: Exclude<T, null | undefined>
-	): Field<Exclude<T, null | undefined>> {
-		return this.map((value) => (isNotNullish(value) ? value : defaultValue));
+	default(defaultValue: NonNullable<T>): Field<NonNullable<T>> {
+		return this.map((value) => value ?? defaultValue);
 	}
-}
-
-function isNotNullish<T>(value: T): value is Exclude<T, null | undefined> {
-	return value !== null && value !== undefined;
 }
 
 export type FieldDefinition =
 	| RichTextFieldDefinition
 	| ImageFieldDefinition
 	| UIDFieldDefinition
-	| TextFieldDefinition;
+	| TextFieldDefinition
+	| LinkFieldDefinition;
 
 export interface RichTextFieldDefinition {
 	type: "StructuredText";
@@ -112,4 +113,19 @@ export interface TextFieldDefinition {
 export interface TextFieldConfig {
 	label: string;
 	placeholder?: string;
+}
+
+export interface LinkFieldDefinition {
+	type: "Link";
+	config: LinkFieldConfig;
+}
+
+export type LinkFieldConfig = RelationshipFieldConfig;
+
+export interface RelationshipFieldConfig {
+	label: string;
+	placeholder?: string;
+	select: "document";
+	customtypes?: string[];
+	tags?: string[];
 }
