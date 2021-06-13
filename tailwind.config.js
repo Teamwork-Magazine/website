@@ -18,7 +18,11 @@ module.exports = {
 				"sans-serif",
 			],
 		},
-		extend: {},
+		extend: {
+			maxWidth: {
+				"8xl": "88rem",
+			},
+		},
 	},
 	variants: {
 		extend: {},
