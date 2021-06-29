@@ -6,7 +6,7 @@ import Container from "components/atoms/Container";
 export default function Header() {
 	return (
 		<header className="py-8">
-			<Container className="flex">
+			<Container className="flex justify-center">
 				<Link href="/">
 					<a className="leading-none">
 						<Logo />

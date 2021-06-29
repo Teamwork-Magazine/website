@@ -21,7 +21,7 @@ export default function Kicker({
 		<Link href={href}>
 			<a
 				className={classNames(
-					"text-red-500",
+					"text-red-600",
 					"font-accent",
 					"uppercase",
 					"tracking-wider",

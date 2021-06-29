@@ -9,15 +9,14 @@ export interface LeadSectionProps {
 
 export default function LeadSection({ className, children }: LeadSectionProps) {
 	return (
-		<Container>
+		<Container className={className}>
 			<section
 				className={classNames(
 					"py-8",
 					"border-b",
 					"border-gray-300",
 					"md:py-16",
-					"lg:pt-20",
-					className
+					"lg:pt-20"
 				)}
 			>
 				{children}
