@@ -1,0 +1,8 @@
+.u-text-accent {
+	font-family: var(--font-family-accent);
+}
+
+.u-text-caps {
+	letter-spacing: var(--text-tracking, 0.05em);
+	text-transform: uppercase;
+}
