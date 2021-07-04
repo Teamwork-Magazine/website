@@ -61,11 +61,6 @@ Default.args = {
 					text: `In another moment down went Alice after it, never once considering how in the world she was to get out again.`,
 					spans: [],
 				},
-				{
-					type: Elements.paragraph,
-					text: `The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well. `,
-					spans: [],
-				},
 			],
 		},
 		{
@@ -80,6 +75,11 @@ Default.args = {
 			type: ArticleSliceType.RICH_TEXT,
 			blocks: [
 				{
+					type: Elements.paragraph,
+					text: `The rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well. `,
+					spans: [],
+				},
+				{
 					type: Elements.heading2,
 					text: "Chapter II. The Pool of Tears",
 					spans: [],
@@ -87,11 +87,6 @@ Default.args = {
 				{
 					type: Elements.paragraph,
 					text: `“Curiouser and curiouser!” cried Alice (she was so much surprised, that for the moment she quite forgot how to speak good English); “now I’m opening out like the largest telescope that ever was! Good-bye, feet!” (for when she looked down at her feet, they seemed to be almost out of sight, they were getting so far off). “Oh, my poor little feet, I wonder who will put on your shoes and stockings for you now, dears? I’m sure I shan’t be able! I shall be a great deal too far off to trouble myself about you: you must manage the best way you can;—but I must be kind to them,” thought Alice, “or perhaps they won’t walk the way I want to go! Let me see: I’ll give them a new pair of boots every Christmas.”`,
-					spans: [],
-				},
-				{
-					type: Elements.paragraph,
-					text: `And she went on planning to herself how she would manage it. “They must go by the carrier,” she thought; “and how funny it’ll seem, sending presents to one’s own feet! And how odd the directions will look!`,
 					spans: [],
 				},
 			],
@@ -122,6 +117,11 @@ Default.args = {
 		{
 			type: ArticleSliceType.RICH_TEXT,
 			blocks: [
+				{
+					type: Elements.paragraph,
+					text: `And she went on planning to herself how she would manage it. “They must go by the carrier,” she thought; “and how funny it’ll seem, sending presents to one’s own feet! And how odd the directions will look!`,
+					spans: [],
+				},
 				{
 					type: Elements.heading3,
 					text: "Alice’s Right Foot, Esq.",

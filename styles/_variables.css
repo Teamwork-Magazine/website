@@ -207,19 +207,19 @@
 	--color-black: #000;
 
 	/*
-		Grays - borrowed from Tailwind's Cool Gray palette
+		Grays - borrowed from Tailwind's Warm Gray palette
 		@link https://tailwindcss.com/docs/customizing-colors#color-palette-reference
 	*/
-	--color-gray-50: #f9fafb;
-	--color-gray-100: #f3f4f6;
-	--color-gray-200: #e5e7eb;
-	--color-gray-300: #d1d5db;
-	--color-gray-400: #9ca3af;
-	--color-gray-500: #6b7280;
-	--color-gray-600: #4b5563;
-	--color-gray-700: #374151;
-	--color-gray-800: #1f2937;
-	--color-gray-900: #111827;
+	--color-gray-50: #fafaf9;
+	--color-gray-100: #f5f5f4;
+	--color-gray-200: #e7e5e4;
+	--color-gray-300: #d6d3d1;
+	--color-gray-400: #a8a29e;
+	--color-gray-500: #78716c;
+	--color-gray-600: #57534e;
+	--color-gray-700: #44403c;
+	--color-gray-800: #292524;
+	--color-gray-900: #1c1917;
 
 	/* Accent */
 	--color-accent-50: #fff6f1;

@@ -35,12 +35,10 @@ export default function Image({
 			</div>
 			{caption || credit ? (
 				<figcaption>
-					<p className="c-image__caption u-flow">
-						<span>{caption}</span>
+					<p className="c-image__caption u-text-accent u-flow">
+						<span className="c-image__description">{caption}</span>
 						{credit && (
-							<span className="c-image__credit u-text-accent u-text-caps">
-								{credit}
-							</span>
+							<span className="c-image__credit u-text-caps">{credit}</span>
 						)}
 					</p>
 				</figcaption>

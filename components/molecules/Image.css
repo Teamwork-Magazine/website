@@ -5,14 +5,17 @@
 .c-image__caption {
 	--flow-gap: var(--space-3xs);
 	font-size: var(--step--1);
-	color: var(--color-gray-500);
 }
 
 .c-image__caption > * {
 	display: block;
 }
 
+.c-image__description {
+	font-weight: 700;
+}
+
 .c-image__credit {
 	font-size: 80%;
-	color: var(--color-gray-400);
+	color: var(--color-gray-500);
 }

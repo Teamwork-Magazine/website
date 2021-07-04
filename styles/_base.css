@@ -18,14 +18,19 @@ h1 {
 h2 {
 	font-size: var(--step-3);
 	line-height: 1.25;
+	font-weight: 300;
 }
 
 h3 {
-	font-size: var(--step-2);
+	font-size: var(--step-1);
+	font-weight: 400;
 }
 
 h4 {
-	font-size: var(--step-1);
+	font-size: var(--step--1);
+	color: var(--color-accent-600);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
 }
 
 h5 {
@@ -49,5 +54,5 @@ figcaption {
 }
 
 figcaption {
-	line-height: 1.25;
+	line-height: 1.33;
 }

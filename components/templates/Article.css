@@ -47,3 +47,19 @@
 	text-align: center;
 	font-size: var(--step-5);
 }
+
+.l-article__body h2 {
+	--flow-gap: var(--space-2xl);
+}
+
+.l-article__body h3 {
+	--flow-gap: var(--space-xl);
+}
+
+.l-article__body h4 {
+	--flow-gap: var(--space-l);
+}
+
+.l-article__body h4 + * {
+	--flow-gap: var(--space-3xs);
+}
