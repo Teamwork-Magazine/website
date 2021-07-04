@@ -4,7 +4,7 @@
 
 /*
 	Fluid type scale
-	@link https://utopia.fyi/type/calculator?c=320,18,1.2,1140,22,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l
+	@link https://utopia.fyi/type/calculator?c=320,16,1.2,1140,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l
 */
 
 :root {
@@ -25,57 +25,57 @@
 }
 
 :root {
-	--f--2-min: 12.5;
-	--f--2-max: 14.08;
+	--f--2-min: 11.11;
+	--f--2-max: 12.8;
 	--step--2: calc(
 		((var(--f--2-min) / 16) * 1rem) + (var(--f--2-max) - var(--f--2-min)) *
 			var(--fluid-bp)
 	);
 
-	--f--1-min: 15;
-	--f--1-max: 17.6;
+	--f--1-min: 13.33;
+	--f--1-max: 16;
 	--step--1: calc(
 		((var(--f--1-min) / 16) * 1rem) + (var(--f--1-max) - var(--f--1-min)) *
 			var(--fluid-bp)
 	);
 
-	--f-0-min: 18;
-	--f-0-max: 22;
+	--f-0-min: 16;
+	--f-0-max: 20;
 	--step-0: calc(
 		((var(--f-0-min) / 16) * 1rem) + (var(--f-0-max) - var(--f-0-min)) *
 			var(--fluid-bp)
 	);
 
-	--f-1-min: 21.6;
-	--f-1-max: 27.5;
+	--f-1-min: 19.2;
+	--f-1-max: 25;
 	--step-1: calc(
 		((var(--f-1-min) / 16) * 1rem) + (var(--f-1-max) - var(--f-1-min)) *
 			var(--fluid-bp)
 	);
 
-	--f-2-min: 25.92;
-	--f-2-max: 34.38;
+	--f-2-min: 23.04;
+	--f-2-max: 31.25;
 	--step-2: calc(
 		((var(--f-2-min) / 16) * 1rem) + (var(--f-2-max) - var(--f-2-min)) *
 			var(--fluid-bp)
 	);
 
-	--f-3-min: 31.1;
-	--f-3-max: 42.97;
+	--f-3-min: 27.65;
+	--f-3-max: 39.06;
 	--step-3: calc(
 		((var(--f-3-min) / 16) * 1rem) + (var(--f-3-max) - var(--f-3-min)) *
 			var(--fluid-bp)
 	);
 
-	--f-4-min: 37.32;
-	--f-4-max: 53.71;
+	--f-4-min: 33.18;
+	--f-4-max: 48.83;
 	--step-4: calc(
 		((var(--f-4-min) / 16) * 1rem) + (var(--f-4-max) - var(--f-4-min)) *
 			var(--fluid-bp)
 	);
 
-	--f-5-min: 44.79;
-	--f-5-max: 67.14;
+	--f-5-min: 39.81;
+	--f-5-max: 61.04;
 	--step-5: calc(
 		((var(--f-5-min) / 16) * 1rem) + (var(--f-5-max) - var(--f-5-min)) *
 			var(--fluid-bp)
@@ -88,7 +88,8 @@
 
 /*
 	Fluid space scale
-	@link https://utopia.fyi/space/calculator?c=320,18,1.2,1140,22,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l */
+	@link https://utopia.fyi/space/calculator?c=320,16,1.2,1140,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l
+*/
 
 :root {
 	--fc-3xs-min: (var(--fc-s-min) * 0.25);
@@ -202,6 +203,9 @@
 ============================================================================ */
 
 :root {
+	--color-white: #fff;
+	--color-black: #000;
+
 	/*
 		Grays - borrowed from Tailwind's Cool Gray palette
 		@link https://tailwindcss.com/docs/customizing-colors#color-palette-reference
@@ -243,7 +247,7 @@
 }
 
 /* ============================================================================
-	FONT FAMILIES
+	TYPOGRAPHY
 ============================================================================ */
 
 :root {
@@ -256,4 +260,7 @@
 	--font-family-body: var(--font-family-serif);
 	--font-family-headline: var(--font-family-serif);
 	--font-family-accent: var(--font-family-sans);
+
+	/* Measure (line length) */
+	--measure-normal: 66ch;
 }
