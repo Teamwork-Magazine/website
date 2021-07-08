@@ -18,6 +18,18 @@ const Template: ComponentStory<typeof Article> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
 	title: "Down the Rabbit-Hole",
+	blurb: [
+		{
+			type: Elements.paragraph,
+			text: `“Oh, I’ve had such a curious dream!” said Alice, and she told her sister, as well as she could remember them, all these strange Adventures of hers that you have just been reading about.`,
+			spans: [],
+		},
+	],
+	featured: false,
+	section: {
+		uid: "literature",
+		name: "Literature",
+	},
 	body: [
 		{
 			type: ArticleSliceType.RICH_TEXT,
@@ -152,7 +164,41 @@ Default.args = {
 					text: `After a time she heard a little pattering of feet in the distance, and she hastily dried her eyes to see what was coming. It was the White Rabbit returning, splendidly dressed, with a pair of white kid gloves in one hand and a large fan in the other: he came trotting along in a great hurry, muttering to himself as he came, “Oh! the Duchess, the Duchess! Oh! won’t she be savage if I’ve kept her waiting!” Alice felt so desperate that she was ready to ask help of any one; so, when the Rabbit came near her, she began, in a low, timid voice, “If you please, sir—” The Rabbit started violently, dropped the white kid gloves and the fan, and skurried away into the darkness as hard as he could go.`,
 					spans: [],
 				},
+				{
+					type: Elements.oListItem,
+					text: `How doth the little crocodile / Improve his shining tail, / And pour the waters of the Nile / On every golden scale!`,
+					spans: [],
+				},
+				{
+					type: Elements.oListItem,
+					text: `How cheerfully he seems to grin, / How neatly spread his claws, / And welcome little fishes in / With gently smiling jaws!`,
+					spans: [],
+				},
 			],
+		},
+	],
+	recommendedArticles: [
+		{
+			uid: "the-odyssey",
+			title: "The Odyssey",
+			section: {
+				uid: "classics",
+				name: "Classics",
+			},
+			blurb: [
+				{
+					type: Elements.paragraph,
+					text: `Tell me, O Muse, of that ingenious hero who travelled far and wide after he had sacked the famous town of Troy.`,
+					spans: [],
+				},
+			],
+			featured: false,
+			featuredImage: {
+				src: "https://unsplash.com/photos/vhUQqymqGZ4/download?w=640",
+				width: 640,
+				height: 427,
+				alt: "",
+			},
 		},
 	],
 };

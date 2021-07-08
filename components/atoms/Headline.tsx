@@ -15,22 +15,15 @@ export interface HeadlineProps {
 export default function Headline({
 	accent = false,
 	level = 1,
-	size = "md",
+	size,
 	className,
 	children,
 }: HeadlineProps) {
 	return (
 		<Heading
-			className={classNames(
-				"font-bold",
-				{
-					"text-xl": size === "md",
-					"text-3xl lg:text-4xl": size === "lg",
-					"text-4xl md:text-5xl lg:text-6xl": size === "xl",
-				},
-				accent ? "font-accent" : "font-headline",
-				className
-			)}
+			className={classNames(className)}
+			data-accent={accent}
+			data-size={size}
 			level={level}
 		>
 			{children}

@@ -1,10 +1,10 @@
-import classNames, { Argument } from "classnames";
+import classNames from "classnames";
 import Link from "next/link";
 import { ReactNode } from "react";
+import "./Byline.css";
 
 //! TODO: Extract this elsewhere
-interface Person {
-	kind: "person";
+export interface Person {
 	uid: string;
 	name: string;
 }
@@ -13,7 +13,7 @@ export type BylineSize = "md" | "lg";
 
 export interface BylineProps {
 	size?: BylineSize;
-	className?: Argument;
+	className?: string;
 	people: Person[] | null;
 }
 
@@ -24,16 +24,12 @@ interface PersonLinkProps {
 function PersonLink({ person }: PersonLinkProps) {
 	return (
 		<Link key={person.uid} href={`/people/${person.uid}`}>
-			<a>{person.name}</a>
+			<a className="c-byline__link">{person.name}</a>
 		</Link>
 	);
 }
 
-export default function Byline({
-	size = "md",
-	className,
-	people,
-}: BylineProps) {
+export default function Byline({ size, className, people }: BylineProps) {
 	let children: ReactNode[] = [];
 
 	if (!people || !people.length) {
@@ -61,17 +57,7 @@ export default function Byline({
 	}
 
 	return (
-		<p
-			className={classNames(
-				"font-accent",
-				"font-bold",
-				"text-gray-500",
-				{
-					"lg:text-xl": size === "lg",
-				},
-				className
-			)}
-		>
+		<p className={classNames("c-byline", className)} data-size={size}>
 			by {children}
 		</p>
 	);

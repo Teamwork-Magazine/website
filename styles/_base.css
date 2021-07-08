@@ -4,6 +4,21 @@ body {
 	font-family: var(--font-family-body);
 }
 
+* {
+	max-width: var(--measure-normal);
+}
+
+html,
+body,
+div,
+article,
+header,
+nav,
+main,
+footer {
+	max-width: none;
+}
+
 a {
 	color: var(--color-secondary-600);
 }
@@ -41,18 +56,21 @@ h6 {
 	font-size: var(--step--1);
 }
 
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-li,
-figcaption {
-	max-width: var(--measure-normal);
-}
-
 figcaption {
 	line-height: 1.33;
+}
+
+ol,
+ul {
+	padding-left: var(--space-m);
+	margin: 0;
+}
+
+:focus,
+.u-focus-group:focus-within {
+	outline: 3px var(--color-secondary-500) solid;
+}
+
+.u-focus-group:focus-within .u-focus-group__deferred:focus {
+	outline: none;
 }

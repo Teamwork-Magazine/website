@@ -1,0 +1,122 @@
+.c-article-card {
+	cursor: pointer;
+	display: flex;
+	outline-offset: 6px;
+}
+
+.c-article-card .c-article-card__thumbnail,
+.c-article-card .c-article-card__kicker,
+.c-article-card .c-article-card__blurb {
+	transition: 180ms opacity linear;
+}
+
+.c-article-card:hover .c-article-card__thumbnail,
+.c-article-card:hover .c-article-card__kicker,
+.c-article-card:hover .c-article-card__blurb {
+	opacity: 0.667;
+}
+
+.c-article-card__thumbnail {
+	flex: 0 1 25%;
+}
+
+.c-article-card__body {
+	display: flex;
+	flex-direction: column;
+	flex: 0 1 75%;
+}
+
+.c-article-card__headline,
+.c-article-card__blurb {
+	margin-top: var(--space-3xs);
+}
+
+.c-article-card__kicker {
+	order: -1;
+	font-family: var(--font-family-accent);
+	font-size: var(--step--2);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--color-accent-600);
+}
+
+.c-article-card__headline {
+	font-weight: 700;
+	font-size: var(--step-1);
+	line-height: 1.25;
+}
+
+.c-article-card__link {
+	color: inherit;
+	text-decoration: none;
+}
+
+.c-article-card__link:focus,
+.c-article-card:hover .c-article-card__link {
+	text-decoration: underline;
+}
+
+.c-article-card:focus-within .c-article-card__link:focus {
+	text-decoration: none;
+}
+
+.c-article-card__blurb {
+	font-size: var(--step--1);
+	color: var(--color-gray-600);
+}
+
+@media (max-width: 559px) {
+	.c-article-card__thumbnail {
+		margin-left: var(--space-s);
+		flex: 0 1 25%;
+	}
+
+	.c-article-card__body {
+		flex: 0 1 75%;
+	}
+}
+
+@media (min-width: 560px) {
+	.c-article-card {
+		flex-direction: column;
+	}
+
+	.c-article-card__thumbnail {
+		order: -1;
+		margin-bottom: var(--space-xs);
+	}
+}
+
+/* Featured variant */
+
+.c-article-card[data-variant="featured"] {
+	text-align: center;
+	max-width: none;
+	width: 100%;
+}
+
+.c-article-card[data-variant="featured"] .c-article-card__body {
+	align-items: center;
+}
+
+.c-article-card[data-variant="featured"] .c-article-card__headline {
+	font-size: var(--step-4);
+	font-family: var(--font-family-accent);
+}
+
+.c-article-card[data-variant="featured"] .c-article-card__body {
+	align-items: center;
+}
+
+.c-article-card[data-variant="featured"] .c-article-card__body {
+	align-items: center;
+}
+
+.c-article-card[data-variant="featured"] .c-article-card__kicker {
+	font-size: var(--step-0);
+}
+
+.c-article-card[data-variant="featured"] .c-article-card__thumbnail {
+	margin-bottom: var(--space-m);
+}

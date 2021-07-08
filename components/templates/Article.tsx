@@ -1,15 +1,29 @@
 import classNames from "classnames";
 import { RichText, RichTextBlock } from "prismic-reactjs";
 import Image, { ImageProps } from "../molecules/Image";
-import "./Article.css";
 import Stack from "../atoms/Stack";
+import { ArticleCardProps } from "../molecules/ArticleCard";
 import PullQuote from "../molecules/PullQuote";
 import ImageGallery, { ImageGalleryProps } from "../molecules/ImageGallery";
+import ArticleCardGrid from "../organisms/ArticleCardGrid";
+import { Person } from "../atoms/Byline";
+import "./Article.css";
 
 export interface ArticleProps {
+	uid: string;
 	title: string;
 	featuredImage?: Omit<ImageProps, "className">;
 	body: ArticleSlice[];
+	authors: Person[] | null;
+	recommendedArticles: ArticleCardProps[];
+	featured: boolean;
+	section?: SectionLinkProps;
+	blurb?: RichTextBlock[];
+}
+
+interface SectionLinkProps {
+	uid: string;
+	name: string;
 }
 
 type ArticleSlice = RichTextSlice | PullQuoteSlice | ImageSlice;
@@ -37,29 +51,46 @@ interface ImageSlice {
 	gallery: Omit<ImageGalleryProps, "className">;
 }
 
-export default function Article({ title, featuredImage, body }: ArticleProps) {
+export default function Article({
+	title,
+	featuredImage,
+	body,
+	recommendedArticles,
+}: ArticleProps) {
 	return (
-		<article className="l-article">
-			<Stack gap="var(--space-xl)">
-				<header className="l-article__grid l-article__header">
-					<h1>{title}</h1>
-					{featuredImage && (
-						<Image
-							{...featuredImage}
+		<main>
+			<article className="l-article">
+				<Stack gap="var(--space-xl)">
+					<header className="l-article__grid l-article__header">
+						<h1>{title}</h1>
+						{featuredImage && (
+							<Image
+								{...featuredImage}
+								className="l-article__block--extra-wide"
+							/>
+						)}
+					</header>
+					<div className="l-article__grid l-article__body">
+						{body.map((slice, i) => (
+							<ArticleBodySlice slice={slice} key={i} />
+						))}
+					</div>
+					<footer className="l-article__grid l-article__footer">
+						<Stack
+							gap="var(--space-l)"
 							className="l-article__block--extra-wide"
-						/>
-					)}
-				</header>
-				<main className="l-article__grid l-article__body">
-					{body.map((slice, i) => (
-						<ArticleBodySlice slice={slice} key={i} />
-					))}
-				</main>
-				<footer className="l-article__grid l-article__footer">
-					{/* Suggested stories */}
-				</footer>
-			</Stack>
-		</article>
+						>
+							<h2>Recommended Stories</h2>
+							<ArticleCardGrid
+								className="l-article__block--extra-wide"
+								stories={recommendedArticles}
+								variant="condensed"
+							/>
+						</Stack>
+					</footer>
+				</Stack>
+			</article>
+		</main>
 	);
 }
 

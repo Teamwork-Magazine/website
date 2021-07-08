@@ -20,7 +20,7 @@
 
 .l-article__block--extra-wide,
 .l-article__block--full-width {
-	max-width: 100%;
+	max-width: none;
 }
 
 .l-article__block--full-width {
@@ -62,4 +62,9 @@
 
 .l-article__body h4 + * {
 	--flow-gap: var(--space-3xs);
+}
+
+.l-article__footer {
+	background-color: var(--color-gray-100);
+	padding: var(--space-xl-2xl) 0;
 }
