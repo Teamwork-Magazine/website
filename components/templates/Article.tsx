@@ -84,7 +84,6 @@ export default function Article({
 							<ArticleCardGrid
 								className="l-article__block--extra-wide"
 								stories={recommendedArticles}
-								variant="condensed"
 							/>
 						</Stack>
 					</footer>

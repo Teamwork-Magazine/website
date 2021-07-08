@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import Logo from "components/atoms/Logo";
-import Container from "components/atoms/Container";
+import Logo from "../atoms/Logo";
+import Container from "../atoms/Container";
 
 export default function Header() {
 	return (

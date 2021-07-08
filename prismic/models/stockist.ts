@@ -1,6 +1,6 @@
-import { text } from "prismic/fields/text";
-import { title } from "prismic/fields/title";
-import { Model } from "prismic/model";
+import { text } from "../fields/text";
+import { title } from "../fields/title";
+import { Model } from "../model";
 
 export const Stockist = new Model("stockist", {
 	name: title({ label: "Name" }),

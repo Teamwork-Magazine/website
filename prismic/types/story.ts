@@ -1,6 +1,6 @@
 import { Document } from "@prismicio/client/types/documents";
 import { RichText, RichTextBlock } from "prismic-reactjs";
-import { Schema } from "prismic/schema";
+import { Schema } from "../schema";
 import { Image, PrismicImage, ImageSchema } from "./image";
 import { Tag, TagSchema } from "./tag";
 

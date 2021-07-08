@@ -1,8 +1,8 @@
 import Prismic from "@prismicio/client";
 import { DefaultClient } from "@prismicio/client/types/client";
 import { QueryOptions } from "@prismicio/client/types/ResolvedApi";
-import { collect } from "lib/async/collect";
-import { Article, ArticleSchema } from "prismic/types/article";
+import { collect } from "../../lib/async/collect";
+import { Article, ArticleSchema } from "../types/article";
 import { fetchAll } from "../fetchAll";
 
 export async function all(

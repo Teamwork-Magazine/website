@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import * as Models from "prismic/models";
+import * as Models from "../prismic/models";
 
 const DIR = path.join("prismic", "__generated__", "content-types");
 

@@ -1,7 +1,7 @@
-import { image } from "prismic/fields/image";
-import { richText } from "prismic/fields/rich-text";
-import { title } from "prismic/fields/title";
-import { Model } from "prismic/model";
+import { image } from "../fields/image";
+import { richText } from "../fields/rich-text";
+import { title } from "../fields/title";
+import { Model } from "../model";
 import { Sluggable } from "./interfaces/sluggable";
 
 export const Person = new Model("person", {

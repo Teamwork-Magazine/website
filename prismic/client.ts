@@ -1,5 +1,5 @@
 import Prismic from "@prismicio/client";
-import { IncomingMessage } from "node:http";
+import type { IncomingMessage } from "http";
 import { apiEndpoint, accessToken } from "./config";
 
 export function createClient(req?: IncomingMessage) {

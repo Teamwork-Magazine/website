@@ -1,5 +1,5 @@
 import { RichTextBlock } from "prismic-reactjs";
-import { Field } from "prismic/field";
+import { Field } from "../field";
 
 const ALL_FORMATS = [
 	"paragraph",

@@ -1,4 +1,4 @@
-import { Field, NullableImageConstraint, Thumbnail } from "prismic/field";
+import { Field, NullableImageConstraint, Thumbnail } from "../../prismic/field";
 
 interface Dimensions {
 	height: number;

@@ -1,0 +1,23 @@
+.grid {
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
+	gap: var(--space-m);
+	list-style: none;
+}
+
+.item {
+	grid-column: span 8;
+}
+
+@media (min-width: 560px) {
+	.item {
+		grid-column: span 4;
+	}
+}
+
+@media (min-width: 840px) {
+	.item {
+		grid-column: span 2;
+	}
+}

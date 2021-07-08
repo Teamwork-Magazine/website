@@ -1,35 +1,21 @@
 import classNames from "classnames";
-import ArticleCard, {
-	ArticleCardProps,
-	ArticleCardVariant,
-} from "../molecules/ArticleCard";
-import "./ArticleCardGrid.css";
-
-export type ArticleCardGridVariant = ArticleCardVariant;
+import ArticleCard, { ArticleCardProps } from "../molecules/ArticleCard";
+import styles from "./ArticleCardGrid.module.css";
 
 export interface ArticleCardGridProps {
 	stories: ArticleCardProps[];
-	variant?: ArticleCardGridVariant;
 	className?: string;
 }
 
 export default function ArticleCardGrid({
 	stories,
-	variant = "standard",
 	className,
 }: ArticleCardGridProps) {
 	return (
-		<ul
-			className={classNames("c-article-card-grid", className)}
-			data-variant={variant}
-		>
+		<ul className={classNames(styles.grid, className)}>
 			{stories.map((story) => (
-				<li className="c-article-card-grid__item" key={story.uid}>
-					<ArticleCard
-						{...story}
-						className="c-article-card-grid__card"
-						variant={variant}
-					/>
+				<li className={styles.item} key={story.uid}>
+					<ArticleCard {...story} className="c-article-card-grid__card" />
 				</li>
 			))}
 		</ul>

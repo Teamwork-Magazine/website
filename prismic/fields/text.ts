@@ -1,4 +1,4 @@
-import { Field } from "prismic/field";
+import { Field } from "../field";
 
 export interface TextConfig {
 	label: string;

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import Link from "next/link";
 import { ReactNode } from "react";
-import "./Byline.css";
+import styles from "./Byline.module.css";
 
 //! TODO: Extract this elsewhere
 export interface Person {
@@ -57,7 +57,7 @@ export default function Byline({ size, className, people }: BylineProps) {
 	}
 
 	return (
-		<p className={classNames("c-byline", className)} data-size={size}>
+		<p className={classNames(styles.byline, className)} data-size={size}>
 			by {children}
 		</p>
 	);

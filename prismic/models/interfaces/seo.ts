@@ -1,4 +1,4 @@
-import { text } from "prismic/fields/text";
+import { text } from "../../fields/text";
 import { Sluggable } from "./sluggable";
 
 export function SEO() {

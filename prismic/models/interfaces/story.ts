@@ -1,7 +1,7 @@
-import { image, ImageConfig } from "prismic/fields/image";
-import { relationship } from "prismic/fields/relationship";
-import { richText } from "prismic/fields/rich-text";
-import { title } from "prismic/fields/title";
+import { image, ImageConfig } from "../../fields/image";
+import { relationship } from "../../fields/relationship";
+import { richText } from "../../fields/rich-text";
+import { title } from "../../fields/title";
 import { Person } from "../person";
 
 export interface StoryConfig {

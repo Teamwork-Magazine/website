@@ -1,5 +1,5 @@
 import { RichText } from "prismic-reactjs";
-import { Field } from "prismic/field";
+import { Field } from "../field";
 
 export interface TitleConfig {
 	label: string;

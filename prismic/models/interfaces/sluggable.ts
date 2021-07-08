@@ -1,10 +1,10 @@
-import { Field } from "prismic/field";
+import { Field } from "../../field";
 
 export function Sluggable() {
 	const uid = new Field<string>({
 		group: "SEO",
 		cast(uid, doc): string {
-			return uid ?? doc.id;
+			return typeof uid === "string" ? uid : doc.id;
 		},
 		toJSON() {
 			return {

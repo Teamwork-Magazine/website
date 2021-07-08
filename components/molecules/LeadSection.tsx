@@ -1,5 +1,5 @@
 import classNames, { Argument } from "classnames";
-import Container from "components/atoms/Container";
+import Container from "../atoms/Container";
 import { ReactNode } from "react";
 
 export interface LeadSectionProps {

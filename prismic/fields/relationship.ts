@@ -1,5 +1,5 @@
 import { Document } from "@prismicio/client/types/documents";
-import { Field } from "prismic/field";
+import { Field } from "../field";
 
 type Subdocument<TypeName extends string> = Document & { type: TypeName };
 

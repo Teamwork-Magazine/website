@@ -36,7 +36,7 @@ export class Field<T> {
 	}
 
 	default(defaultValue: NonNullable<T>): Field<NonNullable<T>> {
-		return this.map((value) => value ?? defaultValue);
+		return this.map((value) => (value ?? defaultValue) as NonNullable<T>);
 	}
 }
 

@@ -1,5 +1,5 @@
 import slugify from "slugify";
-import { Schema } from "prismic/schema";
+import { Schema } from "../schema";
 
 export interface Tag {
 	slug: string;

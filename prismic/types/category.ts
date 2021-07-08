@@ -1,6 +1,6 @@
 import { Document } from "@prismicio/client/types/documents";
 import { RichText } from "prismic-reactjs";
-import { Schema } from "prismic/schema";
+import { Schema } from "../schema";
 
 export interface Category {
 	id: string;
