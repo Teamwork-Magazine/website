@@ -1,28 +1,27 @@
 import classNames from "classnames";
 import Link from "next/link";
 import { RichText } from "prismic-reactjs";
-import Heading, { HeadingLevel } from "../atoms/Heading";
-import { ArticleProps } from "../templates/Article";
+import { HeadingLevel } from "../atoms/Heading";
+import Headline from "../atoms/Headline";
+import Blurb from "../atoms/Blurb";
 import Image from "./Image";
 import useClickableGroup from "../../lib/hooks/useClickableGroup";
-import "./ArticleCard.css";
+import styles from "./ArticleCard.module.css";
+import { Story } from "../../prismic/types/story";
 
-export type ArticleCardProps = Pick<
-	ArticleProps,
-	"uid" | "title" | "featuredImage" | "section" | "blurb" | "featured"
-> & {
+type ArticleCardLayout = "normal" | "featured";
+
+export interface ArticleCardProps {
+	story: Story;
 	className?: string;
 	level?: HeadingLevel;
-};
+	layout?: ArticleCardLayout;
+}
 
 export default function ArticleCard({
-	uid,
-	title,
-	featuredImage,
-	section,
-	blurb,
-	featured,
+	story,
 	level = 3,
+	layout = "normal",
 	className,
 }: ArticleCardProps) {
 	const { groupProps, linkProps } = useClickableGroup();
@@ -30,33 +29,40 @@ export default function ArticleCard({
 	return (
 		<article
 			{...groupProps}
-			className={classNames("c-article-card", groupProps.className, className)}
+			className={classNames(styles.card, groupProps.className, className)}
+			data-layout={layout}
 		>
-			<div className="c-article-card__body">
-				<Heading level={level} className="c-article-card__headline">
-					<Link href={`/stories/${uid}`}>
+			<div className={styles.body}>
+				<Headline
+					level={level}
+					className={styles.headline}
+					accent={layout === "featured"}
+					size={layout === "featured" ? "lg" : "md"}
+				>
+					<Link href={`/stories/${story.slug}`}>
 						<a
 							{...linkProps}
-							className={classNames(
-								"c-article-card__link",
-								linkProps.className
-							)}
+							className={classNames(styles.link, linkProps.className)}
 						>
-							{title}
+							{story.title}
 						</a>
 					</Link>
-				</Heading>
-				<p className="c-article-card__kicker">
-					{section ? section.name : "Uncategorized"}
+				</Headline>
+				<p className={styles.kicker}>
+					{story.section ? story.section.name : "Uncategorized"}
 				</p>
-				{blurb && !featured && (
-					<div className="c-article-card__blurb">
-						<RichText render={blurb} />
-					</div>
+				{story.blurb && layout !== "featured" && (
+					<Blurb>
+						<RichText render={story.blurb} />
+					</Blurb>
 				)}
 			</div>
-			{featuredImage && (
-				<Image {...featuredImage} className="c-article-card__thumbnail" />
+			{story.thumbnail && (
+				<Image
+					{...story.thumbnail}
+					credit={null}
+					className={styles.thumbnail}
+				/>
 			)}
 		</article>
 	);

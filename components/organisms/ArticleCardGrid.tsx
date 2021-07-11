@@ -1,9 +1,10 @@
 import classNames from "classnames";
-import ArticleCard, { ArticleCardProps } from "../molecules/ArticleCard";
+import { Story } from "../../prismic/types/story";
+import ArticleCard from "../molecules/ArticleCard";
 import styles from "./ArticleCardGrid.module.css";
 
 export interface ArticleCardGridProps {
-	stories: ArticleCardProps[];
+	stories: Story[];
 	className?: string;
 }
 
@@ -14,8 +15,8 @@ export default function ArticleCardGrid({
 	return (
 		<ul className={classNames(styles.grid, className)}>
 			{stories.map((story) => (
-				<li className={styles.item} key={story.uid}>
-					<ArticleCard {...story} className="c-article-card-grid__card" />
+				<li className={styles.item} key={story.slug}>
+					<ArticleCard story={story} className={styles.card} />
 				</li>
 			))}
 		</ul>

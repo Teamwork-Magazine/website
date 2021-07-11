@@ -1,53 +1,54 @@
 import classNames from "classnames";
 import Link from "next/link";
 import { ReactNode } from "react";
+import { PersonLink } from "../../prismic/types/person";
 import styles from "./Byline.module.css";
-
-//! TODO: Extract this elsewhere
-export interface Person {
-	uid: string;
-	name: string;
-}
 
 export type BylineSize = "md" | "lg";
 
 export interface BylineProps {
 	size?: BylineSize;
+	prefix?: string;
 	className?: string;
-	people: Person[] | null;
+	people: PersonLink[] | null;
 }
 
-interface PersonLinkProps {
-	person: Person;
+interface BylineLinkProps {
+	person: PersonLink;
 }
 
-function PersonLink({ person }: PersonLinkProps) {
+function BylineLink({ person }: BylineLinkProps) {
 	return (
-		<Link key={person.uid} href={`/people/${person.uid}`}>
-			<a className="c-byline__link">{person.name}</a>
+		<Link key={person.slug} href={`/people/${person.slug}`}>
+			<a className={styles.link}>{person.name}</a>
 		</Link>
 	);
 }
 
-export default function Byline({ size, className, people }: BylineProps) {
+export default function Byline({
+	size = "md",
+	className,
+	prefix,
+	people,
+}: BylineProps) {
 	let children: ReactNode[] = [];
 
 	if (!people || !people.length) {
 		children.push("Teamwork Staff");
 	} else if (people.length === 1) {
 		const person = people[0];
-		children.push(<PersonLink key={person.uid} person={person} />);
+		children.push(<BylineLink key={person.slug} person={person} />);
 	} else if (people.length === 2) {
 		const [person1, person2] = people;
 		children.push(
-			<PersonLink key={person1.uid} person={person1} />,
+			<BylineLink key={person1.slug} person={person1} />,
 			" and ",
-			<PersonLink key={person2.uid} person={person2} />
+			<BylineLink key={person2.slug} person={person2} />
 		);
 	} else {
 		people.forEach((person, i) => {
 			const isLast = i === people.length - 1;
-			const link = <PersonLink key={person.uid} person={person} />;
+			const link = <BylineLink key={person.slug} person={person} />;
 			if (isLast) {
 				children.push("and ", link);
 			} else {
@@ -58,6 +59,7 @@ export default function Byline({ size, className, people }: BylineProps) {
 
 	return (
 		<p className={classNames(styles.byline, className)} data-size={size}>
+			{prefix ? `${prefix} ` : null}
 			by {children}
 		</p>
 	);

@@ -4,7 +4,7 @@ import ArticleCard from "../components/molecules/ArticleCard";
 
 export default {
 	component: ArticleCard,
-	title: "ArticleCard",
+	title: "Article Card",
 } as Meta;
 
 const Template: ComponentStory<typeof ArticleCard> = (args) => (
@@ -34,12 +34,6 @@ Default.args = {
 		alt: "",
 	},
 	variant: "standard",
-};
-
-export const Condensed = Template.bind({});
-Condensed.args = {
-	...Default.args,
-	variant: "condensed",
 };
 
 export const Featured = Template.bind({});

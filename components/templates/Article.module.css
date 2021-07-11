@@ -1,0 +1,28 @@
+.header {
+	margin-top: var(--space-2xl-3xl);
+}
+
+.body {
+	--grid-row-gap: var(--space-l-xl);
+}
+
+.body h2 {
+	--flow-gap: var(--space-2xl);
+}
+
+.body h3 {
+	--flow-gap: var(--space-xl);
+}
+
+.body h4 {
+	--flow-gap: var(--space-l);
+}
+
+.body h4 + * {
+	--flow-gap: var(--space-3xs);
+}
+
+.footer {
+	background-color: var(--color-gray-100);
+	padding: var(--space-l-xl) 0;
+}

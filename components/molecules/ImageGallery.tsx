@@ -1,15 +1,17 @@
 import classNames from "classnames";
-import Image, { ImageProps } from "./Image";
+import { RichText } from "prismic-reactjs";
+import {
+	ImagesAlignment,
+	ImagesLayout,
+	ImageWithCaption,
+} from "../../prismic/types/slices/images";
+import Image from "./Image";
 import "./ImageGallery.css";
 
-type Layout = "one-column" | "two-column" | "three-column" | "four-column";
-
-export type Alignment = "top" | "center" | "bottom";
-
 export interface ImageGalleryProps {
-	images: ImageProps[];
-	layout?: Layout;
-	alignImages?: Alignment;
+	images: ImageWithCaption[];
+	layout?: ImagesLayout;
+	alignImages?: ImagesAlignment;
 	className?: string;
 }
 
@@ -26,7 +28,11 @@ export default function ImageGallery({
 			data-align-images={alignImages}
 		>
 			{images.map((image) => (
-				<Image key={image.src} {...image} />
+				<Image
+					key={image.src}
+					{...image}
+					caption={image.caption && RichText.render(image.caption)}
+				/>
 			))}
 		</div>
 	);

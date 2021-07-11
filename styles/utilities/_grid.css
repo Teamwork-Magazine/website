@@ -1,0 +1,46 @@
+.u-layout-grid {
+	--grid-gap: var(--space-m);
+	--grid-column-gap: var(--grid-gap);
+	--grid-row-gap: var(--grid-gap);
+	--grid-contain-width: 88rem;
+	display: grid;
+	row-gap: var(--grid-row-gap);
+	column-gap: var(--grid-column-gap);
+	grid-template-columns:
+		[full-bleed-start]
+		calc(50vw - var(--grid-contain-width) / 2)
+		[containment-start]
+		repeat(8, 1fr)
+		[containment-end]
+		calc(50vw - var(--grid-contain-width) / 2)
+		[full-bleed-end];
+	justify-items: center;
+}
+
+.u-layout-grid > * {
+	grid-column: containment-start / containment-end;
+	max-width: var(--measure-normal);
+	width: 100%;
+}
+
+.u-layout-grid > .u-layout-wide {
+	max-width: none;
+}
+
+.u-layout-grid > .u-layout-grid,
+.u-layout-grid > .u-layout-full-bleed {
+	grid-column: full-bleed-start / full-bleed-end;
+	max-width: none;
+}
+
+@media screen and (min-width: 960px) {
+	.u-layout-grid > .u-layout-pull-left {
+		grid-column-end: span 6;
+		justify-self: start;
+	}
+
+	.u-layout-grid > .u-layout-pull-right {
+		grid-column-start: span 6;
+		justify-self: end;
+	}
+}

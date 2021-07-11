@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
-import classNames, { Argument } from "classnames";
+import classNames from "classnames";
 import Heading, { HeadingLevel } from "./Heading";
+import styles from "./Headline.module.css";
 
 export type HeadlineSize = "md" | "lg" | "xl";
 
@@ -8,21 +9,21 @@ export interface HeadlineProps {
 	accent?: boolean;
 	level?: HeadingLevel;
 	size?: HeadlineSize;
-	className?: Argument;
+	className?: string;
 	children?: ReactNode;
 }
 
 export default function Headline({
-	accent = false,
+	accent,
 	level = 1,
-	size,
+	size = "md",
 	className,
 	children,
 }: HeadlineProps) {
 	return (
 		<Heading
-			className={classNames(className)}
-			data-accent={accent}
+			className={classNames(styles.headline, className)}
+			data-accent={accent ? true : undefined}
 			data-size={size}
 			level={level}
 		>

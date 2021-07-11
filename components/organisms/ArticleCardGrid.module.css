@@ -4,6 +4,7 @@
 	grid-template-columns: repeat(8, 1fr);
 	gap: var(--space-m);
 	list-style: none;
+	max-width: none;
 }
 
 .item {
@@ -16,7 +17,7 @@
 	}
 }
 
-@media (min-width: 840px) {
+@media (min-width: 960px) {
 	.item {
 		grid-column: span 2;
 	}

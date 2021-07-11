@@ -62,7 +62,7 @@ figcaption {
 
 ol,
 ul {
-	padding-left: var(--space-m);
+	padding-left: var(--space-l);
 	margin: 0;
 }
 

@@ -1,7 +1,7 @@
 import { Document } from "@prismicio/client/types/documents";
 import { AuthorSchema } from "./types/author";
 import { ArticleSchema } from "./types/article";
-import { CategorySchema } from "./types/category";
+import { SectionSchema } from "./types/category";
 import { Routes } from "./routes";
 
 export const apiEndpoint = "https://teamwork-magazine.cdn.prismic.io/api/v2";
@@ -20,7 +20,7 @@ export const linkResolver = (doc: Document) => {
 	}
 
 	if (doc.type === "category") {
-		const category = CategorySchema.cast(doc, ["slug"]);
+		const category = SectionSchema.cast(doc, ["slug"]);
 		return Routes.category(category);
 	}
 

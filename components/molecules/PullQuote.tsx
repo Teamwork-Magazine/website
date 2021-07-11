@@ -1,11 +1,10 @@
 import classNames from "classnames";
 import { ReactNode } from "react";
-import Stack from "../atoms/Stack";
-import "./PullQuote.css";
+import styles from "./PullQuote.module.css";
 
 export interface PullQuoteProps {
 	quote: ReactNode;
-	attribution?: ReactNode;
+	attribution: ReactNode | null;
 	className?: string;
 }
 
@@ -15,11 +14,9 @@ export default function PullQuote({
 	className,
 }: PullQuoteProps) {
 	return (
-		<aside className={classNames("c-pull-quote", className)}>
-			<div className="c-pull-quote__content">{quote}</div>
-			{attribution && (
-				<div className="c-pull-quote__attribution">{attribution}</div>
-			)}
+		<aside className={classNames(styles.wrapper, className)}>
+			<div className={styles.quote}>{quote}</div>
+			{attribution && <div className={styles.attribution}>{attribution}</div>}
 		</aside>
 	);
 }
