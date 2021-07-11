@@ -4,6 +4,7 @@ module.exports = {
 			"images.prismic.io",
 			"images.unsplash.com",
 			"source.unsplash.com",
+			"unsplash.com",
 		],
 	},
 };

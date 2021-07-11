@@ -25,17 +25,11 @@ Default.args = {
 	],
 };
 
-export const WithFeaturedImage = Template.bind({});
-WithFeaturedImage.args = {
+export const NoCoverImage = Template.bind({});
+NoCoverImage.args = {
 	...Default.args,
 	story: {
 		...Default.args.story,
-		coverImage: {
-			src: "https://unsplash.com/photos/jBohRHjmLeo/download?w=1920",
-			alt: "",
-			width: 1920,
-			height: 1280,
-			credit: "Paolo Nicolello, Unsplash",
-		},
+		coverImage: null,
 	},
 };

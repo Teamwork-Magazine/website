@@ -1,4 +1,5 @@
 import { Elements } from "prismic-reactjs";
+import { unsplash } from "../lib/fixtures/unsplash";
 import { Story } from "../prismic/types/story";
 import * as Galleries from "./galleries";
 import * as Tags from "./tags";
@@ -15,7 +16,11 @@ export const AliceInWonderland: Story = {
 		},
 	],
 	featured: false,
-	coverImage: null,
+	coverImage: {
+		...unsplash("jBohRHjmLeo", 1920, 1280),
+		alt: "",
+		credit: "Paolo Nicolello, Unsplash",
+	},
 	thumbnail: null,
 	section: {
 		slug: "literature",

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import NextImage from "next/image";
 import { ReactNode } from "react";
-import "./Image.css";
+import styles from "./Image.module.css";
 
 export interface ImageProps {
 	src: string;
@@ -23,8 +23,8 @@ export default function Image({
 	className,
 }: ImageProps) {
 	return (
-		<figure className={classNames("c-image", "u-flow", className)}>
-			<div className="c-image__art">
+		<figure className={classNames(styles.image, "u-flow", className)}>
+			<div className={styles.art}>
 				<NextImage
 					layout="responsive"
 					src={src}
@@ -35,10 +35,12 @@ export default function Image({
 			</div>
 			{caption || credit ? (
 				<figcaption>
-					<p className="c-image__caption u-text-accent u-flow">
-						<span className="c-image__description">{caption}</span>
+					<p className={classNames(styles.caption, "u-text-accent", "u-flow")}>
+						<span className={styles.description}>{caption}</span>
 						{credit && (
-							<span className="c-image__credit u-text-caps">{credit}</span>
+							<span className={classNames(styles.credit, "u-text-caps")}>
+								{credit}
+							</span>
 						)}
 					</p>
 				</figcaption>

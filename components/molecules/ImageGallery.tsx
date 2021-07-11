@@ -6,7 +6,7 @@ import {
 	ImageWithCaption,
 } from "../../prismic/types/slices/images";
 import Image from "./Image";
-import "./ImageGallery.css";
+import styles from "./ImageGallery.module.css";
 
 export interface ImageGalleryProps {
 	images: ImageWithCaption[];
@@ -23,7 +23,7 @@ export default function ImageGallery({
 }: ImageGalleryProps) {
 	return (
 		<div
-			className={classNames("c-image-gallery", className)}
+			className={classNames(styles.gallery, className)}
 			data-layout={layout}
 			data-align-images={alignImages}
 		>

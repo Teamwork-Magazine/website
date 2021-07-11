@@ -1,29 +1,23 @@
 import { Elements } from "prismic-reactjs";
+import { unsplash } from "../lib/fixtures/unsplash";
 import { ImagesSlice, ImageWithCaption } from "../prismic/types/slices/images";
 
 const images: ImageWithCaption[] = [
 	{
-		src:
-			"https://images.unsplash.com/photo-1625149982605-4d60e9144650?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1920",
+		...unsplash("f0BcqYl_5NY", 1920, 2876),
 		alt: "",
-		width: 1920,
-		height: 2880,
 		caption: null,
-		credit: "Samuel Regan-Asante",
+		credit: null,
 	},
 	{
-		src: "https://unsplash.com/photos/KL_ZvHvig8k/download?w=1920",
+		...unsplash("KL_ZvHvig8k", 1920, 2385),
 		alt: "",
-		width: 1920,
-		height: 2385,
 		caption: null,
 		credit: "Hayes Potter",
 	},
 	{
-		src: "https://unsplash.com/photos/ipG2Dvts5Ns/download?w=1920",
+		...unsplash("ipG2Dvts5Ns", 1920, 2557),
 		alt: "",
-		width: 1920,
-		height: 2557,
 		caption: [
 			{
 				type: Elements.paragraph,
@@ -34,10 +28,8 @@ const images: ImageWithCaption[] = [
 		credit: "Maksim Samuilionak",
 	},
 	{
-		src: "https://unsplash.com/photos/VvQSzMJ_h0U/download?w=1920",
+		...unsplash("VvQSzMJ_h0U", 1920, 1283),
 		alt: "",
-		width: 1920,
-		height: 1283,
 		caption: [
 			{
 				type: Elements.paragraph,

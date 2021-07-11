@@ -1,21 +1,21 @@
-.c-image {
+.image {
 	--flow-gap: var(--space-2xs);
 }
 
-.c-image__caption {
+.caption {
 	--flow-gap: var(--space-3xs);
 	font-size: var(--step--1);
 }
 
-.c-image__caption > * {
+.caption > * {
 	display: block;
 }
 
-.c-image__description {
+.description {
 	font-weight: 700;
 }
 
-.c-image__credit {
+.credit {
 	font-size: 80%;
 	color: var(--color-gray-500);
 }
