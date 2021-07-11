@@ -193,9 +193,7 @@ export const TheOdyssey: Story = {
 	featured: false,
 	coverImage: null,
 	thumbnail: {
-		src: "https://unsplash.com/photos/vhUQqymqGZ4/download?w=640",
-		width: 640,
-		height: 427,
+		...unsplash("vhUQqymqGZ4", 640, 427),
 		alt: "",
 		credit: "",
 	},
@@ -227,9 +225,7 @@ export const PrideAndPrejudice: Story = {
 	],
 	featured: false,
 	thumbnail: {
-		src: "https://unsplash.com/photos/eNMMw7ihJ2Y/download?w=640",
-		width: 640,
-		height: 427,
+		...unsplash("eNMMw7ihJ2Y", 640, 427),
 		alt: "",
 		credit: "",
 	},
@@ -260,9 +256,7 @@ export const TheGreatGatsby: Story = {
 	featured: false,
 	coverImage: null,
 	thumbnail: {
-		src: "https://unsplash.com/photos/4kEW68FZ154/download?w=640",
-		width: 640,
-		height: 427,
+		...unsplash("4kEW68FZ154", 640, 427),
 		alt: "",
 		credit: "",
 	},
@@ -295,9 +289,7 @@ export const GrimmsFairyTales: Story = {
 	featured: false,
 	coverImage: null,
 	thumbnail: {
-		src: "https://source.unsplash.com/vK8JWr6j15c/640x427",
-		width: 640,
-		height: 427,
+		...unsplash("vK8JWr6j15c", 640, 427),
 		alt: "",
 		credit: "",
 	},
