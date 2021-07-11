@@ -1,5 +1,5 @@
 import { Document } from "@prismicio/client/types/documents";
-import { Schema } from "prismic/schema";
+import { Schema } from "../schema";
 
 export interface Author {
 	id: string;

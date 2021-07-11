@@ -1,0 +1,266 @@
+/* ============================================================================
+	TYPE SCALE
+============================================================================ */
+
+/*
+	Fluid type scale
+	@link https://utopia.fyi/type/calculator?c=320,16,1.2,1140,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l
+*/
+
+:root {
+	--fluid-min-width: 320;
+	--fluid-max-width: 1140;
+
+	--fluid-screen: 100vw;
+	--fluid-bp: calc(
+		(var(--fluid-screen) - var(--fluid-min-width) / 16 * 1rem) /
+			(var(--fluid-max-width) - var(--fluid-min-width))
+	);
+}
+
+@media screen and (min-width: 1140px) {
+	:root {
+		--fluid-screen: calc(var(--fluid-max-width) * 1px);
+	}
+}
+
+:root {
+	--f--2-min: 11.11;
+	--f--2-max: 12.8;
+	--step--2: calc(
+		((var(--f--2-min) / 16) * 1rem) + (var(--f--2-max) - var(--f--2-min)) *
+			var(--fluid-bp)
+	);
+
+	--f--1-min: 13.33;
+	--f--1-max: 16;
+	--step--1: calc(
+		((var(--f--1-min) / 16) * 1rem) + (var(--f--1-max) - var(--f--1-min)) *
+			var(--fluid-bp)
+	);
+
+	--f-0-min: 16;
+	--f-0-max: 20;
+	--step-0: calc(
+		((var(--f-0-min) / 16) * 1rem) + (var(--f-0-max) - var(--f-0-min)) *
+			var(--fluid-bp)
+	);
+
+	--f-1-min: 19.2;
+	--f-1-max: 25;
+	--step-1: calc(
+		((var(--f-1-min) / 16) * 1rem) + (var(--f-1-max) - var(--f-1-min)) *
+			var(--fluid-bp)
+	);
+
+	--f-2-min: 23.04;
+	--f-2-max: 31.25;
+	--step-2: calc(
+		((var(--f-2-min) / 16) * 1rem) + (var(--f-2-max) - var(--f-2-min)) *
+			var(--fluid-bp)
+	);
+
+	--f-3-min: 27.65;
+	--f-3-max: 39.06;
+	--step-3: calc(
+		((var(--f-3-min) / 16) * 1rem) + (var(--f-3-max) - var(--f-3-min)) *
+			var(--fluid-bp)
+	);
+
+	--f-4-min: 33.18;
+	--f-4-max: 48.83;
+	--step-4: calc(
+		((var(--f-4-min) / 16) * 1rem) + (var(--f-4-max) - var(--f-4-min)) *
+			var(--fluid-bp)
+	);
+
+	--f-5-min: 39.81;
+	--f-5-max: 61.04;
+	--step-5: calc(
+		((var(--f-5-min) / 16) * 1rem) + (var(--f-5-max) - var(--f-5-min)) *
+			var(--fluid-bp)
+	);
+}
+
+/* ============================================================================
+	SPACING SCALE
+============================================================================ */
+
+/*
+	Fluid space scale
+	@link https://utopia.fyi/space/calculator?c=320,16,1.2,1140,20,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l
+*/
+
+:root {
+	--fc-3xs-min: (var(--fc-s-min) * 0.25);
+	--fc-3xs-max: (var(--fc-s-max) * 0.25);
+
+	--fc-2xs-min: (var(--fc-s-min) * 0.5);
+	--fc-2xs-max: (var(--fc-s-max) * 0.5);
+
+	--fc-xs-min: (var(--fc-s-min) * 0.75);
+	--fc-xs-max: (var(--fc-s-max) * 0.75);
+
+	--fc-s-min: (var(--f-0-min));
+	--fc-s-max: (var(--f-0-max));
+
+	--fc-m-min: (var(--fc-s-min) * 1.5);
+	--fc-m-max: (var(--fc-s-max) * 1.5);
+
+	--fc-l-min: (var(--fc-s-min) * 2);
+	--fc-l-max: (var(--fc-s-max) * 2);
+
+	--fc-xl-min: (var(--fc-s-min) * 3);
+	--fc-xl-max: (var(--fc-s-max) * 3);
+
+	--fc-2xl-min: (var(--fc-s-min) * 4);
+	--fc-2xl-max: (var(--fc-s-max) * 4);
+
+	--fc-3xl-min: (var(--fc-s-min) * 6);
+	--fc-3xl-max: (var(--fc-s-max) * 6);
+
+	/* T-shirt sizes */
+	--space-3xs: calc(
+		((var(--fc-3xs-min) / 16) * 1rem) + (var(--fc-3xs-max) - var(--fc-3xs-min)) *
+			var(--fluid-bp)
+	);
+	--space-2xs: calc(
+		((var(--fc-2xs-min) / 16) * 1rem) + (var(--fc-2xs-max) - var(--fc-2xs-min)) *
+			var(--fluid-bp)
+	);
+	--space-xs: calc(
+		((var(--fc-xs-min) / 16) * 1rem) + (var(--fc-xs-max) - var(--fc-xs-min)) *
+			var(--fluid-bp)
+	);
+	--space-s: calc(
+		((var(--fc-s-min) / 16) * 1rem) + (var(--fc-s-max) - var(--fc-s-min)) *
+			var(--fluid-bp)
+	);
+	--space-m: calc(
+		((var(--fc-m-min) / 16) * 1rem) + (var(--fc-m-max) - var(--fc-m-min)) *
+			var(--fluid-bp)
+	);
+	--space-l: calc(
+		((var(--fc-l-min) / 16) * 1rem) + (var(--fc-l-max) - var(--fc-l-min)) *
+			var(--fluid-bp)
+	);
+	--space-xl: calc(
+		((var(--fc-xl-min) / 16) * 1rem) + (var(--fc-xl-max) - var(--fc-xl-min)) *
+			var(--fluid-bp)
+	);
+	--space-2xl: calc(
+		((var(--fc-2xl-min) / 16) * 1rem) + (var(--fc-2xl-max) - var(--fc-2xl-min)) *
+			var(--fluid-bp)
+	);
+	--space-3xl: calc(
+		((var(--fc-3xl-min) / 16) * 1rem) + (var(--fc-3xl-max) - var(--fc-3xl-min)) *
+			var(--fluid-bp)
+	);
+
+	/* One-up pairs */
+	--space-3xs-2xs: calc(
+		((var(--fc-3xs-min) / 16) * 1rem) + (var(--fc-2xs-max) - var(--fc-3xs-min)) *
+			var(--fluid-bp)
+	);
+	--space-2xs-xs: calc(
+		((var(--fc-2xs-min) / 16) * 1rem) + (var(--fc-xs-max) - var(--fc-2xs-min)) *
+			var(--fluid-bp)
+	);
+	--space-xs-s: calc(
+		((var(--fc-xs-min) / 16) * 1rem) + (var(--fc-s-max) - var(--fc-xs-min)) *
+			var(--fluid-bp)
+	);
+	--space-s-m: calc(
+		((var(--fc-s-min) / 16) * 1rem) + (var(--fc-m-max) - var(--fc-s-min)) *
+			var(--fluid-bp)
+	);
+	--space-m-l: calc(
+		((var(--fc-m-min) / 16) * 1rem) + (var(--fc-l-max) - var(--fc-m-min)) *
+			var(--fluid-bp)
+	);
+	--space-l-xl: calc(
+		((var(--fc-l-min) / 16) * 1rem) + (var(--fc-xl-max) - var(--fc-l-min)) *
+			var(--fluid-bp)
+	);
+	--space-xl-2xl: calc(
+		((var(--fc-xl-min) / 16) * 1rem) + (var(--fc-2xl-max) - var(--fc-xl-min)) *
+			var(--fluid-bp)
+	);
+	--space-2xl-3xl: calc(
+		((var(--fc-2xl-min) / 16) * 1rem) + (var(--fc-3xl-max) - var(--fc-2xl-min)) *
+			var(--fluid-bp)
+	);
+
+	/* Custom pairs */
+	--space-s-l: calc(
+		((var(--fc-s-min) / 16) * 1rem) + (var(--fc-l-max) - var(--fc-s-min)) *
+			var(--fluid-bp)
+	);
+}
+
+/* ============================================================================
+	COLORS
+============================================================================ */
+
+:root {
+	--color-white: #fff;
+	--color-black: #000;
+
+	/*
+		Grays - borrowed from Tailwind's Warm Gray palette
+		@link https://tailwindcss.com/docs/customizing-colors#color-palette-reference
+	*/
+	--color-gray-50: #fafaf9;
+	--color-gray-100: #f5f5f4;
+	--color-gray-200: #e7e5e4;
+	--color-gray-300: #d6d3d1;
+	--color-gray-400: #a8a29e;
+	--color-gray-500: #78716c;
+	--color-gray-600: #57534e;
+	--color-gray-700: #44403c;
+	--color-gray-800: #292524;
+	--color-gray-900: #1c1917;
+
+	/* Accent */
+	--color-accent-50: #fff6f1;
+	--color-accent-100: #ffe8e0;
+	--color-accent-200: #ffc9b8;
+	--color-accent-300: #fcaa91;
+	--color-accent-400: #f38b6a;
+	--color-accent-500: #e25f36;
+	--color-accent-600: #cd3a0c;
+	--color-accent-700: #a82800;
+	--color-accent-800: #821700;
+	--color-accent-900: #661200;
+
+	/* Secondary */
+	--color-secondary-50: #ebf5fe;
+	--color-secondary-100: #d8ebfd;
+	--color-secondary-200: #b2d7fa;
+	--color-secondary-300: #83bcf0;
+	--color-secondary-400: #5ba1e2;
+	--color-secondary-500: #328bdc;
+	--color-secondary-600: #106ec5;
+	--color-secondary-700: #0a559a;
+	--color-secondary-800: #043e73;
+	--color-secondary-900: #00284d;
+}
+
+/* ============================================================================
+	TYPOGRAPHY
+============================================================================ */
+
+:root {
+	/* All families */
+	--font-family-serif: Spectral, Georgia, "Times New Roman", Times, serif;
+	--font-family-sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+	/* Semantic aliases */
+	--font-family-body: var(--font-family-serif);
+	--font-family-headline: var(--font-family-serif);
+	--font-family-accent: var(--font-family-sans);
+
+	/* Measure (line length) */
+	--measure-normal: 66ch;
+}

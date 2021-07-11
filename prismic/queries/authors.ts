@@ -1,7 +1,7 @@
 import Prismic from "@prismicio/client";
 import { DefaultClient } from "@prismicio/client/types/client";
 import { QueryOptions } from "@prismicio/client/types/ResolvedApi";
-import { Author, AuthorSchema } from "prismic/types/author";
+import { Author, AuthorSchema } from "../types/author";
 import { collect } from "../../lib/async/collect";
 import { fetchAll } from "../fetchAll";
 

@@ -1,4 +1,4 @@
-import { Schema } from "prismic/schema";
+import { Schema } from "../schema";
 
 interface Dimensions {
 	height: number;

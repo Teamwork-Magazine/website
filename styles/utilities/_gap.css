@@ -1,0 +1,3 @@
+.u-gap {
+	gap: var(--gap, var(--space-m));
+}

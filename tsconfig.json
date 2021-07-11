@@ -4,7 +4,7 @@
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"allowJs": true,
 		"skipLibCheck": true,
-		"strict": true,
+		"strict": false,
 		"forceConsistentCasingInFileNames": true,
 		"noEmit": true,
 		"downlevelIteration": true,
@@ -13,8 +13,7 @@
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
-		"jsx": "preserve",
-		"baseUrl": "."
+		"jsx": "preserve"
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules"],
@@ -22,7 +21,6 @@
 		"transpileOnly": true,
 		"compilerOptions": {
 			"module": "commonjs"
-		},
-		"require": ["tsconfig-paths/register"]
+		}
 	}
 }

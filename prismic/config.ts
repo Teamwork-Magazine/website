@@ -1,7 +1,7 @@
 import { Document } from "@prismicio/client/types/documents";
-import { AuthorSchema } from "./types/author";
-import { ArticleSchema } from "./types/article";
-import { CategorySchema } from "./types/category";
+import { PersonSchema } from "./types/person";
+import { StorySchema } from "./types/story";
+import { SectionSchema } from "./types/section";
 import { Routes } from "./routes";
 
 export const apiEndpoint = "https://teamwork-magazine.cdn.prismic.io/api/v2";
@@ -9,19 +9,19 @@ export const apiEndpoint = "https://teamwork-magazine.cdn.prismic.io/api/v2";
 export const accessToken = process.env.PRISMIC_ACCESS_TOKEN;
 
 export const linkResolver = (doc: Document) => {
-	if (doc.type === "article") {
-		const article = ArticleSchema.cast(doc, ["slug"]);
-		return Routes.article(article);
+	if (doc.type === "story") {
+		const story = StorySchema.cast(doc, ["slug"]);
+		return Routes.story(story);
 	}
 
-	if (doc.type === "author") {
-		const author = AuthorSchema.cast(doc, ["slug"]);
-		return Routes.author(author);
+	if (doc.type === "person") {
+		const person = PersonSchema.cast(doc, ["slug"]);
+		return Routes.person(person);
 	}
 
-	if (doc.type === "category") {
-		const category = CategorySchema.cast(doc, ["slug"]);
-		return Routes.category(category);
+	if (doc.type === "section") {
+		const section = SectionSchema.cast(doc, ["slug"]);
+		return Routes.section(section);
 	}
 
 	return `/${doc.uid ?? doc.id}`;
