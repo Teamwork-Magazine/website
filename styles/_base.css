@@ -66,6 +66,19 @@ ul {
 	margin: 0;
 }
 
+button {
+	appearance: none;
+	background: none;
+	border: none;
+	font: inherit;
+	color: inherit;
+	padding: var(--space-2xs) var(--space-xs);
+}
+
+svg {
+	display: block;
+}
+
 :focus,
 .u-focus-group:focus-within {
 	outline: 3px var(--color-secondary-500) solid;

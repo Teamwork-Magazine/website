@@ -1,3 +1,52 @@
 .header {
 	padding: var(--space-s) 0;
 }
+
+.nav {
+	--grid-row-gap: 0;
+	align-items: center;
+}
+
+.masthead {
+	grid-column: 3 / -3;
+	display: flex;
+	align-items: center;
+}
+
+.home {
+	margin: 0 auto;
+	display: block;
+}
+
+.sections {
+	display: none;
+}
+
+.toggle {
+	grid-column: 9;
+	grid-row: 1;
+	justify-self: end;
+	width: auto;
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: var(--color-accent-400);
+	z-index: 90;
+}
+
+.drawer {
+	position: fixed;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	overflow-y: auto;
+	width: 100%;
+	max-width: 500px;
+	background-color: var(--color-accent-600);
+	z-index: 100;
+}

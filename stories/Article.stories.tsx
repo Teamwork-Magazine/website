@@ -29,7 +29,7 @@ export const NoCoverImage = Template.bind({});
 NoCoverImage.args = {
 	...Default.args,
 	story: {
-		...Default.args.story,
+		...Default.args.story!,
 		coverImage: null,
 	},
 };
