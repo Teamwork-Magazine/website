@@ -87,3 +87,9 @@ svg {
 .u-focus-group:focus-within .u-focus-group__deferred:focus {
 	outline: none;
 }
+
+svg,
+path {
+	fill: currentColor;
+	stroke: currentColor;
+}

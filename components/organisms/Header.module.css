@@ -1,9 +1,9 @@
 .header {
-	padding: var(--space-s) 0;
+	padding: var(--space-s) 0 0;
 }
 
 .nav {
-	--grid-row-gap: 0;
+	--grid-row-gap: var(--space-xs);
 	align-items: center;
 }
 
@@ -20,6 +20,38 @@
 
 .sections {
 	display: none;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	font-size: var(--step--1);
+}
+
+@media screen and (min-width: 560px) {
+	.sections {
+		display: flex;
+		justify-content: center;
+	}
+}
+
+.sections .item {
+	margin: 0 var(--space-2xs);
+}
+
+.sections .link {
+	font-family: var(--font-family-accent);
+	text-decoration: none;
+	display: block;
+	padding: var(--space-3xs) var(--space-2xs);
+	color: var(--color-gray-500);
+	border-bottom: 3px transparent solid;
+	transition: 200ms border-color linear, 200ms color linear;
+	font-weight: 700;
+}
+
+.sections .link:hover,
+.sections .link:focus {
+	border-color: var(--color-accent-500);
+	color: inherit;
 }
 
 .toggle {
@@ -35,18 +67,23 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: var(--color-accent-400);
+	background-color: var(--color-accent-300);
 	z-index: 90;
 }
 
 .drawer {
 	position: fixed;
-	right: 0;
-	top: 0;
-	bottom: 0;
+	inset: 0 0 0 auto;
 	overflow-y: auto;
 	width: 100%;
-	max-width: 500px;
-	background-color: var(--color-accent-600);
+	max-width: 56ch;
+	background-color: var(--color-white);
 	z-index: 100;
+	padding: var(--space-s) var(--space-m);
+	display: flex;
+	flex-direction: column;
+}
+
+.close {
+	align-self: flex-end;
 }

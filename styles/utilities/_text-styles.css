@@ -3,6 +3,6 @@
 }
 
 .u-text-caps {
-	letter-spacing: var(--text-tracking, 0.05em);
+	letter-spacing: var(--text-tracking, 0.1em);
 	text-transform: uppercase;
 }
