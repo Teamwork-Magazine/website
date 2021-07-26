@@ -8,14 +8,30 @@
 }
 
 .masthead {
-	grid-column: 3 / -3;
+	grid-column: containment-start / -3;
 	display: flex;
 	align-items: center;
 }
 
+@media screen and (min-width: 560px) {
+	.masthead {
+		grid-column: 3 / -3;
+	}
+}
+
 .home {
-	margin: 0 auto;
 	display: block;
+	height: auto;
+}
+
+@media screen and (min-width: 560px) {
+	.home {
+		margin: 0 auto;
+	}
+}
+
+.logo {
+	height: auto;
 }
 
 .sections {
@@ -34,14 +50,14 @@
 }
 
 .sections .item {
-	margin: 0 var(--space-2xs);
+	margin: 0 var(--space-xs);
 }
 
 .sections .link {
 	font-family: var(--font-family-accent);
 	text-decoration: none;
 	display: block;
-	padding: var(--space-3xs) var(--space-2xs);
+	padding: var(--space-3xs) 0;
 	color: var(--color-gray-500);
 	border-bottom: 3px transparent solid;
 	transition: 200ms border-color linear, 200ms color linear;
@@ -74,16 +90,25 @@
 .drawer {
 	position: fixed;
 	inset: 0 0 0 auto;
-	overflow-y: auto;
 	width: 100%;
-	max-width: 56ch;
 	background-color: var(--color-white);
 	z-index: 100;
-	padding: var(--space-s) var(--space-m);
+	display: flex;
+	flex-direction: column;
+}
+
+@media screen and (min-width: 560px) {
+	.drawer {
+		max-width: 56ch;
+	}
+}
+
+.drawerHeader {
 	display: flex;
 	flex-direction: column;
 }
 
 .close {
 	align-self: flex-end;
+	margin: var(--space-s) var(--space-m);
 }

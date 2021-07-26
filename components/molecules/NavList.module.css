@@ -1,0 +1,26 @@
+.list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	font-size: var(--step--1);
+}
+
+.item {
+	margin: 0 var(--nav-list-gap-x, var(--space-2xs));
+}
+
+.link {
+	font-family: var(--font-family-accent);
+	text-decoration: none;
+	display: block;
+	padding: var(--nav-list-link-padding-y, var(--space-3xs))
+		var(--nav-list-link-padding-y, var(--space-2xs));
+}
+
+.list[data-variant="normal"] .link {
+	font-family: var(--font-family-accent);
+	color: var(--color-gray-500);
+	border-bottom: 3px transparent solid;
+	transition: 200ms border-color linear, 200ms color linear;
+	font-weight: 700;
+}

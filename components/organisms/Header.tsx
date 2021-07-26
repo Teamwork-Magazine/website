@@ -9,6 +9,8 @@ import { SectionLink } from "../../prismic/types/section";
 import { PageLink } from "../../prismic/types/page";
 import MenuIcon from "../atoms/icons/Menu";
 import CloseIcon from "../atoms/icons/Close";
+import VerticalNav from "./VerticalNav";
+import { useState } from "react";
 
 export interface HeaderProps {
 	sections: SectionLink[];
@@ -16,6 +18,8 @@ export interface HeaderProps {
 }
 
 export default function Header({ sections, pages }: HeaderProps) {
+	const [isDrawerScrolled, setIsDrawerScrolled] = useState(false);
+
 	return (
 		<Popover as="header" className={classNames(styles.header)}>
 			{({ open }) => (
@@ -68,7 +72,7 @@ export default function Header({ sections, pages }: HeaderProps) {
 								className={styles.drawer}
 								initial={{
 									x: "100%",
-									boxShadow: "0 0 0 0 rgba(0, 0, 0, 0)",
+									boxShadow: "0 0 8px 0 rgba(0, 0, 0, 0)",
 									opacity: 0,
 								}}
 								animate={{
@@ -78,12 +82,12 @@ export default function Header({ sections, pages }: HeaderProps) {
 								}}
 								exit={{
 									x: "100%",
-									boxShadow: "0 0 0 0 rgba(0, 0, 0, 0)",
+									boxShadow: "0 0 8px 0 rgba(0, 0, 0, 0)",
 									opacity: 0,
 								}}
 								transition={{
 									default: {
-										duration: 0.4,
+										duration: 0.3,
 									},
 									x: {
 										type: "spring",
@@ -91,12 +95,28 @@ export default function Header({ sections, pages }: HeaderProps) {
 									},
 								}}
 							>
-								<Popover.Button className={styles.close}>
-									<CloseIcon
-										aria-label="Close navigation menu"
-										stroke="currentColor"
-									/>
-								</Popover.Button>
+								<motion.div
+									className={styles.drawerHeader}
+									animate={isDrawerScrolled ? "raised" : "resting"}
+									variants={{
+										resting: { boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0)" },
+										raised: { boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.12)" },
+									}}
+								>
+									<Popover.Button className={styles.close}>
+										<CloseIcon
+											aria-label="Close navigation menu"
+											stroke="currentColor"
+										/>
+									</Popover.Button>
+								</motion.div>
+								<VerticalNav
+									sections={sections}
+									pages={pages}
+									onScroll={(e) =>
+										setIsDrawerScrolled(e.currentTarget.scrollTop > 0)
+									}
+								/>
 							</Popover.Panel>
 						)}
 					</AnimatePresence>

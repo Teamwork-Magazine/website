@@ -1,4 +1,5 @@
 import { Document } from "@prismicio/client/types/documents";
+import { RichText, RichTextBlock } from "prismic-reactjs";
 import { Schema } from "../schema";
 
 export interface Page {
@@ -14,8 +15,8 @@ export const PageSchema = new Schema<Document, Page>({
 		return doc.id;
 	},
 	title(doc) {
-		const { title = "" } = doc.data as { title?: string };
-		return title || "Untitled";
+		const { title = [] } = doc.data as { title?: RichTextBlock[] };
+		return RichText.asText(title) || "Untitled";
 	},
 	slug(doc) {
 		return doc.uid ?? doc.id;
