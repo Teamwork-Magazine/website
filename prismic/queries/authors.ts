@@ -19,7 +19,7 @@ export async function all(
 export async function find(
 	client: DefaultClient,
 	uid: string,
-	options?: QueryOptions
+	options: QueryOptions = {}
 ): Promise<Author | null> {
 	const doc = await client.getByUID("author", uid, options);
 
