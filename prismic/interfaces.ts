@@ -1,3 +1,5 @@
+import { Document } from "@prismicio/client/types/documents";
+
 export interface PrismicSlice<
 	T extends string,
 	P extends object = {},
@@ -7,4 +9,8 @@ export interface PrismicSlice<
 	slice_label: string | null;
 	primary: P;
 	items: I[];
+}
+
+export interface LinkedDocument extends Document {
+	isBroken: boolean;
 }

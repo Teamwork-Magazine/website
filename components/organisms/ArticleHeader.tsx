@@ -43,7 +43,7 @@ export default function ArticleHeader({
 					{story.title}
 				</Headline>
 				{story.blurb && (
-					<Blurb className={styles.blurb}>
+					<Blurb className={styles.blurb} size="lg">
 						<RichText render={story.blurb} />
 					</Blurb>
 				)}

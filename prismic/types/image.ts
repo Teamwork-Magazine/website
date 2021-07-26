@@ -14,14 +14,14 @@ export interface PrismicImage {
 
 export interface Image {
 	src: string;
-	alt: string | null;
+	alt: string;
 	credit: string | null;
 	height: number;
 	width: number;
 }
 
 export const ImageSchema = new Schema<PrismicImage, Image>({
-	alt: ({ alt }) => alt,
+	alt: ({ alt }) => alt ?? "",
 	credit: ({ copyright }) => copyright,
 	src: ({ url }) => url,
 	height: ({ dimensions }) => dimensions.height,

@@ -7,6 +7,7 @@ import ArticleCardGrid from "../organisms/ArticleCardGrid";
 import styles from "./Article.module.css";
 import { Story, StorySlice } from "../../prismic/types/story";
 import ArticleHeader from "../organisms/ArticleHeader";
+import AccentHeading from "../atoms/AccentHeading";
 
 export interface ArticleProps {
 	story: Story;
@@ -25,8 +26,8 @@ export default function Article({ story, recommendedStories }: ArticleProps) {
 						))}
 					</div>
 					<footer className={classNames(styles.footer, "u-layout-grid")}>
-						<Stack gap="var(--space-l)" className="u-layout-wide">
-							<h2>Recommended Stories</h2>
+						<Stack gap="var(--space-l-xl)" className="u-layout-wide">
+							<AccentHeading level={2}>Recommended Stories</AccentHeading>
 							<ArticleCardGrid stories={recommendedStories} />
 						</Stack>
 					</footer>

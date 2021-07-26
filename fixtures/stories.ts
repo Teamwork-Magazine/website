@@ -236,7 +236,12 @@ export const PrideAndPrejudice: Story = {
 			slug: "jane-austen",
 		},
 	],
-	photographers: [],
+	photographers: [
+		{
+			name: "Ane Justen",
+			slug: "ane-justen",
+		},
+	],
 	tags: [],
 	body: [],
 };

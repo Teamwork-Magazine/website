@@ -62,7 +62,7 @@ export interface ImagesSlice {
 export const ImagesSliceSchema = new Schema<PrismicImagesSlice, ImagesSlice>({
 	type: () => "images",
 	extraWide({ primary }) {
-		return PRISMIC_EXTRA_WIDE_LAYOUTS.has(primary.layout);
+		return PRISMIC_EXTRA_WIDE_LAYOUTS.has(primary.layout!);
 	},
 	alignImages({ primary }) {
 		switch (primary.align_images) {

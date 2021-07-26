@@ -9,7 +9,7 @@ export interface ImageProps {
 	height: number;
 	width: number;
 	caption?: ReactNode;
-	credit?: string;
+	credit?: string | null;
 	className?: string;
 }
 
@@ -35,14 +35,17 @@ export default function Image({
 			</div>
 			{caption || credit ? (
 				<figcaption>
-					<p className={classNames(styles.caption, "u-text-accent", "u-flow")}>
-						<span className={styles.description}>{caption}</span>
+					<div
+						className={classNames(styles.caption, "u-text-accent", "u-flow")}
+					>
+						<div className={styles.description}>{caption}</div>
 						{credit && (
 							<span className={classNames(styles.credit, "u-text-caps")}>
+								<span className="u-visually-hidden">Credit: </span>
 								{credit}
 							</span>
 						)}
-					</p>
+					</div>
 				</figcaption>
 			) : null}
 		</figure>
