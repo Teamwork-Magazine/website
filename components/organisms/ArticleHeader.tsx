@@ -57,6 +57,7 @@ export default function ArticleHeader({
 				</div>
 			</Stack>
 			{story.coverImage && (
+				// eslint-disable-next-line jsx-a11y/alt-text
 				<Image
 					{...story.coverImage}
 					className={classNames(styles.image, "u-layout-wide")}

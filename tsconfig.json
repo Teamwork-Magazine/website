@@ -16,11 +16,5 @@
 		"jsx": "preserve"
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-	"exclude": ["node_modules"],
-	"ts-node": {
-		"transpileOnly": true,
-		"compilerOptions": {
-			"module": "commonjs"
-		}
-	}
+	"exclude": ["node_modules"]
 }

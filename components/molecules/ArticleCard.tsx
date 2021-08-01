@@ -67,6 +67,7 @@ export default function ArticleCard({
 			</div>
 			<Image
 				{...(story.thumbnail ?? PLACEHOLDER_THUMBNAIL)}
+				alt=""
 				credit={null}
 				className={styles.thumbnail}
 			/>

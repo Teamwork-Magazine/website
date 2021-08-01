@@ -1,10 +1,12 @@
+import Image from "next/image";
+
 export interface LogoProps {
 	className?: string;
 }
 
 export default function Logo({ className }: LogoProps) {
 	return (
-		<img
+		<Image
 			className={className}
 			src="/logo.svg"
 			alt="Teamwork Magazine"

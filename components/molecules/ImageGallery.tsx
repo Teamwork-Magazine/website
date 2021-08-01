@@ -28,6 +28,7 @@ export default function ImageGallery({
 			data-align-images={alignImages}
 		>
 			{images.map((image) => (
+				// eslint-disable-next-line jsx-a11y/alt-text
 				<Image
 					key={image.src}
 					{...image}
