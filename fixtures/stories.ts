@@ -173,6 +173,8 @@ export const AliceInWonderland: Story = {
 			],
 		},
 	],
+	socialTitle: null,
+	socialDescription: null,
 };
 
 export const TheOdyssey: Story = {
@@ -206,6 +208,8 @@ export const TheOdyssey: Story = {
 	photographers: null,
 	tags: [],
 	body: [],
+	socialTitle: null,
+	socialDescription: null,
 };
 
 export const PrideAndPrejudice: Story = {
@@ -244,6 +248,8 @@ export const PrideAndPrejudice: Story = {
 	],
 	tags: [],
 	body: [],
+	socialTitle: null,
+	socialDescription: null,
 };
 
 export const TheGreatGatsby: Story = {
@@ -274,6 +280,8 @@ export const TheGreatGatsby: Story = {
 	photographers: [],
 	tags: [],
 	body: [],
+	socialTitle: null,
+	socialDescription: null,
 };
 
 export const GrimmsFairyTales: Story = {
@@ -311,4 +319,6 @@ export const GrimmsFairyTales: Story = {
 	photographers: null,
 	tags: [],
 	body: [],
+	socialTitle: null,
+	socialDescription: null,
 };

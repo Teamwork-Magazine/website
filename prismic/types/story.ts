@@ -34,6 +34,8 @@ export interface Story {
 	photographers: PersonLink[] | null;
 	tags: Tag[];
 	body: StorySlice[];
+	socialTitle: string | null;
+	socialDescription: string | null;
 }
 
 export type PrismicStorySlice =
@@ -109,5 +111,11 @@ export const StorySchema = new Schema<Document, Story>({
 
 			return slices;
 		}, [] as StorySlice[]);
+	},
+	socialTitle(doc) {
+		return (doc.data?.social_title as string) || null;
+	},
+	socialDescription(doc) {
+		return (doc.data?.social_description as string) || null;
 	},
 });

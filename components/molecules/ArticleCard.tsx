@@ -8,6 +8,14 @@ import Image from "./Image";
 import useClickableGroup from "../../lib/hooks/useClickableGroup";
 import styles from "./ArticleCard.module.css";
 import { Story } from "../../prismic/types/story";
+import placeholder from "../../public/thumbnail-placeholder.png";
+import { Image as ImageData } from "../../prismic/types/image";
+
+const PLACEHOLDER_THUMBNAIL: ImageData = {
+	...placeholder,
+	alt: "",
+	credit: null,
+};
 
 type ArticleCardLayout = "normal" | "featured";
 
@@ -57,13 +65,11 @@ export default function ArticleCard({
 					</Blurb>
 				)}
 			</div>
-			{story.thumbnail && (
-				<Image
-					{...story.thumbnail}
-					credit={null}
-					className={styles.thumbnail}
-				/>
-			)}
+			<Image
+				{...(story.thumbnail ?? PLACEHOLDER_THUMBNAIL)}
+				credit={null}
+				className={styles.thumbnail}
+			/>
 		</article>
 	);
 }
