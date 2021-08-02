@@ -263,4 +263,5 @@
 
 	/* Measure (line length) */
 	--measure-normal: 66ch;
+	--measure-half: calc(var(--measure-normal) / 2);
 }

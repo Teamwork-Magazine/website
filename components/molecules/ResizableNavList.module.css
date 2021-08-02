@@ -1,0 +1,17 @@
+.container {
+	--nav-list-gap: var(--space-m);
+	display: flex;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	min-width: 0;
+	max-width: 100%;
+}
+
+.container > * + * {
+	padding-left: var(--nav-list-gap);
+}
+
+.item {
+	white-space: nowrap;
+}
