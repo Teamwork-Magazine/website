@@ -64,7 +64,7 @@
 	border-top: 3px transparent solid;
 	border-bottom: 3px transparent solid;
 	text-decoration: none;
-	transition-property: 120ms color linear, 120ms border-color linear;
+	transition: 120ms color linear, 120ms border-color linear;
 }
 
 .link:hover {
