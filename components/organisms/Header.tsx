@@ -34,7 +34,7 @@ export default function Header({ sections, pages }: HeaderProps) {
 								className={styles.logo}
 								src={resizeToHeight(extendedLogo, 20)}
 								alt="Homepage, Teamwork Magazine logo"
-								layout="fixed"
+								priority
 							/>
 						</a>
 					</Link>
@@ -45,6 +45,7 @@ export default function Header({ sections, pages }: HeaderProps) {
 								className={styles.logo}
 								src={resizeToHeight(condensedLogo, 40)}
 								alt="Homepage, Teamwork Magazine logo"
+								priority
 							/>
 						</a>
 					</Link>
