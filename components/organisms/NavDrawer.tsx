@@ -1,7 +1,13 @@
 import { Popover } from "@headlessui/react";
 import classNames from "classnames";
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import {
+	AnimatePresence,
+	motion,
+	useReducedMotion,
+	Variants,
+} from "framer-motion";
 import Link from "next/link";
+import { useMemo } from "react";
 import { ReactNode } from "react";
 import { PageLink } from "../../prismic/types/page";
 import { SectionLink } from "../../prismic/types/section";
@@ -24,37 +30,23 @@ const overlayVariants: Variants = {
 	},
 };
 
-const drawerVariants: Variants = {
-	open: {
-		x: 0,
-		opacity: 1,
-	},
-	closed: {
-		x: "100%",
-		opacity: 0,
-	},
-};
-
-const itemVariants: Variants = {
-	visible: (i: number) => ({
-		opacity: 1,
-		y: 0,
-		transition: {
-			y: {
-				type: "spring",
-				damping: 25,
-				mass: 0.6,
-			},
-			delay: (Math.sqrt(i) + 1) * 0.2,
-		},
-	}),
-	hidden: {
-		opacity: 0,
-		y: "100%",
-	},
-};
-
 export default function NavMenu({ sections, pages, className }: NavMenuProps) {
+	const shouldReduceMotion = useReducedMotion();
+
+	const drawerVariants: Variants = useMemo(
+		() => ({
+			open: {
+				x: 0,
+				opacity: 1,
+			},
+			closed: {
+				x: shouldReduceMotion ? 0 : "100%",
+				opacity: 0,
+			},
+		}),
+		[shouldReduceMotion]
+	);
+
 	return (
 		<Popover className={classNames(styles.menu, className)}>
 			{({ open }) => {
@@ -158,10 +150,34 @@ interface NavDrawerLinkProps {
 }
 
 function NavDrawerLink({ href, index, children }: NavDrawerLinkProps) {
+	const shouldReduceMotion = useReducedMotion();
+
+	const variants: Variants = useMemo(
+		() => ({
+			visible: (i: number) => ({
+				opacity: 1,
+				y: 0,
+				transition: {
+					y: {
+						type: "spring",
+						damping: 25,
+						mass: 0.6,
+					},
+					delay: shouldReduceMotion ? 0.2 : (Math.sqrt(i) + 1) * 0.2,
+				},
+			}),
+			hidden: {
+				opacity: 0,
+				y: shouldReduceMotion ? 0 : "100%",
+			},
+		}),
+		[shouldReduceMotion]
+	);
+
 	return (
 		<motion.li
 			className={styles.item}
-			variants={itemVariants}
+			variants={variants}
 			custom={index}
 			initial="hidden"
 			animate="visible"

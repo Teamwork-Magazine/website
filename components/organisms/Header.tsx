@@ -50,23 +50,11 @@ export default function Header({ sections, pages }: HeaderProps) {
 					</Link>
 					<NavList className={styles.list} label="Sections">
 						{sections.slice(0, 3).map((section, i) => {
-							let priority: NavLinkPriority;
-							switch (i) {
-								case 0:
-									priority = "primary";
-									break;
-								case 1:
-									priority = "secondary";
-								default:
-									priority = "tertiary";
-									break;
-							}
-
 							return (
 								<NavListLink
 									key={section.slug}
 									href={`/stories/sections/${section.slug}`}
-									priority={priority}
+									priority={getPriority(i)}
 								>
 									{section.name}
 								</NavListLink>
@@ -78,25 +66,12 @@ export default function Header({ sections, pages }: HeaderProps) {
 					</NavList>
 					<div className={styles.right}>
 						<NavList className={styles.list} label="Other pages">
-							{pages.slice(0, 4).map((page, i) => {
-								let priority: NavLinkPriority;
-								switch (i) {
-									case 0:
-										priority = "primary";
-										break;
-									case 1:
-										priority = "secondary";
-										break;
-									default:
-										priority = "tertiary";
-										break;
-								}
-
+							{pages.slice(0, 3).map((page, i) => {
 								return (
 									<NavListLink
 										key={page.slug}
 										href={`/${page.slug}`}
-										priority={priority}
+										priority={getPriority(i)}
 									>
 										{page.title}
 									</NavListLink>
@@ -109,4 +84,15 @@ export default function Header({ sections, pages }: HeaderProps) {
 			</header>
 		</>
 	);
+}
+
+function getPriority(index: number): NavLinkPriority {
+	switch (index) {
+		case 0:
+			return "primary";
+		case 1:
+			return "secondary";
+		default:
+			return "tertiary";
+	}
 }
