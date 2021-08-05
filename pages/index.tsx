@@ -12,7 +12,7 @@ export default function HomePage({ navigation }: HomePageProps) {
 	return (
 		<BaseLayout navigation={navigation}>
 			<main>
-				<h1 className="sr-only">Teamwork Magazine</h1>
+				<h1 className="u-visually-hidden">Teamwork Magazine</h1>
 			</main>
 		</BaseLayout>
 	);

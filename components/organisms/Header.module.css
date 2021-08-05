@@ -1,114 +1,55 @@
 .header {
-	padding: var(--space-s) 0 0;
+	padding-top: var(--space-m-l);
 }
 
 .nav {
-	--grid-row-gap: var(--space-xs);
+	display: grid;
+	column-gap: var(--space-l);
+	grid-template-columns: 1fr max-content 1fr;
+	grid-template-rows: auto;
+	grid-template-areas: "left middle right";
 	align-items: center;
-}
-
-.masthead {
-	grid-column: containment-start / -3;
-	display: flex;
-	align-items: center;
-}
-
-@media screen and (min-width: 560px) {
-	.masthead {
-		grid-column: 3 / -3;
-	}
 }
 
 .home {
 	display: block;
-	height: auto;
+	grid-area: middle;
+	justify-self: center;
+	line-height: 0;
 }
 
-@media screen and (min-width: 560px) {
-	.home {
-		margin: 0 auto;
+@media (max-width: 959px) {
+	.home[data-logo-layout="extended"] {
+		display: none;
 	}
 }
 
-.logo {
-	height: auto;
-}
-
-.sections {
-	display: none;
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	font-size: var(--step--1);
-}
-
-@media screen and (min-width: 560px) {
-	.sections {
-		display: flex;
-		justify-content: center;
+@media (min-width: 960px) {
+	.home[data-logo-layout="condensed"] {
+		display: none;
 	}
 }
 
-.sections .item {
-	margin: 0 var(--space-xs);
+.left {
+	grid-area: left;
 }
 
-.sections .link {
-	font-family: var(--font-family-accent);
-	text-decoration: none;
-	display: block;
-	padding: var(--space-3xs) 0;
-	color: var(--color-gray-500);
-	border-bottom: 3px transparent solid;
-	transition: 200ms border-color linear, 200ms color linear;
-	font-weight: 700;
+.right {
+	grid-area: right;
 }
 
-.sections .link:hover,
-.sections .link:focus {
-	border-color: var(--color-accent-500);
-	color: inherit;
+.right {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	min-width: 0;
 }
 
-.toggle {
-	grid-column: 9;
-	grid-row: 1;
-	justify-self: end;
-	width: auto;
+.right > * + * {
+	margin-left: var(--space-l);
 }
 
-.overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: var(--color-accent-300);
-	z-index: 90;
-}
-
-.drawer {
-	position: fixed;
-	inset: 0 0 0 auto;
+.list {
+	justify-content: inherit;
 	width: 100%;
-	background-color: var(--color-white);
-	z-index: 100;
-	display: flex;
-	flex-direction: column;
-}
-
-@media screen and (min-width: 560px) {
-	.drawer {
-		max-width: 56ch;
-	}
-}
-
-.drawerHeader {
-	display: flex;
-	flex-direction: column;
-}
-
-.close {
-	align-self: flex-end;
-	margin: var(--space-s) var(--space-m);
 }

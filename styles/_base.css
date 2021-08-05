@@ -70,9 +70,11 @@ button {
 	appearance: none;
 	background: none;
 	border: none;
+	border-radius: var(--border-radius, 4px);
 	font: inherit;
 	color: inherit;
-	padding: var(--space-2xs) var(--space-xs);
+	padding: var(--space-2xs) var(--space-2xs);
+	cursor: pointer;
 }
 
 svg {

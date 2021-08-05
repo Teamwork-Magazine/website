@@ -3,7 +3,13 @@ import { QueryOptions } from "@prismicio/client/types/ResolvedApi";
 import { withFetchLinks } from "../fetch-links";
 import { Navigation, NavigationSchema } from "../types/navigation";
 
-const transformOptions = withFetchLinks(["section.name", "page.title"]);
+const transformOptions = withFetchLinks([
+	"section.name",
+	"page.title",
+	"privacy_policy.title",
+	"issues_page.title",
+	"stockists_page.title",
+]);
 
 export async function getNavigation(
 	client: Client,

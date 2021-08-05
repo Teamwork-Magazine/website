@@ -7,7 +7,7 @@
 .card .thumbnail,
 .card .kicker,
 .card .blurb {
-	transition: 180ms opacity linear;
+	transition: 120ms opacity linear;
 }
 
 .card:hover .thumbnail,
