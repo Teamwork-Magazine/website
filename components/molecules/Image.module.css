@@ -1,5 +1,10 @@
 .image {
 	--flow-gap: var(--space-2xs);
+	--image-placeholder-color: var(--color-gray-100);
+}
+
+.art {
+	background-color: var(--image-placeholder-color);
 }
 
 .caption {
