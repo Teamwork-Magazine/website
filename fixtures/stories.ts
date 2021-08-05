@@ -18,6 +18,7 @@ export const AliceInWonderland: Story = {
 	featured: false,
 	coverImage: {
 		...unsplash("jBohRHjmLeo", 1920, 1280),
+		placeholder: null,
 		alt: "",
 		credit: "Paolo Nicolello, Unsplash",
 	},
@@ -196,6 +197,7 @@ export const TheOdyssey: Story = {
 	coverImage: null,
 	thumbnail: {
 		...unsplash("vhUQqymqGZ4", 640, 427),
+		placeholder: null,
 		alt: "",
 		credit: "",
 	},
@@ -230,6 +232,7 @@ export const PrideAndPrejudice: Story = {
 	featured: false,
 	thumbnail: {
 		...unsplash("eNMMw7ihJ2Y", 640, 427),
+		placeholder: null,
 		alt: "",
 		credit: "",
 	},
@@ -268,6 +271,7 @@ export const TheGreatGatsby: Story = {
 	coverImage: null,
 	thumbnail: {
 		...unsplash("4kEW68FZ154", 640, 427),
+		placeholder: null,
 		alt: "",
 		credit: "",
 	},
@@ -303,6 +307,7 @@ export const GrimmsFairyTales: Story = {
 	coverImage: null,
 	thumbnail: {
 		...unsplash("vK8JWr6j15c", 640, 427),
+		placeholder: null,
 		alt: "",
 		credit: "",
 	},

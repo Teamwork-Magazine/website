@@ -13,7 +13,7 @@ export async function all(
 		fetchAll(client, Prismic.predicates.at("document.type", "author"), options)
 	);
 
-	return docs.map((doc) => AuthorSchema.cast(doc));
+	return Promise.all(docs.map((doc) => AuthorSchema.cast(doc)));
 }
 
 export async function find(

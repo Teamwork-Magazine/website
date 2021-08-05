@@ -80,7 +80,7 @@ function isPageSlice(
 function toSectionLink(slice: PrismicSectionLinkSlice): SectionLinkItem {
 	return {
 		...parseLocation(slice),
-		section: SectionSchema.cast(slice.primary.section as Document, [
+		section: SectionSchema.castSync(slice.primary.section as Document, [
 			"slug",
 			"name",
 		]),
@@ -90,7 +90,10 @@ function toSectionLink(slice: PrismicSectionLinkSlice): SectionLinkItem {
 function toPageLink(slice: PrismicPageLinkSlice): PageLinkItem {
 	return {
 		...parseLocation(slice),
-		page: PageSchema.cast(slice.primary.page as Document, ["slug", "title"]),
+		page: PageSchema.castSync(slice.primary.page as Document, [
+			"slug",
+			"title",
+		]),
 	};
 }
 

@@ -60,7 +60,7 @@ export const StorySchema = new Schema<Document, Story>({
 	},
 	section(doc) {
 		const section: Document = doc.data.section;
-		return section ? SectionSchema.cast(section, ["name", "slug"]) : null;
+		return section ? SectionSchema.castSync(section, ["name", "slug"]) : null;
 	},
 	coverImage(doc) {
 		const coverImage: PrismicImage = doc.data.featured_image?.Default;
@@ -77,26 +77,28 @@ export const StorySchema = new Schema<Document, Story>({
 	authors(doc) {
 		const { authors = [] } = doc.data as { authors?: Document[] };
 		return authors.length
-			? authors.map((author) => PersonSchema.cast(author, ["name", "slug"]))
+			? authors.map((author) => PersonSchema.castSync(author, ["name", "slug"]))
 			: null;
 	},
 	photographers(doc) {
 		const { photographers = [] } = doc.data as { photographers?: Document[] };
 		return photographers.length
 			? photographers.map((photographer) =>
-					PersonSchema.cast(photographer, ["name", "slug"])
+					PersonSchema.castSync(photographer, ["name", "slug"])
 			  )
 			: null;
 	},
 	tags(doc) {
-		return doc.tags.map((tag) => TagSchema.cast(tag));
+		return doc.tags.map((tag) => TagSchema.castSync(tag));
 	},
 	body(doc) {
 		if (!Array.isArray(doc.data.body)) {
 			return [];
 		}
 
-		return (doc.data.body as PrismicStorySlice[]).reduce((slices, slice) => {
+		const slices: Promise<StorySlice>[] = [];
+
+		(doc.data.body as PrismicStorySlice[]).forEach((slice) => {
 			switch (slice.slice_type) {
 				case "rich_text":
 					slices.push(RichTextSliceSchema.cast(slice));
@@ -108,9 +110,9 @@ export const StorySchema = new Schema<Document, Story>({
 					slices.push(ImagesSliceSchema.cast(slice));
 					break;
 			}
+		});
 
-			return slices;
-		}, [] as StorySlice[]);
+		return Promise.all(slices);
 	},
 	socialTitle(doc) {
 		return (doc.data?.social_title as string) || null;

@@ -90,17 +90,17 @@ export const ImagesSliceSchema = new Schema<PrismicImagesSlice, ImagesSlice>({
 		}
 	},
 	gallery({ items }) {
-		return items.reduce((gallery, item) => {
-			if (item.image) {
-				const image = ImageSchema.cast(item.image);
-				gallery.push({
-					...image,
-					credit: item.credit || image.credit,
-					caption: item.caption.length ? item.caption : null,
-				});
-			}
-
-			return gallery;
-		}, [] as ImageWithCaption[]);
+		return Promise.all(
+			items
+				.filter((item) => Boolean(item.image))
+				.map(async (item) => {
+					const image = await ImageSchema.cast(item.image);
+					return {
+						...image,
+						credit: item.credit || image.credit,
+						caption: item.caption.length ? item.caption : null,
+					};
+				})
+		);
 	},
 });
