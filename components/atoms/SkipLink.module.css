@@ -1,0 +1,10 @@
+.skipLink {
+	position: absolute;
+	top: var(--space-s);
+	left: var(--space-s);
+	padding: var(--space-2xs) var(--space-s);
+	background-color: var(--color-secondary-600);
+	color: var(--color-white);
+	border-radius: 2px;
+	z-index: 300;
+}

@@ -2,6 +2,7 @@ import { Popover } from "@headlessui/react";
 import classNames from "classnames";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import Link from "next/link";
+import { ReactNode } from "react";
 import { PageLink } from "../../prismic/types/page";
 import { SectionLink } from "../../prismic/types/section";
 import CloseIcon from "../atoms/icons/Close";
@@ -44,7 +45,7 @@ const itemVariants: Variants = {
 				damping: 25,
 				mass: 0.6,
 			},
-			delay: 0.15 * i + 0.2,
+			delay: (Math.sqrt(i) + 1) * 0.2,
 		},
 	}),
 	hidden: {
@@ -106,40 +107,37 @@ export default function NavMenu({ sections, pages, className }: NavMenuProps) {
 										</Popover.Button>
 									</div>
 									<div className={styles.contents}>
-										<ul className={styles.list} aria-label="Categories">
+										<ul
+											className={styles.list}
+											aria-label="Sections"
+											data-weight="primary"
+										>
 											{sections.map((section, i) => (
-												<motion.li
+												<NavDrawerLink
 													key={section.slug}
-													className={styles.item}
-													variants={itemVariants}
-													custom={i}
-													initial="hidden"
-													animate={"visible"}
+													index={i}
+													href={`/stories/sections/${section.slug}`}
 												>
-													<Link href={`/stories/sections/${section.slug}`}>
-														<a className={styles.link} data-weight="primary">
-															{section.name}
-														</a>
-													</Link>
-												</motion.li>
+													{section.name}
+												</NavDrawerLink>
 											))}
+											<NavDrawerLink index={sections.length} href="/stories">
+												All Stories
+											</NavDrawerLink>
 										</ul>
-										<ul className={styles.list} aria-label="Other pages">
+										<ul
+											className={styles.list}
+											aria-label="Other pages"
+											data-weight="secondary"
+										>
 											{pages.map((page, i) => (
-												<motion.li
+												<NavDrawerLink
 													key={page.slug}
-													className={styles.item}
-													variants={itemVariants}
-													custom={sections.length + i}
-													initial="hidden"
-													animate={"visible"}
+													index={sections.length + 1 + i}
+													href={`/${page.slug}`}
 												>
-													<Link href={`/${page.slug}`}>
-														<a className={styles.link} data-weight="secondary">
-															{page.title}
-														</a>
-													</Link>
-												</motion.li>
+													{page.title}
+												</NavDrawerLink>
 											))}
 										</ul>
 									</div>
@@ -150,5 +148,27 @@ export default function NavMenu({ sections, pages, className }: NavMenuProps) {
 				);
 			}}
 		</Popover>
+	);
+}
+
+interface NavDrawerLinkProps {
+	href: string;
+	index: number;
+	children: ReactNode;
+}
+
+function NavDrawerLink({ href, index, children }: NavDrawerLinkProps) {
+	return (
+		<motion.li
+			className={styles.item}
+			variants={itemVariants}
+			custom={index}
+			initial="hidden"
+			animate="visible"
+		>
+			<Link href={href}>
+				<a className={styles.link}>{children}</a>
+			</Link>
+		</motion.li>
 	);
 }

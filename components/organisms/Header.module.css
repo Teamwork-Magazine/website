@@ -53,21 +53,3 @@
 	justify-content: inherit;
 	width: 100%;
 }
-
-.link {
-	display: block;
-	color: var(--color-gray-500);
-	font-family: var(--font-family-accent);
-	font-weight: 700;
-	font-size: var(--step--1);
-	padding: var(--space-3xs) 0;
-	border-top: 3px transparent solid;
-	border-bottom: 3px transparent solid;
-	text-decoration: none;
-	transition: 120ms color linear, 120ms border-color linear;
-}
-
-.link:hover {
-	color: var(--color-black);
-	border-bottom-color: var(--color-accent-500);
-}
