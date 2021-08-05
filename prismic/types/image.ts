@@ -1,4 +1,4 @@
-import { generateBlurHash } from "../../lib/images/blur";
+import { generateBlurURL } from "../../lib/images/blur";
 import { Schema } from "../schema";
 
 interface Dimensions {
@@ -15,7 +15,7 @@ export interface PrismicImage {
 
 export interface Image {
 	src: string;
-	placeholder: string | null;
+	blurDataURL: string | null;
 	alt: string;
 	credit: string | null;
 	height: number;
@@ -26,9 +26,9 @@ export const ImageSchema = new Schema<PrismicImage, Image>({
 	alt: ({ alt }) => alt ?? "",
 	credit: ({ copyright }) => copyright,
 	src: ({ url }) => url,
-	placeholder: async ({ url }) => {
+	blurDataURL: async ({ url }) => {
 		try {
-			return generateBlurHash(url);
+			return generateBlurURL(url);
 		} catch (e) {
 			// TODO: This isn't the best place to handle this side effect, but it works for now.
 			console.error(e);

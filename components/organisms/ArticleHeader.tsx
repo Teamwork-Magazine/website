@@ -60,6 +60,7 @@ export default function ArticleHeader({
 				// eslint-disable-next-line jsx-a11y/alt-text
 				<Image
 					{...story.coverImage}
+					placeholder={story.coverImage.blurDataURL ? "blur" : "empty"}
 					className={classNames(styles.image, "u-layout-wide")}
 				/>
 			)}

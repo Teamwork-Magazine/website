@@ -8,6 +8,7 @@ import { getNavigation } from "../../prismic/queries/navigation";
 import { createClient } from "../../prismic/client";
 import SEO from "../../components/organisms/SEO";
 import { RichText } from "prismic-reactjs";
+import { generateBlurURL } from "../../lib/images/blur";
 
 const StoryMap = new Map(
 	Object.values(Stories).map((story) => [story.slug, story])
@@ -59,12 +60,22 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params }) => {
 	const { slug } = params ?? {};
 
-	const story = StoryMap.get(slug!);
+	let story = StoryMap.get(slug!);
 
 	if (!story) {
 		return {
 			notFound: true,
 		};
+	}
+
+	if (story.coverImage) {
+		try {
+			Object.assign(story.coverImage, {
+				placeholder: await generateBlurURL(story.coverImage.src),
+			});
+		} catch (e) {
+			// ignore
+		}
 	}
 
 	const client = createClient();
@@ -74,7 +85,7 @@ export const getStaticProps: GetStaticProps<
 		props: {
 			story,
 			recommendedStories: [...StoryMap.values()].filter(
-				(otherStory) => otherStory.slug !== story.slug
+				(otherStory) => otherStory.slug !== story?.slug
 			),
 			navigation,
 			site: {

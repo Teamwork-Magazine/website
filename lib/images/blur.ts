@@ -1,51 +1,45 @@
 import sharp from "sharp";
-import { encode } from "blurhash";
 
-const hashCache = new Map<string, string>();
+const dataURLCache = new Map<string, string>();
 
-export function getCachedBlurHash(url: string): string | null {
-	return hashCache.get(url) ?? null;
-}
-
-export async function generateBlurHash(url: string): Promise<string> {
-	if (hashCache.has(url)) {
-		return hashCache.get(url)!;
+export async function generateBlurURL(url: string): Promise<string> {
+	if (dataURLCache.has(url)) {
+		return dataURLCache.get(url)!;
 	}
 	const res = await fetch(url);
 
 	if (!res.ok) {
 		throw new Error(
-			`Could not generate a blur hash from ${url}: Response not OK (HTTP ${res.status} - ${res.statusText}).`
+			`Could not generate a blur URL from ${url}: Response not OK (HTTP ${res.status} - ${res.statusText}).`
 		);
 	}
 
 	if (!res.headers.get("Content-Type")?.startsWith("image/")) {
-		throw new Error(
-			`Could not generate a blur hash from ${url}: Not an image.`
-		);
+		throw new Error(`Could not generate a blur URL from ${url}: Not an image.`);
 	}
 
 	try {
 		const buffer = Buffer.from(await res.arrayBuffer());
-		const hash = await generateBlurHashFromBuffer(buffer);
+		const dataURL = await generateDataURLFromBuffer(buffer);
 
-		hashCache.set(url, hash);
+		dataURLCache.set(url, dataURL);
 
-		return hash;
+		return dataURL;
 	} catch (e) {
-		throw new Error(`Could not generate a blur hash from ${url}: ${e}`);
+		throw new Error(`Could not generate a blur URL from ${url}: ${e}`);
 	}
 }
 
-function generateBlurHashFromBuffer(buffer: Buffer): Promise<string> {
+function generateDataURLFromBuffer(buffer: Buffer): Promise<string> {
 	return new Promise<string>((resolve, reject) => {
 		sharp(buffer)
 			.raw()
 			.ensureAlpha()
-			.resize(20, 20, { fit: "inside" })
+			.resize(10, 10, { fit: "inside" })
+			.jpeg()
 			.toBuffer((err, buffer, { width, height }) => {
 				if (err) return reject(err);
-				resolve(encode(new Uint8ClampedArray(buffer), width, height, 4, 4));
+				resolve("data:image/jpeg;base64," + buffer.toString("base64"));
 			});
 	});
 }

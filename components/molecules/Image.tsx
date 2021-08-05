@@ -5,6 +5,7 @@ import styles from "./Image.module.css";
 
 export interface ImageProps {
 	src: string;
+	placeholder: string | null;
 	alt: string;
 	height: number;
 	width: number;
@@ -15,6 +16,7 @@ export interface ImageProps {
 
 export default function Image({
 	src,
+	placeholder,
 	height,
 	width,
 	alt,
@@ -22,6 +24,13 @@ export default function Image({
 	credit,
 	className,
 }: ImageProps) {
+	const placeholderProps = placeholder
+		? {
+				placeholder: "blur",
+				blurDataURL: placeholder,
+		  }
+		: null;
+
 	return (
 		<figure className={classNames(styles.image, "u-flow", className)}>
 			<div className={styles.art}>
@@ -31,6 +40,7 @@ export default function Image({
 					alt={alt}
 					height={height}
 					width={width}
+					{...placeholderProps}
 				/>
 			</div>
 			{caption || credit ? (
