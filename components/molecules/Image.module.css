@@ -7,6 +7,14 @@
 	background-color: var(--image-placeholder-color);
 }
 
+.art > * {
+	transition: 500ms opacity linear;
+}
+
+.art[data-load-state="not-loaded"] > * {
+	opacity: 0;
+}
+
 .caption {
 	--flow-gap: var(--space-3xs);
 	font-size: var(--step--1);
