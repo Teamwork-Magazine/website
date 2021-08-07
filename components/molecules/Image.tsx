@@ -8,6 +8,7 @@ export interface ImageProps {
 	alt: string;
 	height: number;
 	width: number;
+	priority?: boolean;
 	caption?: ReactNode;
 	credit?: string | null;
 	className?: string;
@@ -15,9 +16,10 @@ export interface ImageProps {
 
 export default function Image({
 	src,
+	alt,
 	height,
 	width,
-	alt,
+	priority,
 	caption,
 	credit,
 	className,
@@ -31,6 +33,7 @@ export default function Image({
 					alt={alt}
 					height={height}
 					width={width}
+					priority={priority}
 				/>
 			</div>
 			{caption || credit ? (

@@ -23,6 +23,7 @@
 }
 
 .footer {
+	--image-placeholder-color: var(--color-gray-200);
 	background-color: var(--color-gray-100);
 	padding: var(--space-l-xl) 0;
 }
