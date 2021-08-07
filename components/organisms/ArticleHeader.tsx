@@ -61,7 +61,6 @@ export default function ArticleHeader({
 				<Image
 					{...story.coverImage}
 					className={classNames(styles.image, "u-layout-wide")}
-					priority
 				/>
 			)}
 		</header>

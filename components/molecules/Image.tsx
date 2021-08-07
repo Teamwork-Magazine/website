@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import NextImage from "next/image";
-import { useState } from "react";
 import { ReactNode } from "react";
 import styles from "./Image.module.css";
 
@@ -25,19 +24,15 @@ export default function Image({
 	credit,
 	className,
 }: ImageProps) {
-	const [loadState, setLoadState] = useState(
-		priority ? "loaded" : "not-loaded"
-	);
 	return (
 		<figure className={classNames(styles.image, "u-flow", className)}>
-			<div className={styles.art} data-load-state={loadState}>
+			<div className={styles.art}>
 				<NextImage
 					layout="responsive"
 					src={src}
 					alt={alt}
 					height={height}
 					width={width}
-					onLoad={() => setLoadState("loaded")}
 					priority={priority}
 				/>
 			</div>
