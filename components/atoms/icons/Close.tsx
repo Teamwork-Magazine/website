@@ -1,2 +1,2 @@
-import { GrClose as CloseIcon } from "react-icons/gr";
+import { HiX as CloseIcon } from "react-icons/hi";
 export default CloseIcon;

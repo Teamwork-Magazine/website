@@ -2,7 +2,7 @@ import classNames from "classnames";
 import Link from "next/link";
 import { ReactNode } from "react";
 import Heading from "../atoms/Heading";
-import CaretForwardIcon from "../atoms/icons/CaretForward";
+import ArrowRightIcon from "../atoms/icons/ArrowRight";
 import styles from "./SectionHeader.module.css";
 
 export interface SectionHeaderProps {
@@ -47,7 +47,7 @@ SectionHeader.Link = function SectionHeaderLink({
 	return (
 		<Link href={href}>
 			<a className={classNames(styles.link, "u-text-accent", className)}>
-				{children} <CaretForwardIcon className={styles.icon} />
+				{children} <ArrowRightIcon className={styles.icon} />
 			</a>
 		</Link>
 	);
