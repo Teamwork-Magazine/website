@@ -2,7 +2,7 @@ import { Document } from "@prismicio/client/types/documents";
 import { LinkedDocument, PrismicSlice } from "../interfaces";
 import { Schema } from "../schema";
 import { PageLink, PageSchema } from "./page";
-import { SectionLink, SectionSchema } from "./section";
+import { CategoryLink, CategorySchema } from "./category";
 
 interface NavigationSliceConfig {
 	location: "Header only" | "Footer only" | "Header and Footer" | null;
@@ -36,7 +36,7 @@ interface NavigationItem {
 }
 
 export interface SectionLinkItem extends NavigationItem {
-	section: SectionLink;
+	section: CategoryLink;
 }
 
 export interface PageLinkItem extends NavigationItem {
@@ -80,7 +80,7 @@ function isPageSlice(
 function toSectionLink(slice: PrismicSectionLinkSlice): SectionLinkItem {
 	return {
 		...parseLocation(slice),
-		section: SectionSchema.cast(slice.primary.section as Document, [
+		section: CategorySchema.cast(slice.primary.section as Document, [
 			"slug",
 			"name",
 		]),

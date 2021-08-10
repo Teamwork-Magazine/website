@@ -11,13 +11,17 @@
 	grid-column: span 8;
 }
 
+.item > * {
+	height: 100%;
+}
+
 @media (min-width: 560px) {
 	.item {
 		grid-column: span 4;
 	}
 }
 
-@media (min-width: 960px) {
+@media (min-width: 1024px) {
 	.item {
 		grid-column: span 2;
 	}

@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import Link from "next/link";
 import styles from "./Header.module.css";
-import { SectionLink } from "../../prismic/types/section";
+import { CategoryLink } from "../../prismic/types/category";
 import { PageLink } from "../../prismic/types/page";
 import extendedLogo from "../../public/logo-extended.svg";
 import condensedLogo from "../../public/logo-condensed.svg";
@@ -13,7 +13,7 @@ import NavList, { NavLinkPriority, NavListLink } from "../molecules/NavList";
 import SkipLink from "../atoms/SkipLink";
 
 export interface HeaderProps {
-	sections: SectionLink[];
+	sections: CategoryLink[];
 	pages: PageLink[];
 }
 

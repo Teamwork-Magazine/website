@@ -1,9 +1,10 @@
 import { Document } from "@prismicio/client/types/documents";
 import { RichText, RichTextBlock } from "prismic-reactjs";
+import { LinkedDocument } from "../interfaces";
 import { Schema } from "../schema";
 import { Image, PrismicImage, ImageSchema } from "./image";
 import { PersonLink, PersonSchema } from "./person";
-import { SectionLink, SectionSchema } from "./section";
+import { CategoryLink, CategorySchema } from "./category";
 import {
 	ImagesSlice,
 	ImagesSliceSchema,
@@ -26,7 +27,7 @@ export interface Story {
 	title: string;
 	slug: string;
 	featured: boolean;
-	section: SectionLink | null;
+	section: CategoryLink | null;
 	coverImage: Image | null;
 	thumbnail: Image | null;
 	blurb: RichTextBlock[] | null;
@@ -59,8 +60,10 @@ export const StorySchema = new Schema<Document, Story>({
 		return Boolean(doc.data.featured);
 	},
 	section(doc) {
-		const section: Document = doc.data.section;
-		return section ? SectionSchema.cast(section, ["name", "slug"]) : null;
+		const section: LinkedDocument = doc.data.section;
+		return section.isBroken === false
+			? CategorySchema.cast(section, ["name", "slug"])
+			: null;
 	},
 	coverImage(doc) {
 		const coverImage: PrismicImage = doc.data.featured_image?.Default;
@@ -75,18 +78,18 @@ export const StorySchema = new Schema<Document, Story>({
 		return blurb.length ? blurb : null;
 	},
 	authors(doc) {
-		const { authors = [] } = doc.data as { authors?: Document[] };
-		return authors.length
-			? authors.map((author) => PersonSchema.cast(author, ["name", "slug"]))
-			: null;
+		const { authors = [] } = doc.data as { authors?: LinkedDocument[] };
+		return authors
+			.filter((author) => author.isBroken === false)
+			.map((author) => PersonSchema.cast(author, ["name", "slug"]));
 	},
 	photographers(doc) {
-		const { photographers = [] } = doc.data as { photographers?: Document[] };
-		return photographers.length
-			? photographers.map((photographer) =>
-					PersonSchema.cast(photographer, ["name", "slug"])
-			  )
-			: null;
+		const { photographers = [] } = doc.data as {
+			photographers?: LinkedDocument[];
+		};
+		return photographers
+			.filter((photographer) => photographer.isBroken === false)
+			.map((photographer) => PersonSchema.cast(photographer, ["name", "slug"]));
 	},
 	tags(doc) {
 		return doc.tags.map((tag) => TagSchema.cast(tag));

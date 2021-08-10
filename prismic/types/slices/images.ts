@@ -91,7 +91,7 @@ export const ImagesSliceSchema = new Schema<PrismicImagesSlice, ImagesSlice>({
 	},
 	gallery({ items }) {
 		return items.reduce((gallery, item) => {
-			if (item.image) {
+			if (item.image?.url) {
 				const image = ImageSchema.cast(item.image);
 				gallery.push({
 					...image,

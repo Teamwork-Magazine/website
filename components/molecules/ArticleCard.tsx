@@ -10,6 +10,9 @@ import styles from "./ArticleCard.module.css";
 import { Story } from "../../prismic/types/story";
 import placeholder from "../../public/thumbnail-placeholder.png";
 import { Image as ImageData } from "../../prismic/types/image";
+import Byline from "../atoms/Byline";
+import Kicker from "../atoms/Kicker";
+import { ReactNode } from "react";
 
 const PLACEHOLDER_THUMBNAIL: ImageData = {
 	...placeholder,
@@ -34,6 +37,23 @@ export default function ArticleCard({
 }: ArticleCardProps) {
 	const { groupProps, linkProps } = useClickableGroup();
 
+	const isFeatured = layout === "featured";
+
+	let kicker: ReactNode;
+	if (isFeatured) {
+		kicker = (
+			<Kicker className={styles.kicker} size="lg">
+				Featured
+			</Kicker>
+		);
+	} else {
+		kicker = (
+			<Kicker className={styles.kicker}>
+				{story.section?.name ?? "Uncategorized"}
+			</Kicker>
+		);
+	}
+
 	return (
 		<article
 			{...groupProps}
@@ -44,8 +64,8 @@ export default function ArticleCard({
 				<Headline
 					level={level}
 					className={styles.headline}
-					accent={layout === "featured"}
-					size={layout === "featured" ? "lg" : "md"}
+					accent={isFeatured}
+					size={isFeatured ? "lg" : "md"}
 				>
 					<Link href={`/stories/${story.slug}`}>
 						<a
@@ -56,13 +76,14 @@ export default function ArticleCard({
 						</a>
 					</Link>
 				</Headline>
-				<p className={styles.kicker}>
-					{story.section ? story.section.name : "Uncategorized"}
-				</p>
-				{story.blurb && layout !== "featured" && (
-					<Blurb>
+				{kicker}
+				{story.blurb && !isFeatured && (
+					<Blurb className={styles.blurb}>
 						<RichText render={story.blurb} />
 					</Blurb>
+				)}
+				{isFeatured && (
+					<Byline className={styles.byline} people={story.authors} size="lg" />
 				)}
 			</div>
 			<Image

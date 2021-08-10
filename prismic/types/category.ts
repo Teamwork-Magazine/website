@@ -2,15 +2,15 @@ import { Document } from "@prismicio/client/types/documents";
 import { RichText } from "prismic-reactjs";
 import { Schema } from "../schema";
 
-export interface Section {
+export interface Category {
 	id: string;
 	slug: string;
 	name: string;
 }
 
-export type SectionLink = Pick<Section, "name" | "slug">;
+export type CategoryLink = Pick<Category, "name" | "slug">;
 
-export const SectionSchema = new Schema<Document, Section>({
+export const CategorySchema = new Schema<Document, Category>({
 	id(doc) {
 		return doc.id;
 	},

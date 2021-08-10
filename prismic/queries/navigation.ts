@@ -1,4 +1,4 @@
-import { Client } from "@prismicio/client/types/client";
+import { DefaultClient } from "@prismicio/client/types/client";
 import { QueryOptions } from "@prismicio/client/types/ResolvedApi";
 import { withFetchLinks } from "../fetch-links";
 import { Navigation, NavigationSchema } from "../types/navigation";
@@ -12,10 +12,9 @@ const transformOptions = withFetchLinks([
 ]);
 
 export async function getNavigation(
-	client: Client,
+	client: DefaultClient,
 	options: QueryOptions = {}
 ): Promise<Navigation> {
-	// @ts-ignore - The `getSingle` type signature is requiring a callback, but we're not using it and it's not actually necessary.
 	const doc = await client.getSingle(
 		"site_navigation",
 		transformOptions(options)

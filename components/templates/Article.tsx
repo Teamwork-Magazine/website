@@ -8,6 +8,8 @@ import styles from "./Article.module.css";
 import { Story, StorySlice } from "../../prismic/types/story";
 import ArticleHeader from "../organisms/ArticleHeader";
 import AccentHeading from "../atoms/AccentHeading";
+import Section from "../molecules/Section";
+import SectionHeader from "../molecules/SectionHeader";
 
 export interface ArticleProps {
 	story: Story;
@@ -25,11 +27,17 @@ export default function Article({ story, recommendedStories }: ArticleProps) {
 							<ArticleBodySlice slice={slice} key={i} />
 						))}
 					</div>
-					<footer className={classNames(styles.footer, "u-layout-grid")}>
-						<Stack gap="var(--space-l-xl)" className="u-layout-wide">
-							<AccentHeading level={2}>Recommended Stories</AccentHeading>
-							<ArticleCardGrid stories={recommendedStories} />
-						</Stack>
+					<footer>
+						<Section>
+							<Stack gap="var(--space-l-xl)" className="u-layout-wide">
+								<SectionHeader>
+									<SectionHeader.Heading>
+										Recommended Stories
+									</SectionHeader.Heading>
+								</SectionHeader>
+								<ArticleCardGrid stories={recommendedStories} />
+							</Stack>
+						</Section>
 					</footer>
 				</Stack>
 			</article>

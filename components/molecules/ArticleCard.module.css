@@ -4,41 +4,33 @@
 	outline-offset: 6px;
 }
 
-.card .thumbnail,
-.card .kicker,
-.card .blurb {
+.thumbnail,
+.kicker,
+.blurb,
+.byline {
 	transition: 120ms opacity linear;
 }
 
 .card:hover .thumbnail,
 .card:hover .kicker,
-.card:hover .blurb {
+.card:hover .blurb,
+.card:hover .byline {
 	opacity: 0.667;
-}
-
-.thumbnail {
-	flex: 0 1 25%;
 }
 
 .body {
 	display: flex;
 	flex-direction: column;
-	flex: 0 1 75%;
 }
 
 .headline,
-.blurb {
-	margin-top: var(--space-3xs);
+.blurb,
+.byline {
+	margin-top: var(--article-card-stack-gap, var(--space-3xs));
 }
 
 .kicker {
 	order: -1;
-	font-family: var(--font-family-accent);
-	font-size: var(--step--2);
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	color: var(--color-accent-600);
 }
 
 .headline {
@@ -61,28 +53,25 @@
 	text-decoration: none;
 }
 
-.blurb {
-	font-size: var(--step--1);
-	color: var(--color-gray-600);
-}
+/* Normal layout */
 
 @media (max-width: 559px) {
-	.thumbnail {
+	.card[data-layout="normal"] .thumbnail {
 		margin-left: var(--space-s);
 		flex: 0 1 25%;
 	}
 
-	.body {
+	.card[data-layout="normal"] .body {
 		flex: 0 1 75%;
 	}
 }
 
 @media (min-width: 560px) {
-	.card {
+	.card[data-layout="normal"] {
 		flex-direction: column;
 	}
 
-	.thumbnail {
+	.card[data-layout="normal"] .thumbnail {
 		order: -1;
 		margin-bottom: var(--space-xs);
 	}
@@ -91,9 +80,14 @@
 /* Featured layout */
 
 .card[data-layout="featured"] {
+	--article-card-stack-gap: var(--space-2xs);
 	text-align: center;
 	max-width: none;
 	width: 100%;
+}
+
+.card[data-layout="featured"] .thumbnail {
+	order: -1;
 }
 
 .card[data-layout="featured"] .body {
@@ -105,18 +99,26 @@
 	font-family: var(--font-family-accent);
 }
 
-.card[data-layout="featured"] .body {
-	align-items: center;
+@media (max-width: 767px) {
+	.card[data-layout="featured"] {
+		flex-direction: column;
+	}
+
+	.card[data-layout="featured"] .thumbnail {
+		margin-bottom: var(--space-m);
+	}
 }
 
-.card[data-layout="featured"] .body {
-	align-items: center;
-}
+@media (min-width: 768px) {
+	.card[data-layout="featured"] {
+		align-items: center;
+	}
 
-.card[data-variant="featured"] .kicker {
-	font-size: var(--step-0);
-}
+	.card[data-layout="featured"] > * {
+		flex-basis: 50%;
+	}
 
-.card[data-variant="featured"] .thumbnail {
-	margin-bottom: var(--space-m);
+	.card[data-layout="featured"] .thumbnail {
+		margin-right: var(--space-m);
+	}
 }

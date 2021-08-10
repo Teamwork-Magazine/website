@@ -8,6 +8,7 @@ import { getNavigation } from "../../prismic/queries/navigation";
 import { createClient } from "../../prismic/client";
 import SEO from "../../components/organisms/SEO";
 import { RichText } from "prismic-reactjs";
+import { getSite } from "../../prismic/queries/site";
 
 const StoryMap = new Map(
 	Object.values(Stories).map((story) => [story.slug, story])
@@ -32,7 +33,7 @@ export default function StoryPage({
 	site,
 }: StoryPageProps) {
 	return (
-		<>
+		<BaseLayout navigation={navigation}>
 			<SEO
 				title={story.socialTitle ?? story.title}
 				description={
@@ -46,10 +47,8 @@ export default function StoryPage({
 				image={story.thumbnail}
 				openGraphType="article"
 			/>
-			<BaseLayout navigation={navigation}>
-				<Article story={story} recommendedStories={recommendedStories} />
-			</BaseLayout>
-		</>
+			<Article story={story} recommendedStories={recommendedStories} />
+		</BaseLayout>
 	);
 }
 
@@ -68,7 +67,10 @@ export const getStaticProps: GetStaticProps<
 	}
 
 	const client = createClient();
-	const navigation = await getNavigation(client);
+	const [navigation, site] = await Promise.all([
+		getNavigation(client),
+		getSite(client),
+	]);
 
 	return {
 		props: {
@@ -77,10 +79,7 @@ export const getStaticProps: GetStaticProps<
 				(otherStory) => otherStory.slug !== story.slug
 			),
 			navigation,
-			site: {
-				title: "Teamwork Magazine",
-				url: process.env.URL ?? "",
-			},
+			site,
 		},
 	};
 };
