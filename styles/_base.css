@@ -15,6 +15,7 @@ article,
 header,
 nav,
 main,
+section,
 footer {
 	max-width: none;
 }
@@ -91,7 +92,9 @@ svg {
 }
 
 svg,
-path {
+path,
+polygon,
+polyline {
 	fill: currentColor;
 	stroke: currentColor;
 }

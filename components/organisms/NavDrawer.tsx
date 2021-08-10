@@ -10,14 +10,14 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { ReactNode } from "react";
 import { PageLink } from "../../prismic/types/page";
-import { SectionLink } from "../../prismic/types/section";
+import { CategoryLink } from "../../prismic/types/category";
 import CloseIcon from "../atoms/icons/Close";
 import MenuIcon from "../atoms/icons/Menu";
 import styles from "./NavDrawer.module.css";
 
 export interface NavMenuProps {
 	className?: string;
-	sections: SectionLink[];
+	sections: CategoryLink[];
 	pages: PageLink[];
 }
 
