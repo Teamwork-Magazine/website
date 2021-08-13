@@ -14,6 +14,7 @@ import { CategoryLink } from "../../prismic/types/category";
 import CloseIcon from "../atoms/icons/Close";
 import MenuIcon from "../atoms/icons/Menu";
 import styles from "./NavDrawer.module.css";
+import { Routes } from "../../prismic/routes";
 
 export interface NavMenuProps {
 	className?: string;
@@ -104,16 +105,19 @@ export default function NavMenu({ sections, pages, className }: NavMenuProps) {
 											aria-label="Sections"
 											data-weight="primary"
 										>
-											{sections.map((section, i) => (
+											{sections.map(({ slug, name }, i) => (
 												<NavDrawerLink
-													key={section.slug}
+													key={slug}
 													index={i}
-													href={`/stories/sections/${section.slug}`}
+													href={Routes.category({ slug })}
 												>
-													{section.name}
+													{name}
 												</NavDrawerLink>
 											))}
-											<NavDrawerLink index={sections.length} href="/stories">
+											<NavDrawerLink
+												index={sections.length}
+												href={Routes.allStories}
+											>
 												All Stories
 											</NavDrawerLink>
 										</ul>
@@ -122,13 +126,13 @@ export default function NavMenu({ sections, pages, className }: NavMenuProps) {
 											aria-label="Other pages"
 											data-weight="secondary"
 										>
-											{pages.map((page, i) => (
+											{pages.map(({ slug, title }, i) => (
 												<NavDrawerLink
-													key={page.slug}
+													key={slug}
 													index={sections.length + 1 + i}
-													href={`/${page.slug}`}
+													href={Routes.page({ slug })}
 												>
-													{page.title}
+													{title}
 												</NavDrawerLink>
 											))}
 										</ul>

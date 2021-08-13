@@ -8,15 +8,24 @@ import { Story, StorySchema } from "../types/story";
 
 const transformOptions = withFetchLinks(["section.name", "person.name"]);
 
-export async function allStories(
+export async function getAllStories(
 	client: DefaultClient,
+	predicates: string[] = [],
 	options: QueryOptions = {}
 ): Promise<Story[]> {
+	const query = [
+		Prismic.predicates.at("document.type", "story"),
+		...predicates,
+	];
+
 	const docs = await collect(
 		fetchAll(
 			client,
-			Prismic.predicates.at("document.type", "story"),
-			transformOptions(options)
+			query,
+			transformOptions({
+				...options,
+				orderings: "[document.first_publication_date desc]",
+			})
 		)
 	);
 

@@ -66,9 +66,8 @@ export default function HomePage({
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
 	const client = createClient();
-	const [leadStory, categories, navigation, site] = await Promise.all([
+	const [leadStory, navigation, site] = await Promise.all([
 		getLeadStory(client),
-		getAllCategories(client),
 		getNavigation(client),
 		getSite(client),
 	]);

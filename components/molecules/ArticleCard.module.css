@@ -29,6 +29,10 @@
 	margin-top: var(--article-card-stack-gap, var(--space-3xs));
 }
 
+.thumbnail {
+	max-width: none;
+}
+
 .kicker {
 	order: -1;
 }

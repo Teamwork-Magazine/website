@@ -11,6 +11,7 @@ import { resizeToHeight } from "../../lib/images/resize";
 import NavMenu from "./NavDrawer";
 import NavList, { NavLinkPriority, NavListLink } from "../molecules/NavList";
 import SkipLink from "../atoms/SkipLink";
+import { Routes } from "../../prismic/routes";
 
 export interface HeaderProps {
 	sections: CategoryLink[];
@@ -50,31 +51,31 @@ export default function Header({ sections, pages }: HeaderProps) {
 						</a>
 					</Link>
 					<NavList className={styles.list} label="Sections">
-						{sections.slice(0, 3).map((section, i) => {
+						{sections.slice(0, 3).map(({ slug, name }, i) => {
 							return (
 								<NavListLink
-									key={section.slug}
-									href={`/stories/sections/${section.slug}`}
+									key={slug}
+									href={Routes.category({ slug })}
 									priority={getPriority(i)}
 								>
-									{section.name}
+									{name}
 								</NavListLink>
 							);
 						})}
-						<NavListLink href={`/stories`} priority="primary">
+						<NavListLink href={Routes.allStories} priority="primary">
 							All Stories
 						</NavListLink>
 					</NavList>
 					<div className={styles.right}>
 						<NavList className={styles.list} label="Other pages">
-							{pages.slice(0, 3).map((page, i) => {
+							{pages.slice(0, 3).map(({ title, slug }, i) => {
 								return (
 									<NavListLink
-										key={page.slug}
-										href={`/${page.slug}`}
+										key={slug}
+										href={Routes.page({ slug })}
 										priority={getPriority(i)}
 									>
-										{page.title}
+										{title}
 									</NavListLink>
 								);
 							})}

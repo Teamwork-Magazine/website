@@ -1,5 +1,6 @@
 .header {
 	padding-top: var(--space-m-l);
+	padding-bottom: var(--space-m-l);
 }
 
 .nav {

@@ -1,0 +1,25 @@
+.header {
+	padding-top: var(--space-m-l);
+	padding-bottom: var(--space-m-l);
+}
+
+.heading {
+	font-family: var(--font-family-headline);
+	font-weight: 300;
+}
+
+.accent {
+	width: 8ch;
+	border-top: 4px var(--color-accent-500) solid;
+	display: inline-block;
+}
+
+@media (max-width: 639px) {
+	.header {
+		text-align: center;
+	}
+
+	.breadcrumb {
+		display: none;
+	}
+}

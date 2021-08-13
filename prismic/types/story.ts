@@ -61,7 +61,7 @@ export const StorySchema = new Schema<Document, Story>({
 	},
 	section(doc) {
 		const section: LinkedDocument = doc.data.section;
-		return section.isBroken === false
+		return section?.isBroken === false
 			? CategorySchema.cast(section, ["name", "slug"])
 			: null;
 	},

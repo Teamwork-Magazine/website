@@ -3,10 +3,6 @@
 	padding-bottom: var(--space-l-xl);
 }
 
-.section[data-lead="true"] {
-	padding-top: var(--space-2xl-3xl);
-}
-
 .section:not([data-lead="true"]) {
 	border-top: 1px var(--color-gray-200) solid;
 }
