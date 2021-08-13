@@ -15,3 +15,17 @@ export async function getAllCategories(
 
 	return docs.map((doc) => CategorySchema.cast(doc));
 }
+
+export async function getCategory(
+	client: DefaultClient,
+	uid: string,
+	options: QueryOptions = {}
+): Promise<Category | null> {
+	const doc = await client.getByUID("section", uid, options);
+
+	if (!doc) {
+		return null;
+	}
+
+	return CategorySchema.cast(doc);
+}

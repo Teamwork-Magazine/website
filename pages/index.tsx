@@ -16,6 +16,7 @@ import { Category } from "../prismic/types/category";
 import Stack from "../components/atoms/Stack";
 import ArticleCardGrid from "../components/organisms/ArticleCardGrid";
 import SectionHeader from "../components/molecules/SectionHeader";
+import { Routes } from "../prismic/routes";
 
 export interface HomePageProps {
 	leadStory: Story | null;
@@ -36,7 +37,7 @@ export default function HomePage({
 				title={site.title}
 				description={site.description}
 				siteTitle={site.title}
-				url={`${site.url}/`}
+				url={site.url}
 			/>
 			<main>
 				<h1 className="u-visually-hidden">Teamwork Magazine</h1>
@@ -51,7 +52,7 @@ export default function HomePage({
 						<Stack gap="var(--space-l-xl)" className="u-layout-wide">
 							<SectionHeader>
 								<SectionHeader.Heading>The Latest</SectionHeader.Heading>
-								<SectionHeader.Link href="/stories">
+								<SectionHeader.Link href={Routes.allStories}>
 									All Stories
 								</SectionHeader.Link>
 							</SectionHeader>

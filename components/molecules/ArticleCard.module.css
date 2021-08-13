@@ -103,7 +103,7 @@
 	font-family: var(--font-family-accent);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 959px) {
 	.card[data-layout="featured"] {
 		flex-direction: column;
 	}
@@ -113,7 +113,7 @@
 	}
 }
 
-@media (min-width: 768px) {
+@media (min-width: 960px) {
 	.card[data-layout="featured"] {
 		align-items: center;
 	}

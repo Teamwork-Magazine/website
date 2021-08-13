@@ -2,17 +2,13 @@ import { ReactNode } from "react";
 import { Story } from "../../prismic/types/story";
 import Heading from "../atoms/Heading";
 import Stack from "../atoms/Stack";
+import Breadcrumb, { BreadcrumbLinkProps } from "../molecules/Breadcrumb";
 import Section from "../molecules/Section";
 import ArticleCard from "../molecules/ArticleCard";
 import ArticleCardGrid from "../organisms/ArticleCardGrid";
 import Link from "next/link";
 import classNames from "classnames";
 import styles from "./ArticleIndex.module.css";
-
-interface BreadcrumbLinkProps {
-	href: string;
-	children: ReactNode;
-}
 
 export interface ArticleIndexProps {
 	heading: ReactNode;
@@ -32,17 +28,11 @@ export default function ArticleIndex({
 			<header className={classNames(styles.header, "u-layout-grid")}>
 				<Stack className="u-layout-wide" gap="var(--space-xs-s)">
 					{breadcrumb && (
-						<nav aria-label="Breadcrumb">
-							<ul>
-								{breadcrumb.map(({ href, children }) => (
-									<li key={href}>
-										<Link href={href}>
-											<a>{children}</a>
-										</Link>
-									</li>
-								))}
-							</ul>
-						</nav>
+						<Breadcrumb className={styles.breadcrumb}>
+							{breadcrumb.map((props) => (
+								<Breadcrumb.Link key={props.href} {...props} />
+							))}
+						</Breadcrumb>
 					)}
 					<Heading level={1} className={styles.heading}>
 						{heading}
