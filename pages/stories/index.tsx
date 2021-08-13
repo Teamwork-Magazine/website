@@ -7,6 +7,7 @@ import { createClient } from "../../prismic/client";
 import { getNavigation } from "../../prismic/queries/navigation";
 import { getSite } from "../../prismic/queries/site";
 import { getAllStories, getLeadStory } from "../../prismic/queries/stories";
+import { Routes } from "../../prismic/routes";
 import { Navigation } from "../../prismic/types/navigation";
 import { Site } from "../../prismic/types/site";
 import { Story } from "../../prismic/types/story";
@@ -27,10 +28,10 @@ export default function AllStoriesPage({
 	return (
 		<BaseLayout navigation={navigation}>
 			<SEO
-				title={site.title}
-				description={site.description}
+				title="All Stories"
+				description={`Browse all stories from ${site.title}`}
 				siteTitle={site.title}
-				url={`${site.url}/`}
+				url={site.url + Routes.allStories}
 			/>
 			<ArticleIndex
 				heading="All Stories"
