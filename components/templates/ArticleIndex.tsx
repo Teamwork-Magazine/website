@@ -6,7 +6,6 @@ import Breadcrumb, { BreadcrumbLinkProps } from "../molecules/Breadcrumb";
 import Section from "../molecules/Section";
 import ArticleCard from "../molecules/ArticleCard";
 import ArticleCardGrid from "../organisms/ArticleCardGrid";
-import Link from "next/link";
 import classNames from "classnames";
 import styles from "./ArticleIndex.module.css";
 
