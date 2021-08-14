@@ -82,12 +82,11 @@ svg {
 	display: block;
 }
 
-:focus,
-.u-focus-group:focus-within {
+:focus {
 	outline: 3px var(--color-secondary-500) solid;
 }
 
-.u-focus-group:focus-within .u-focus-group__deferred:focus {
+:focus:not(:focus-visible) {
 	outline: none;
 }
 
