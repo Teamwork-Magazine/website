@@ -4,6 +4,8 @@ interface Routeable {
 
 // Stories and story indexes
 const allStories = "/stories";
+const featuredStories = "/stories/featured";
+const uncategorizedStories = "/stories/section/uncategorized";
 const story = ({ slug }: Routeable) => `/stories/${slug}`;
 const category = ({ slug }: Routeable) => `/stories/section/${slug}`;
 const tag = ({ slug }: Routeable) => `/stories/tag/${slug}`;
@@ -21,6 +23,8 @@ const catchAll = page;
 
 export const Routes = {
 	allStories,
+	featuredStories,
+	uncategorizedStories,
 	story,
 	category,
 	tag,
