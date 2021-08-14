@@ -12,6 +12,11 @@
 	width: 8ch;
 	border-top: 4px var(--color-accent-500) solid;
 	display: inline-block;
+	margin-top: var(--space-xs-s);
+}
+
+.breadcrumb {
+	margin-bottom: var(--space-xs-s);
 }
 
 @media (max-width: 639px) {

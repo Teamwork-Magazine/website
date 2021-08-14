@@ -26,7 +26,7 @@ export default function ArticleIndex({
 	return (
 		<>
 			<header className={classNames(styles.header, "u-layout-grid")}>
-				<Stack className="u-layout-wide" gap="var(--space-xs-s)">
+				<div className="u-layout-wide">
 					{breadcrumb && (
 						<Breadcrumb className={styles.breadcrumb}>
 							{breadcrumb.map((props) => (
@@ -38,7 +38,7 @@ export default function ArticleIndex({
 						{heading}
 					</Heading>
 					<span className={styles.accent} aria-hidden="true" />
-				</Stack>
+				</div>
 			</header>
 			<main>
 				{leadStory && (
