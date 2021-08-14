@@ -18,12 +18,15 @@ const PLACEHOLDER_THUMBNAIL: ImageData = {
 	credit: null,
 };
 
+export type ArticleCardKickerPreference = "category" | "tag";
+
 type ArticleCardLayout = "normal" | "featured";
 
 export interface ArticleCardProps {
 	story: Story;
 	className?: string;
 	level?: HeadingLevel;
+	kickerPrefer?: ArticleCardKickerPreference;
 	layout?: ArticleCardLayout;
 }
 
@@ -31,10 +34,20 @@ export default function ArticleCard({
 	story,
 	level = 3,
 	layout = "normal",
+	kickerPrefer = "category",
 	className,
 }: ArticleCardProps) {
 	const isFeatured = layout === "featured";
 	const url = `/stories/${story.slug}`;
+
+	let kicker = "Uncategorized";
+	if (isFeatured && story.featured) {
+		kicker = "Featured";
+	} else if ((kickerPrefer === "tag" || !story.section) && story.tags.length) {
+		kicker = story.tags[0].name;
+	} else if (story.section) {
+		kicker = story.section.name;
+	}
 
 	return (
 		<article
@@ -53,7 +66,7 @@ export default function ArticleCard({
 					</Link>
 				</Headline>
 				<Kicker className={styles.kicker} size={isFeatured ? "lg" : "md"}>
-					{isFeatured ? "Featured" : story.section?.name ?? "Uncategorized"}
+					{kicker}
 				</Kicker>
 				{story.blurb && !isFeatured && (
 					<Blurb className={styles.blurb}>

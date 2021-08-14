@@ -51,6 +51,7 @@ export default function CategoryPage({
 				heading={category.name}
 				leadStory={leadStory}
 				otherStories={otherStories}
+				kickerPrefer="tag"
 			/>
 		</BaseLayout>
 	);

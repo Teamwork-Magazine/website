@@ -43,6 +43,7 @@ export default function UncategorizedPage({
 				heading="Uncategorized"
 				leadStory={leadStory}
 				otherStories={otherStories}
+				kickerPrefer="tag"
 			/>
 		</BaseLayout>
 	);
