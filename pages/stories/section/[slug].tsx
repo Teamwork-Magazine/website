@@ -1,4 +1,3 @@
-import Prismic from "@prismicio/client";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import BaseLayout from "../../../components/layouts/BaseLayout";
@@ -11,8 +10,9 @@ import {
 } from "../../../prismic/queries/categories";
 import { getNavigation } from "../../../prismic/queries/navigation";
 import { getSite } from "../../../prismic/queries/site";
-import { getAllStories, getLeadStory } from "../../../prismic/queries/stories";
+import { getStoriesByCategory } from "../../../prismic/queries/stories";
 import { Routes } from "../../../prismic/routes";
+import { selectLeadStory } from "../../../prismic/selectors/stories";
 import { Category } from "../../../prismic/types/category";
 import { Navigation } from "../../../prismic/types/navigation";
 import { Site } from "../../../prismic/types/site";
@@ -74,26 +74,19 @@ export const getStaticProps: GetStaticProps<
 		};
 	}
 
-	const predicates = [Prismic.predicates.at("my.story.section", category.id)];
-
-	const [leadStory, navigation, site] = await Promise.all([
-		getLeadStory(client, predicates),
+	const [stories, navigation, site] = await Promise.all([
+		getStoriesByCategory(client, category),
 		getNavigation(client),
 		getSite(client),
 	]);
 
-	const otherStories = await getAllStories(
-		client,
-		leadStory
-			? predicates.concat(Prismic.predicates.not("document.id", leadStory.id))
-			: predicates
-	);
+	const leadStory = selectLeadStory(stories);
 
 	return {
 		props: {
 			category,
 			leadStory,
-			otherStories,
+			otherStories: stories.filter((story) => story !== leadStory),
 			navigation,
 			site,
 		},

@@ -4,6 +4,7 @@ import { QueryOptions } from "@prismicio/client/types/ResolvedApi";
 import { collect } from "../../lib/async/collect";
 import { withFetchLinks } from "../fetch-links";
 import { fetchAll } from "../fetchAll";
+import { Category } from "../types/category";
 import { Story, StorySchema } from "../types/story";
 
 const transformOptions = withFetchLinks(["section.name", "person.name"]);
@@ -23,13 +24,51 @@ export async function getAllStories(
 			client,
 			query,
 			transformOptions({
-				...options,
 				orderings: "[document.first_publication_date desc]",
+				...options,
 			})
 		)
 	);
 
 	return docs.map((doc) => StorySchema.cast(doc));
+}
+
+export async function getStoriesByCategory(
+	client: DefaultClient,
+	category: Category | string,
+	predicates: string[] = [],
+	options: QueryOptions = {}
+): Promise<Story[]> {
+	const categoryId = typeof category === "string" ? category : category.id;
+	const query = [
+		Prismic.predicates.at("my.story.section", categoryId),
+		...predicates,
+	];
+
+	return getAllStories(client, query, options);
+}
+
+export async function getUncategorizedStories(
+	client: DefaultClient,
+	predicates: string[] = [],
+	options: QueryOptions = {}
+): Promise<Story[]> {
+	const query = [Prismic.predicates.missing("my.story.section"), ...predicates];
+
+	return getAllStories(client, query, options);
+}
+
+export async function getFeaturedStories(
+	client: DefaultClient,
+	predicates: string[] = [],
+	options: QueryOptions = {}
+): Promise<Story[]> {
+	const query = [
+		Prismic.predicates.at("my.story.featured", true),
+		...predicates,
+	];
+
+	return getAllStories(client, query, options);
 }
 
 export async function getLeadStory(

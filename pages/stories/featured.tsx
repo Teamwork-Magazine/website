@@ -1,4 +1,3 @@
-import Prismic from "@prismicio/client";
 import { GetStaticProps } from "next";
 import BaseLayout from "../../components/layouts/BaseLayout";
 import SEO from "../../components/organisms/SEO";
@@ -6,8 +5,9 @@ import ArticleIndex from "../../components/templates/ArticleIndex";
 import { createClient } from "../../prismic/client";
 import { getNavigation } from "../../prismic/queries/navigation";
 import { getSite } from "../../prismic/queries/site";
-import { getAllStories, getLeadStory } from "../../prismic/queries/stories";
+import { getFeaturedStories } from "../../prismic/queries/stories";
 import { Routes } from "../../prismic/routes";
+import { selectLeadStory } from "../../prismic/selectors/stories";
 import { Navigation } from "../../prismic/types/navigation";
 import { Site } from "../../prismic/types/site";
 import { Story } from "../../prismic/types/story";
@@ -50,25 +50,18 @@ export default function FeaturedPage({
 
 export const getStaticProps: GetStaticProps<FeaturedPageProps> = async () => {
 	const client = createClient();
-	const predicates = [Prismic.predicates.at("my.story.featured", true)];
-
-	const [leadStory, navigation, site] = await Promise.all([
-		getLeadStory(client, predicates),
+	const [stories, navigation, site] = await Promise.all([
+		getFeaturedStories(client),
 		getNavigation(client),
 		getSite(client),
 	]);
 
-	const otherStories = await getAllStories(
-		client,
-		leadStory
-			? predicates.concat(Prismic.predicates.not("document.id", leadStory.id))
-			: predicates
-	);
+	const leadStory = selectLeadStory(stories);
 
 	return {
 		props: {
 			leadStory,
-			otherStories,
+			otherStories: stories.filter((story) => story !== leadStory),
 			navigation,
 			site,
 		},
