@@ -33,6 +33,17 @@ export async function getAllStories(
 	return docs.map((doc) => StorySchema.cast(doc));
 }
 
+export async function getStoriesByTag(
+	client: DefaultClient,
+	tag: string,
+	predicates: string[] = [],
+	options: QueryOptions = {}
+): Promise<Story[]> {
+	const query = [Prismic.predicates.at("document.tags", [tag]), ...predicates];
+
+	return getAllStories(client, query, options);
+}
+
 export async function getStoriesByCategory(
 	client: DefaultClient,
 	category: Category | string,

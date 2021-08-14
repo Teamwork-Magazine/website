@@ -1,4 +1,3 @@
-import slugify from "slugify";
 import { Schema } from "../schema";
 
 export interface Tag {
@@ -8,7 +7,7 @@ export interface Tag {
 
 export const TagSchema = new Schema<string, Tag>({
 	slug(tag) {
-		return slugify(tag);
+		return encodeURIComponent(tag);
 	},
 	name(tag) {
 		return tag;
