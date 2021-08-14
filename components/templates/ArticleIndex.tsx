@@ -37,7 +37,7 @@ export default function ArticleIndex({
 					<Heading level={1} className={styles.heading}>
 						{heading}
 					</Heading>
-					<span className={styles.accent} aria-hidden="true" />
+					<div className={styles.accent} aria-hidden="true" />
 				</div>
 			</header>
 			<main>
