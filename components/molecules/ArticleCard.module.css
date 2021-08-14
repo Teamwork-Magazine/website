@@ -1,21 +1,5 @@
 .card {
-	cursor: pointer;
 	display: flex;
-	outline-offset: 6px;
-}
-
-.thumbnail,
-.kicker,
-.blurb,
-.byline {
-	transition: 120ms opacity linear;
-}
-
-.card:hover .thumbnail,
-.card:hover .kicker,
-.card:hover .blurb,
-.card:hover .byline {
-	opacity: 0.667;
 }
 
 .body {
@@ -29,8 +13,18 @@
 	margin-top: var(--article-card-stack-gap, var(--space-3xs));
 }
 
-.thumbnail {
+.thumbnail,
+.image {
 	max-width: none;
+}
+
+.thumbnail {
+	display: block;
+	transition: 120ms opacity linear;
+}
+
+.thumbnail:hover {
+	opacity: 0.667;
 }
 
 .kicker {
@@ -48,13 +42,8 @@
 	text-decoration: none;
 }
 
-.link:focus,
-.card:hover .link {
+.link:hover {
 	text-decoration: underline;
-}
-
-.card:focus-within .link:focus {
-	text-decoration: none;
 }
 
 /* Normal layout */
@@ -120,6 +109,11 @@
 
 	.card[data-layout="featured"] > * {
 		flex-basis: 50%;
+	}
+
+	.card[data-layout="featured"] .headline {
+		padding-left: var(--space-m);
+		padding-right: var(--space-m);
 	}
 
 	.card[data-layout="featured"] .thumbnail {

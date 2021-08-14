@@ -5,36 +5,42 @@ import ArticleIndex from "../../components/templates/ArticleIndex";
 import { createClient } from "../../prismic/client";
 import { getNavigation } from "../../prismic/queries/navigation";
 import { getSite } from "../../prismic/queries/site";
-import { getAllStories } from "../../prismic/queries/stories";
+import { getFeaturedStories } from "../../prismic/queries/stories";
 import { Routes } from "../../prismic/routes";
 import { selectLeadStory } from "../../prismic/selectors/stories";
 import { Navigation } from "../../prismic/types/navigation";
 import { Site } from "../../prismic/types/site";
 import { Story } from "../../prismic/types/story";
 
-export interface AllStoriesPageProps {
+export interface FeaturedPageProps {
 	leadStory: Story | null;
 	otherStories: Story[];
 	navigation: Navigation;
 	site: Site;
 }
 
-export default function AllStoriesPage({
+export default function FeaturedPage({
 	leadStory,
 	otherStories,
 	navigation,
 	site,
-}: AllStoriesPageProps) {
+}: FeaturedPageProps) {
 	return (
 		<BaseLayout navigation={navigation}>
 			<SEO
-				title="All Stories"
-				description={`Browse all stories from ${site.title}`}
+				title="Featured Stories"
+				description={`Browse all featured stories from ${site.title}`}
 				siteTitle={site.title}
-				url={site.url + Routes.allStories}
+				url={site.url + "/stories/featured"}
 			/>
 			<ArticleIndex
-				heading="All Stories"
+				breadcrumb={[
+					{
+						href: Routes.allStories,
+						children: "All Stories",
+					},
+				]}
+				heading="Featured"
 				leadStory={leadStory}
 				otherStories={otherStories}
 			/>
@@ -42,10 +48,10 @@ export default function AllStoriesPage({
 	);
 }
 
-export const getStaticProps: GetStaticProps<AllStoriesPageProps> = async () => {
+export const getStaticProps: GetStaticProps<FeaturedPageProps> = async () => {
 	const client = createClient();
 	const [stories, navigation, site] = await Promise.all([
-		getAllStories(client),
+		getFeaturedStories(client),
 		getNavigation(client),
 		getSite(client),
 	]);
@@ -55,9 +61,9 @@ export const getStaticProps: GetStaticProps<AllStoriesPageProps> = async () => {
 	return {
 		props: {
 			leadStory,
+			otherStories: stories.filter((story) => story !== leadStory),
 			navigation,
 			site,
-			otherStories: stories.filter((story) => story !== leadStory),
 		},
 	};
 };

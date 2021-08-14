@@ -4,9 +4,10 @@ import Heading from "../atoms/Heading";
 import Stack from "../atoms/Stack";
 import Breadcrumb, { BreadcrumbLinkProps } from "../molecules/Breadcrumb";
 import Section from "../molecules/Section";
-import ArticleCard from "../molecules/ArticleCard";
+import ArticleCard, {
+	ArticleCardKickerPreference,
+} from "../molecules/ArticleCard";
 import ArticleCardGrid from "../organisms/ArticleCardGrid";
-import Link from "next/link";
 import classNames from "classnames";
 import styles from "./ArticleIndex.module.css";
 
@@ -15,6 +16,7 @@ export interface ArticleIndexProps {
 	breadcrumb?: BreadcrumbLinkProps[];
 	leadStory: Story | null;
 	otherStories: Story[];
+	kickerPrefer?: ArticleCardKickerPreference;
 }
 
 export default function ArticleIndex({
@@ -22,11 +24,12 @@ export default function ArticleIndex({
 	breadcrumb,
 	leadStory,
 	otherStories,
+	kickerPrefer,
 }: ArticleIndexProps) {
 	return (
 		<>
 			<header className={classNames(styles.header, "u-layout-grid")}>
-				<Stack className="u-layout-wide" gap="var(--space-xs-s)">
+				<div className="u-layout-wide">
 					{breadcrumb && (
 						<Breadcrumb className={styles.breadcrumb}>
 							{breadcrumb.map((props) => (
@@ -37,21 +40,29 @@ export default function ArticleIndex({
 					<Heading level={1} className={styles.heading}>
 						{heading}
 					</Heading>
-					<span className={styles.accent} aria-hidden="true" />
-				</Stack>
+					<div className={styles.accent} aria-hidden="true" />
+				</div>
 			</header>
 			<main>
 				{leadStory && (
 					<Section lead>
 						<h2 className="u-visually-hidden">Lead Story</h2>
-						<ArticleCard story={leadStory} level={3} layout="featured" />
+						<ArticleCard
+							story={leadStory}
+							level={3}
+							layout="featured"
+							kickerPrefer={kickerPrefer}
+						/>
 					</Section>
 				)}
 				{otherStories.length > 0 ? (
 					<Section>
 						<h2 className="u-visually-hidden">More Stories</h2>
 						<Stack gap="var(--space-l-xl)" className="u-layout-wide">
-							<ArticleCardGrid stories={otherStories} />
+							<ArticleCardGrid
+								stories={otherStories}
+								kickerPrefer={kickerPrefer}
+							/>
 						</Stack>
 					</Section>
 				) : null}

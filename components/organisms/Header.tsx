@@ -20,71 +20,69 @@ export interface HeaderProps {
 
 export default function Header({ sections, pages }: HeaderProps) {
 	return (
-		<>
+		<header className={classNames(styles.header, "u-layout-grid")}>
 			<SkipLink />
-			<header className={classNames(styles.header, "u-layout-grid")}>
-				<nav
-					className={classNames(styles.nav, "u-layout-wide")}
-					role="navigation"
-					aria-label="Main navigation"
-				>
-					{/* Extended logo for wide displays */}
-					<Link href="/">
-						<a className={styles.home} data-logo-layout="extended">
-							<Image
-								className={styles.logo}
-								src={resizeToHeight(extendedLogo, 20)}
-								alt="Homepage, Teamwork Magazine logo"
-								priority
-							/>
-						</a>
-					</Link>
-					{/* Condensed logo for narrow displays */}
-					<Link href="/">
-						<a className={styles.home} data-logo-layout="condensed">
-							<Image
-								className={styles.logo}
-								src={resizeToHeight(condensedLogo, 40)}
-								alt="Homepage, Teamwork Magazine logo"
-								priority
-							/>
-						</a>
-					</Link>
-					<NavList className={styles.list} label="Sections">
-						{sections.slice(0, 3).map(({ slug, name }, i) => {
+			<nav
+				className={classNames(styles.nav, "u-layout-wide")}
+				role="navigation"
+				aria-label="Main navigation"
+			>
+				{/* Extended logo for wide displays */}
+				<Link href="/">
+					<a className={styles.home} data-logo-layout="extended">
+						<Image
+							className={styles.logo}
+							src={resizeToHeight(extendedLogo, 20)}
+							alt="Homepage, Teamwork Magazine logo"
+							priority
+						/>
+					</a>
+				</Link>
+				{/* Condensed logo for narrow displays */}
+				<Link href="/">
+					<a className={styles.home} data-logo-layout="condensed">
+						<Image
+							className={styles.logo}
+							src={resizeToHeight(condensedLogo, 40)}
+							alt="Homepage, Teamwork Magazine logo"
+							priority
+						/>
+					</a>
+				</Link>
+				<NavList className={styles.list} label="Sections">
+					{sections.slice(0, 3).map(({ slug, name }, i) => {
+						return (
+							<NavListLink
+								key={slug}
+								href={Routes.category({ slug })}
+								priority={getPriority(i)}
+							>
+								{name}
+							</NavListLink>
+						);
+					})}
+					<NavListLink href={Routes.allStories} priority="primary">
+						All Stories
+					</NavListLink>
+				</NavList>
+				<div className={styles.right}>
+					<NavList className={styles.list} label="Other pages">
+						{pages.slice(0, 3).map(({ title, slug }, i) => {
 							return (
 								<NavListLink
 									key={slug}
-									href={Routes.category({ slug })}
+									href={Routes.page({ slug })}
 									priority={getPriority(i)}
 								>
-									{name}
+									{title}
 								</NavListLink>
 							);
 						})}
-						<NavListLink href={Routes.allStories} priority="primary">
-							All Stories
-						</NavListLink>
 					</NavList>
-					<div className={styles.right}>
-						<NavList className={styles.list} label="Other pages">
-							{pages.slice(0, 3).map(({ title, slug }, i) => {
-								return (
-									<NavListLink
-										key={slug}
-										href={Routes.page({ slug })}
-										priority={getPriority(i)}
-									>
-										{title}
-									</NavListLink>
-								);
-							})}
-						</NavList>
-						<NavMenu sections={sections} pages={pages} />
-					</div>
-				</nav>
-			</header>
-		</>
+					<NavMenu sections={sections} pages={pages} />
+				</div>
+			</nav>
+		</header>
 	);
 }
 

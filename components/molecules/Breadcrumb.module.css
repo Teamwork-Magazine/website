@@ -17,6 +17,10 @@
 .item::after {
 	content: "/";
 	display: inline-block;
-	padding-left: var(--space-2xs);
 	color: var(--color-gray-300);
+}
+
+.item::after,
+.item + .item {
+	padding-left: var(--space-2xs);
 }

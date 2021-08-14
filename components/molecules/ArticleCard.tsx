@@ -5,14 +5,12 @@ import { HeadingLevel } from "../atoms/Heading";
 import Headline from "../atoms/Headline";
 import Blurb from "../atoms/Blurb";
 import Image from "./Image";
-import useClickableGroup from "../../lib/hooks/useClickableGroup";
-import styles from "./ArticleCard.module.css";
 import { Story } from "../../prismic/types/story";
-import placeholder from "../../public/thumbnail-placeholder.png";
 import { Image as ImageData } from "../../prismic/types/image";
 import Byline from "../atoms/Byline";
 import Kicker from "../atoms/Kicker";
-import { ReactNode } from "react";
+import placeholder from "../../public/thumbnail-placeholder.png";
+import styles from "./ArticleCard.module.css";
 
 const PLACEHOLDER_THUMBNAIL: ImageData = {
 	...placeholder,
@@ -20,12 +18,15 @@ const PLACEHOLDER_THUMBNAIL: ImageData = {
 	credit: null,
 };
 
+export type ArticleCardKickerPreference = "category" | "tag";
+
 type ArticleCardLayout = "normal" | "featured";
 
 export interface ArticleCardProps {
 	story: Story;
 	className?: string;
 	level?: HeadingLevel;
+	kickerPrefer?: ArticleCardKickerPreference;
 	layout?: ArticleCardLayout;
 }
 
@@ -33,31 +34,24 @@ export default function ArticleCard({
 	story,
 	level = 3,
 	layout = "normal",
+	kickerPrefer = "category",
 	className,
 }: ArticleCardProps) {
-	const { groupProps, linkProps } = useClickableGroup();
-
 	const isFeatured = layout === "featured";
+	const url = `/stories/${story.slug}`;
 
-	let kicker: ReactNode;
-	if (isFeatured) {
-		kicker = (
-			<Kicker className={styles.kicker} size="lg">
-				Featured
-			</Kicker>
-		);
-	} else {
-		kicker = (
-			<Kicker className={styles.kicker}>
-				{story.section?.name ?? "Uncategorized"}
-			</Kicker>
-		);
+	let kicker = "Uncategorized";
+	if (isFeatured && story.featured) {
+		kicker = "Featured";
+	} else if ((kickerPrefer === "tag" || !story.section) && story.tags.length) {
+		kicker = story.tags[0].name;
+	} else if (story.section) {
+		kicker = story.section.name;
 	}
 
 	return (
 		<article
-			{...groupProps}
-			className={classNames(styles.card, groupProps.className, className)}
+			className={classNames(styles.card, className)}
 			data-layout={layout}
 		>
 			<div className={styles.body}>
@@ -67,16 +61,13 @@ export default function ArticleCard({
 					accent={isFeatured}
 					size={isFeatured ? "lg" : "md"}
 				>
-					<Link href={`/stories/${story.slug}`}>
-						<a
-							{...linkProps}
-							className={classNames(styles.link, linkProps.className)}
-						>
-							{story.title}
-						</a>
+					<Link href={url}>
+						<a className={styles.link}>{story.title}</a>
 					</Link>
 				</Headline>
-				{kicker}
+				<Kicker className={styles.kicker} size={isFeatured ? "lg" : "md"}>
+					{kicker}
+				</Kicker>
 				{story.blurb && !isFeatured && (
 					<Blurb className={styles.blurb}>
 						<RichText render={story.blurb} />
@@ -86,12 +77,16 @@ export default function ArticleCard({
 					<Byline className={styles.byline} people={story.authors} size="lg" />
 				)}
 			</div>
-			<Image
-				{...(story.thumbnail ?? PLACEHOLDER_THUMBNAIL)}
-				alt=""
-				credit={null}
-				className={styles.thumbnail}
-			/>
+			<Link href={url}>
+				<a className={styles.thumbnail} tabIndex={-1} aria-hidden="true">
+					<Image
+						{...(story.thumbnail ?? PLACEHOLDER_THUMBNAIL)}
+						alt=""
+						credit={null}
+						className={styles.image}
+					/>
+				</a>
+			</Link>
 		</article>
 	);
 }

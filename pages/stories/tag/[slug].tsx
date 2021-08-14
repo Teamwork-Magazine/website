@@ -4,22 +4,19 @@ import BaseLayout from "../../../components/layouts/BaseLayout";
 import SEO from "../../../components/organisms/SEO";
 import ArticleIndex from "../../../components/templates/ArticleIndex";
 import { createClient } from "../../../prismic/client";
-import {
-	getAllCategories,
-	getCategory,
-} from "../../../prismic/queries/categories";
 import { getNavigation } from "../../../prismic/queries/navigation";
 import { getSite } from "../../../prismic/queries/site";
-import { getStoriesByCategory } from "../../../prismic/queries/stories";
+import { getStoriesByTag } from "../../../prismic/queries/stories";
+import { getAllTags } from "../../../prismic/queries/tags";
 import { Routes } from "../../../prismic/routes";
 import { selectLeadStory } from "../../../prismic/selectors/stories";
-import { Category } from "../../../prismic/types/category";
 import { Navigation } from "../../../prismic/types/navigation";
 import { Site } from "../../../prismic/types/site";
 import { Story } from "../../../prismic/types/story";
+import { Tag } from "../../../prismic/types/tag";
 
-export interface CategoryPageProps {
-	category: Category;
+export interface TagPageProps {
+	tag: Tag;
 	leadStory: Story | null;
 	otherStories: Story[];
 	navigation: Navigation;
@@ -27,19 +24,19 @@ export interface CategoryPageProps {
 }
 
 export default function CategoryPage({
-	category,
+	tag,
 	leadStory,
 	otherStories,
 	navigation,
 	site,
-}: CategoryPageProps) {
+}: TagPageProps) {
 	return (
 		<BaseLayout navigation={navigation}>
 			<SEO
-				title={category.name}
-				description={`Browse all ${category.name} stories from ${site.title}`}
+				title={tag.name}
+				description={`Browse all stories tagged ${tag.name} from ${site.title}`}
 				siteTitle={site.title}
-				url={site.url + Routes.category(category)}
+				url={site.url + Routes.tag(tag)}
 			/>
 			<ArticleIndex
 				breadcrumb={[
@@ -48,44 +45,53 @@ export default function CategoryPage({
 						children: "All Stories",
 					},
 				]}
-				heading={category.name}
+				heading={`Tag: ${tag.name}`}
 				leadStory={leadStory}
 				otherStories={otherStories}
-				kickerPrefer="tag"
 			/>
 		</BaseLayout>
 	);
 }
 
-interface CategoryPageQuery extends ParsedUrlQuery {
+interface TagPageQuery extends ParsedUrlQuery {
 	slug: string;
 }
 
 export const getStaticProps: GetStaticProps<
-	CategoryPageProps,
-	CategoryPageQuery
+	TagPageProps,
+	TagPageQuery
 > = async ({ params }) => {
-	const slug = params?.slug!;
-	const client = createClient();
-	const category = await getCategory(client, slug);
+	const slug = params?.slug;
 
-	if (!category) {
+	if (!slug) {
 		return {
 			notFound: true,
 		};
 	}
 
+	const tag = decodeURIComponent(slug);
+	const client = createClient();
+
 	const [stories, navigation, site] = await Promise.all([
-		getStoriesByCategory(client, category),
+		getStoriesByTag(client, tag),
 		getNavigation(client),
 		getSite(client),
 	]);
+
+	if (stories.length === 0) {
+		return {
+			notFound: true,
+		};
+	}
 
 	const leadStory = selectLeadStory(stories);
 
 	return {
 		props: {
-			category,
+			tag: {
+				name: tag,
+				slug,
+			},
 			leadStory,
 			otherStories: stories.filter((story) => story !== leadStory),
 			navigation,
@@ -96,10 +102,10 @@ export const getStaticProps: GetStaticProps<
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const client = createClient();
-	const categories = await getAllCategories(client);
+	const tags = await getAllTags(client);
 
 	return {
 		fallback: false,
-		paths: categories.map(({ slug }) => Routes.category({ slug })),
+		paths: tags.map(({ slug }) => Routes.tag({ slug })),
 	};
 };
