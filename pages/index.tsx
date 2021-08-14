@@ -8,14 +8,14 @@ import SEO from "../components/organisms/SEO";
 import { Site } from "../prismic/types/site";
 import { getSite } from "../prismic/queries/site";
 import { Story } from "../prismic/types/story";
-import { getLatestStories, getLeadStory } from "../prismic/queries/stories";
+import { getLatestStories } from "../prismic/queries/stories";
 import ArticleCard from "../components/molecules/ArticleCard";
 import Section from "../components/molecules/Section";
-import { getAllCategories } from "../prismic/queries/categories";
-import { Category } from "../prismic/types/category";
 import Stack from "../components/atoms/Stack";
 import ArticleCardGrid from "../components/organisms/ArticleCardGrid";
 import SectionHeader from "../components/molecules/SectionHeader";
+import { Routes } from "../prismic/routes";
+import { selectLeadStory } from "../prismic/selectors/stories";
 
 export interface HomePageProps {
 	leadStory: Story | null;
@@ -36,7 +36,7 @@ export default function HomePage({
 				title={site.title}
 				description={site.description}
 				siteTitle={site.title}
-				url={`${site.url}/`}
+				url={site.url}
 			/>
 			<main>
 				<h1 className="u-visually-hidden">Teamwork Magazine</h1>
@@ -51,7 +51,7 @@ export default function HomePage({
 						<Stack gap="var(--space-l-xl)" className="u-layout-wide">
 							<SectionHeader>
 								<SectionHeader.Heading>The Latest</SectionHeader.Heading>
-								<SectionHeader.Link href="/stories">
+								<SectionHeader.Link href={Routes.allStories}>
 									All Stories
 								</SectionHeader.Link>
 							</SectionHeader>
@@ -66,25 +66,20 @@ export default function HomePage({
 
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
 	const client = createClient();
-	const [leadStory, categories, navigation, site] = await Promise.all([
-		getLeadStory(client),
-		getAllCategories(client),
+	const [stories, navigation, site] = await Promise.all([
+		getLatestStories(client, [], { pageSize: 16 }),
 		getNavigation(client),
 		getSite(client),
 	]);
 
-	const latestStories = await getLatestStories(
-		client,
-		leadStory ? [Prismic.predicates.not("document.id", leadStory.id)] : [],
-		{ pageSize: 16 }
-	);
+	const leadStory = selectLeadStory(stories);
 
 	return {
 		props: {
 			leadStory,
 			navigation,
 			site,
-			latestStories,
+			latestStories: stories.filter((story) => story !== leadStory),
 		},
 	};
 };

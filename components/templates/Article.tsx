@@ -7,9 +7,9 @@ import ArticleCardGrid from "../organisms/ArticleCardGrid";
 import styles from "./Article.module.css";
 import { Story, StorySlice } from "../../prismic/types/story";
 import ArticleHeader from "../organisms/ArticleHeader";
-import AccentHeading from "../atoms/AccentHeading";
 import Section from "../molecules/Section";
 import SectionHeader from "../molecules/SectionHeader";
+import { linkResolver } from "../../prismic/config";
 
 export interface ArticleProps {
 	story: Story;
@@ -54,7 +54,7 @@ function ArticleBodySlice({ slice }: ArticleBodySliceProps) {
 		case "rich-text":
 			return (
 				<Stack gap="var(--space-s)">
-					<RichText render={slice.blocks} />
+					<RichText render={slice.blocks} linkResolver={linkResolver} />
 				</Stack>
 			);
 		case "pull-quote":

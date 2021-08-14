@@ -2,14 +2,35 @@ interface Routeable {
 	slug: string;
 }
 
-type Router = (entity: Routeable) => string;
+// Stories and story indexes
+const allStories = "/stories";
+const featuredStories = "/stories/featured";
+const uncategorizedStories = "/stories/section/uncategorized";
+const story = ({ slug }: Routeable) => `/stories/${slug}`;
+const category = ({ slug }: Routeable) => `/stories/section/${slug}`;
+const tag = ({ slug }: Routeable) => `/stories/tag/${slug}`;
 
-const story: Router = ({ slug }) => `/stories/${slug}`;
-const person: Router = ({ slug }) => `/people/${slug}`;
-const section: Router = ({ slug }) => `/sections/${slug}`;
+// Specialty pages
+const privacy = "/privacy";
+const issues = "/issues";
+const stockists = "/stockists";
+
+// Generic pages
+const page = ({ slug }: Routeable) => `/${slug}`;
+
+// Catch-all route
+const catchAll = page;
 
 export const Routes = {
+	allStories,
+	featuredStories,
+	uncategorizedStories,
 	story,
-	person,
-	section,
+	category,
+	tag,
+	privacy,
+	issues,
+	stockists,
+	page,
+	catchAll,
 };

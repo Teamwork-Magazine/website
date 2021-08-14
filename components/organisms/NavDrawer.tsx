@@ -14,6 +14,7 @@ import { CategoryLink } from "../../prismic/types/category";
 import CloseIcon from "../atoms/icons/Close";
 import MenuIcon from "../atoms/icons/Menu";
 import styles from "./NavDrawer.module.css";
+import { Routes } from "../../prismic/routes";
 
 export interface NavMenuProps {
 	className?: string;
@@ -90,49 +91,59 @@ export default function NavMenu({ sections, pages, className }: NavMenuProps) {
 										},
 									}}
 								>
-									<div className={styles.controls}>
-										<Popover.Button className={styles.close}>
-											<CloseIcon
-												className={styles.closeIcon}
-												aria-label="Close menu"
-											/>
-										</Popover.Button>
-									</div>
-									<div className={styles.contents}>
-										<ul
-											className={styles.list}
-											aria-label="Sections"
-											data-weight="primary"
-										>
-											{sections.map((section, i) => (
-												<NavDrawerLink
-													key={section.slug}
-													index={i}
-													href={`/stories/sections/${section.slug}`}
+									{({ close }) => (
+										<>
+											<div className={styles.controls}>
+												<Popover.Button className={styles.close}>
+													<CloseIcon
+														className={styles.closeIcon}
+														aria-label="Close menu"
+													/>
+												</Popover.Button>
+											</div>
+											<div className={styles.contents}>
+												<ul
+													className={styles.list}
+													aria-label="Sections"
+													data-weight="primary"
 												>
-													{section.name}
-												</NavDrawerLink>
-											))}
-											<NavDrawerLink index={sections.length} href="/stories">
-												All Stories
-											</NavDrawerLink>
-										</ul>
-										<ul
-											className={styles.list}
-											aria-label="Other pages"
-											data-weight="secondary"
-										>
-											{pages.map((page, i) => (
-												<NavDrawerLink
-													key={page.slug}
-													index={sections.length + 1 + i}
-													href={`/${page.slug}`}
+													{sections.map(({ slug, name }, i) => (
+														<NavDrawerLink
+															key={slug}
+															index={i}
+															href={Routes.category({ slug })}
+															close={close}
+														>
+															{name}
+														</NavDrawerLink>
+													))}
+													<NavDrawerLink
+														index={sections.length}
+														href={Routes.allStories}
+														close={close}
+													>
+														All Stories
+													</NavDrawerLink>
+												</ul>
+												<ul
+													className={styles.list}
+													aria-label="Other pages"
+													data-weight="secondary"
 												>
-													{page.title}
-												</NavDrawerLink>
-											))}
-										</ul>
-									</div>
+													{pages.map(({ slug, title }, i) => (
+														<NavDrawerLink
+															key={slug}
+															index={sections.length + 1 + i}
+															href={Routes.page({ slug })}
+															close={close}
+														>
+															{title}
+														</NavDrawerLink>
+													))}
+												</ul>
+											</div>
+										</>
+									)}
 								</Popover.Panel>
 							)}
 						</AnimatePresence>
@@ -147,9 +158,10 @@ interface NavDrawerLinkProps {
 	href: string;
 	index: number;
 	children: ReactNode;
+	close: () => void;
 }
 
-function NavDrawerLink({ href, index, children }: NavDrawerLinkProps) {
+function NavDrawerLink({ href, index, children, close }: NavDrawerLinkProps) {
 	const shouldReduceMotion = useReducedMotion();
 
 	const variants: Variants = useMemo(
@@ -183,7 +195,9 @@ function NavDrawerLink({ href, index, children }: NavDrawerLinkProps) {
 			animate="visible"
 		>
 			<Link href={href}>
-				<a className={styles.link}>{children}</a>
+				<a className={styles.link} onClick={close}>
+					{children}
+				</a>
 			</Link>
 		</motion.li>
 	);

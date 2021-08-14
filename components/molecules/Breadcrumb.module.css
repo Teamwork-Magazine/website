@@ -1,0 +1,26 @@
+.list {
+	list-style: none;
+	display: flex;
+	padding: 0;
+	line-height: 1;
+}
+
+.link {
+	text-decoration: none;
+	color: var(--color-gray-500);
+}
+
+.link:hover {
+	text-decoration: underline;
+}
+
+.item::after {
+	content: "/";
+	display: inline-block;
+	color: var(--color-gray-300);
+}
+
+.item::after,
+.item + .item {
+	padding-left: var(--space-2xs);
+}
