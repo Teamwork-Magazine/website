@@ -9,21 +9,17 @@ import { createClient } from "../../prismic/client";
 import SEO from "../../components/organisms/SEO";
 import { RichText } from "prismic-reactjs";
 import { getSite } from "../../prismic/queries/site";
+import { Site } from "../../prismic/types/site";
 
 const StoryMap = new Map(
 	Object.values(Stories).map((story) => [story.slug, story])
 );
 
-interface SiteConfig {
-	title: string;
-	url: string;
-}
-
 export interface StoryPageProps {
 	story: Story;
 	recommendedStories: Story[];
 	navigation: Navigation;
-	site: SiteConfig;
+	site: Site;
 }
 
 export default function StoryPage({
@@ -33,7 +29,7 @@ export default function StoryPage({
 	site,
 }: StoryPageProps) {
 	return (
-		<BaseLayout navigation={navigation}>
+		<BaseLayout site={site} navigation={navigation}>
 			<SEO
 				title={story.socialTitle ?? story.title}
 				description={

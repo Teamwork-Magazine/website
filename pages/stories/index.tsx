@@ -26,7 +26,7 @@ export default function AllStoriesPage({
 	site,
 }: AllStoriesPageProps) {
 	return (
-		<BaseLayout navigation={navigation}>
+		<BaseLayout site={site} navigation={navigation}>
 			<SEO
 				title="All Stories"
 				description={`Browse all stories from ${site.title}`}

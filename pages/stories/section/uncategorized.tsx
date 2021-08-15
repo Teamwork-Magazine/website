@@ -26,7 +26,7 @@ export default function UncategorizedPage({
 	site,
 }: UncategorizedPageProps) {
 	return (
-		<BaseLayout navigation={navigation}>
+		<BaseLayout site={site} navigation={navigation}>
 			<SEO
 				title="Uncategorized"
 				description={`Browse all Uncategorized stories from ${site.title}`}
