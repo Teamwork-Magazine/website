@@ -34,7 +34,7 @@ export default function CategoryPage({
 	site,
 }: CategoryPageProps) {
 	return (
-		<BaseLayout navigation={navigation}>
+		<BaseLayout site={site} navigation={navigation}>
 			<SEO
 				title={category.name}
 				description={`Browse all ${category.name} stories from ${site.title}`}

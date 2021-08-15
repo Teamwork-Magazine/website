@@ -26,7 +26,7 @@ export default function FeaturedPage({
 	site,
 }: FeaturedPageProps) {
 	return (
-		<BaseLayout navigation={navigation}>
+		<BaseLayout site={site} navigation={navigation}>
 			<SEO
 				title="Featured Stories"
 				description={`Browse all featured stories from ${site.title}`}

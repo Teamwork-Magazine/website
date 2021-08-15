@@ -31,7 +31,7 @@ export default function HomePage({
 	latestStories,
 }: HomePageProps) {
 	return (
-		<BaseLayout navigation={navigation}>
+		<BaseLayout site={site} navigation={navigation}>
 			<SEO
 				title={site.title}
 				description={site.description}

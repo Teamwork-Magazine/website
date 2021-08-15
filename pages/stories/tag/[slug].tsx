@@ -31,7 +31,7 @@ export default function CategoryPage({
 	site,
 }: TagPageProps) {
 	return (
-		<BaseLayout navigation={navigation}>
+		<BaseLayout site={site} navigation={navigation}>
 			<SEO
 				title={tag.name}
 				description={`Browse all stories tagged ${tag.name} from ${site.title}`}
