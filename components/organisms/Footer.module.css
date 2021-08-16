@@ -1,6 +1,6 @@
 .footer {
 	--grid-row-gap: 0;
-	background-color: var(--color-gray-50);
+	background-color: var(--color-gray-100);
 	color: var(--color-gray-600);
 	font-size: var(--step--1);
 	padding-bottom: var(--space-s);
