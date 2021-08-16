@@ -26,7 +26,6 @@ export type PageLink = Pick<Page, "title" | "slug">;
 
 export const PageSchema = new Schema<Document, Page>({
 	id(doc) {
-		console.log("page", { doc });
 		return doc.id;
 	},
 	title(doc) {
