@@ -1,9 +1,9 @@
-import { useMemo } from "react";
 import { ReactNode } from "react";
 import { Navigation } from "../../prismic/types/navigation";
 import { Site } from "../../prismic/types/site";
 import Footer from "../organisms/Footer";
 import Header from "../organisms/Header";
+import styles from "./BaseLayout.module.css";
 
 export interface BaseLayoutProps {
 	site: Site;
@@ -28,6 +28,7 @@ export default function BaseLayout({
 			/>
 			<div>{children}</div>
 			<Footer
+				className={styles.footer}
 				site={site}
 				categories={navigation.sections
 					.filter((item) => item.isInFooter)

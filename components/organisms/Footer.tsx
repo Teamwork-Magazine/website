@@ -11,11 +11,17 @@ export interface FooterProps {
 	site: Site;
 	categories: CategoryLink[];
 	pages: PageLink[];
+	className?: string;
 }
 
-export default function Footer({ site, categories, pages }: FooterProps) {
+export default function Footer({
+	site,
+	categories,
+	pages,
+	className,
+}: FooterProps) {
 	return (
-		<footer className={classNames(styles.footer, "u-layout-grid")}>
+		<footer className={classNames(styles.footer, "u-layout-grid", className)}>
 			<div className={classNames(styles.primary, "u-layout-wide")}>
 				<nav className={styles.nav} aria-label="Footer links">
 					<ul className={styles.list} aria-label="Categories">

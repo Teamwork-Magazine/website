@@ -1,0 +1,15 @@
+.blocks h2 {
+	--flow-gap: var(--space-2xl);
+}
+
+.blocks h3 {
+	--flow-gap: var(--space-xl);
+}
+
+.blocks h4 {
+	--flow-gap: var(--space-l);
+}
+
+.blocks h4 + * {
+	--flow-gap: var(--space-3xs);
+}

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { RichText, RichTextBlock } from "prismic-reactjs";
+import { RichText } from "prismic-reactjs";
 import Stack from "../atoms/Stack";
 import PullQuote from "../molecules/PullQuote";
 import ImageGallery from "../molecules/ImageGallery";
@@ -9,7 +9,7 @@ import { Story, StorySlice } from "../../prismic/types/story";
 import ArticleHeader from "../organisms/ArticleHeader";
 import Section from "../molecules/Section";
 import SectionHeader from "../molecules/SectionHeader";
-import { linkResolver } from "../../prismic/config";
+import RichTextSection from "../organisms/RichTextSection";
 
 export interface ArticleProps {
 	story: Story;
@@ -52,11 +52,7 @@ interface ArticleBodySliceProps {
 function ArticleBodySlice({ slice }: ArticleBodySliceProps) {
 	switch (slice.type) {
 		case "rich-text":
-			return (
-				<Stack gap="var(--space-s)">
-					<RichText render={slice.blocks} linkResolver={linkResolver} />
-				</Stack>
-			);
+			return <RichTextSection slice={slice} />;
 		case "pull-quote":
 			return (
 				<div className="u-layout-pull-right">
