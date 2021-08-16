@@ -1,0 +1,14 @@
+.article {
+	--grid-row-gap: var(--space-l-xl);
+	margin-bottom: var(--space-l-xl);
+}
+
+.header {
+	padding-top: var(--space-l-xl);
+}
+
+.metadata {
+	font-family: var(--font-family-accent);
+	color: var(--color-gray-500);
+	font-size: var(--step--1);
+}

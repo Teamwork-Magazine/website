@@ -20,6 +20,13 @@ footer {
 	max-width: none;
 }
 
+body,
+#__next {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 100%;
+}
+
 a {
 	color: var(--color-secondary-600);
 }

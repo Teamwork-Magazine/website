@@ -5,19 +5,3 @@
 .body {
 	--grid-row-gap: var(--space-l-xl);
 }
-
-.body h2 {
-	--flow-gap: var(--space-2xl);
-}
-
-.body h3 {
-	--flow-gap: var(--space-xl);
-}
-
-.body h4 {
-	--flow-gap: var(--space-l);
-}
-
-.body h4 + * {
-	--flow-gap: var(--space-3xs);
-}
