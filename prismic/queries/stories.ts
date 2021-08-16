@@ -82,36 +82,38 @@ export async function getFeaturedStories(
 	return getAllStories(client, query, options);
 }
 
-export async function getLeadStory(
+export async function getStory(
 	client: DefaultClient,
-	predicates: string[] = [],
+	uid: string,
 	options: QueryOptions = {}
 ): Promise<Story | null> {
-	const latestQuery = [
-		Prismic.predicates.at("document.type", "story"),
-		...predicates,
-	];
-	const featuredQuery = [
-		...latestQuery,
-		Prismic.predicates.at("my.story.featured", true),
-	];
-
-	options = transformOptions({
-		...options,
-		orderings: "[document.first_publication_date desc]",
-	});
-
-	let doc = await client.queryFirst(featuredQuery, options);
-
-	if (!doc) {
-		doc = await client.queryFirst(latestQuery, options);
-	}
+	const doc = await client.getByUID("story", uid, transformOptions(options));
 
 	if (!doc) {
 		return null;
 	}
 
 	return StorySchema.cast(doc);
+}
+
+export async function getSimilarStories(
+	client: DefaultClient,
+	story: string | Story,
+	predicates: string[] = [],
+	options: QueryOptions = {}
+): Promise<Story[]> {
+	const id = typeof story === "string" ? story : story.id;
+
+	const { results: docs } = await client.query(
+		[
+			Prismic.predicates.at("document.type", "story"),
+			Prismic.predicates.similar(id, 10),
+			...predicates,
+		],
+		transformOptions(options)
+	);
+
+	return docs.map((doc) => StorySchema.cast(doc));
 }
 
 export async function getLatestStories(
