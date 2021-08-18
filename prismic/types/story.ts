@@ -78,18 +78,22 @@ export const StorySchema = new Schema<Document, Story>({
 		return blurb.length ? blurb : null;
 	},
 	authors(doc) {
-		const { authors = [] } = doc.data as { authors?: LinkedDocument[] };
+		const { authors = [] } = doc.data as {
+			authors?: { author: LinkedDocument }[];
+		};
 		return authors
-			.filter((author) => author.isBroken === false)
-			.map((author) => PersonSchema.cast(author, ["name", "slug"]));
+			.filter(({ author }) => author.isBroken === false)
+			.map(({ author }) => PersonSchema.cast(author, ["name", "slug"]));
 	},
 	photographers(doc) {
 		const { photographers = [] } = doc.data as {
-			photographers?: LinkedDocument[];
+			photographers?: { photographer: LinkedDocument }[];
 		};
 		return photographers
-			.filter((photographer) => photographer.isBroken === false)
-			.map((photographer) => PersonSchema.cast(photographer, ["name", "slug"]));
+			.filter(({ photographer }) => photographer.isBroken === false)
+			.map(({ photographer }) =>
+				PersonSchema.cast(photographer, ["name", "slug"])
+			);
 	},
 	tags(doc) {
 		return doc.tags.map((tag) => TagSchema.cast(tag));

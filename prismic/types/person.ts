@@ -1,4 +1,5 @@
 import { Document } from "@prismicio/client/types/documents";
+import { RichText, RichTextBlock } from "prismic-reactjs";
 import { Schema } from "../schema";
 
 export interface Person {
@@ -17,7 +18,7 @@ export const PersonSchema = new Schema<Document, Person>({
 		return doc.uid ?? doc.id;
 	},
 	name(doc) {
-		const { name } = doc.data;
-		return typeof name === "string" ? name : "Unknown";
+		const name = RichText.asText(doc.data.name ?? []);
+		return name || "Unknown";
 	},
 });

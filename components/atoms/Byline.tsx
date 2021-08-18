@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import Link from "next/link";
 import { ReactNode } from "react";
 import { PersonLink } from "../../prismic/types/person";
 import styles from "./Byline.module.css";
@@ -18,11 +17,8 @@ interface BylineLinkProps {
 }
 
 function BylineLink({ person }: BylineLinkProps) {
-	return (
-		<Link key={person.slug} href={`/people/${person.slug}`}>
-			<a className={styles.link}>{person.name}</a>
-		</Link>
-	);
+	// TODO: Render links to people pages once those have been implemented
+	return <>{person.name}</>;
 }
 
 export default function Byline({
