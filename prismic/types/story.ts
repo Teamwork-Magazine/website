@@ -66,7 +66,7 @@ export const StorySchema = new Schema<Document, Story>({
 			: null;
 	},
 	coverImage(doc) {
-		const coverImage: PrismicImage = doc.data.featured_image?.Default;
+		const coverImage: PrismicImage = doc.data.featured_image;
 		return coverImage ? ImageSchema.cast(coverImage) : null;
 	},
 	thumbnail(doc) {
