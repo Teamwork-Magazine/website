@@ -34,6 +34,7 @@ export default function Image({
 					height={height}
 					width={width}
 					priority={priority}
+					unoptimized
 				/>
 			</div>
 			{caption || credit ? (
