@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import Link from "next/link";
 import { ReactNode } from "react";
+import Button from "../atoms/Button";
 import Heading from "../atoms/Heading";
 import ArrowRightIcon from "../atoms/icons/ArrowRight";
 import styles from "./SectionHeader.module.css";
@@ -45,10 +46,8 @@ SectionHeader.Link = function SectionHeaderLink({
 	children,
 }: SectionHeaderLinkProps) {
 	return (
-		<Link href={href}>
-			<a className={classNames(styles.link, "u-text-accent", className)}>
-				{children} <ArrowRightIcon className={styles.icon} />
-			</a>
-		</Link>
+		<Button href={href} className={classNames(styles.link, className)}>
+			{children} <Button.Icon icon={ArrowRightIcon} />
+		</Button>
 	);
 };

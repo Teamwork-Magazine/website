@@ -8,12 +8,14 @@ import styles from "./BaseLayout.module.css";
 export interface BaseLayoutProps {
 	site: Site;
 	navigation: Navigation;
+	centerBody?: boolean;
 	children?: ReactNode;
 }
 
 export default function BaseLayout({
 	site,
 	navigation,
+	centerBody,
 	children,
 }: BaseLayoutProps) {
 	return (
@@ -26,7 +28,9 @@ export default function BaseLayout({
 					.filter((item) => item.isInHeader)
 					.map((item) => item.page)}
 			/>
-			<div>{children}</div>
+			<div className={styles.body} data-center={centerBody}>
+				{children}
+			</div>
 			<Footer
 				className={styles.footer}
 				site={site}
