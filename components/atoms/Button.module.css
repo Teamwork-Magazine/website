@@ -1,0 +1,35 @@
+.button,
+.icon {
+	transition: 120ms color linear, 120ms background-color linear;
+}
+
+.button {
+	color: var(--color-gray-500);
+	font-size: var(--step--1);
+	display: inline-flex;
+	gap: var(--space-3xs);
+	align-items: center;
+	padding: var(--space-3xs) var(--space-2xs);
+	border-radius: var(--border-radius, 4px);
+	border: 1px var(--color-gray-200) solid;
+	background-color: var(--color-gray-50);
+}
+
+a.button {
+	text-decoration: none;
+}
+
+.button:hover {
+	color: var(--color-black);
+	background-color: var(--color-white);
+}
+
+.icon {
+	color: var(--color-gray-400);
+	height: 2ex;
+	width: auto;
+}
+
+.button:hover .icon {
+	color: var(--color-accent-600);
+}

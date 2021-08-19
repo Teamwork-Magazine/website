@@ -1,3 +1,7 @@
-.footer {
+.body {
+	margin-bottom: auto;
+}
+
+.body[data-center="true"] {
 	margin-top: auto;
 }
