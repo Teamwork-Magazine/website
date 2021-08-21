@@ -10,6 +10,9 @@ import ArticleHeader from "../organisms/ArticleHeader";
 import Section from "../molecules/Section";
 import SectionHeader from "../molecules/SectionHeader";
 import RichTextSection from "../organisms/RichTextSection";
+import { useMemo } from "react";
+import { DateTime } from "luxon";
+import TagCloud from "../molecules/TagCloud";
 
 export interface ArticleProps {
 	story: Story;
@@ -17,6 +20,22 @@ export interface ArticleProps {
 }
 
 export default function Article({ story, recommendedStories }: ArticleProps) {
+	const { publishedAt: rawPublishedAt, updatedAt: rawUpdatedAt } = story;
+
+	const publishedAt = useMemo(() => {
+		if (!rawPublishedAt) return null;
+		return DateTime.fromISO(rawPublishedAt);
+	}, [rawPublishedAt]);
+
+	const updatedAt = useMemo(() => {
+		if (!rawUpdatedAt) return null;
+
+		const updatedAt = DateTime.fromISO(rawUpdatedAt);
+		if (publishedAt && updatedAt.equals(publishedAt)) return null;
+
+		return updatedAt;
+	}, [publishedAt, rawUpdatedAt]);
+
 	return (
 		<main>
 			<article>
@@ -28,6 +47,34 @@ export default function Article({ story, recommendedStories }: ArticleProps) {
 						))}
 					</div>
 					<footer>
+						<Section className={styles.metadata}>
+							<div className={classNames(styles.dates, "u-layout-wide")}>
+								<Stack gap="var(--space-2xs)">
+									{publishedAt ? (
+										<p>
+											Published on{" "}
+											<time dateTime={publishedAt.toISO()}>
+												{publishedAt.toLocaleString(DateTime.DATE_FULL)}
+											</time>
+										</p>
+									) : null}
+									{updatedAt ? (
+										<p>
+											Last updated on{" "}
+											<time dateTime={updatedAt.toISO()}>
+												{updatedAt.toLocaleString(DateTime.DATETIME_FULL)}
+											</time>
+										</p>
+									) : null}
+								</Stack>
+							</div>
+							{story.tags.length ? (
+								<TagCloud
+									tags={story.tags}
+									className={classNames(styles.tags, "u-layout-wide")}
+								/>
+							) : null}
+						</Section>
 						<Section>
 							<Stack gap="var(--space-l-xl)" className="u-layout-wide">
 								<SectionHeader>
