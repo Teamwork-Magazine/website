@@ -1,1 +1,10 @@
 @import "modern-css-reset/dist/reset.min.css";
+
+/*
+	Smooth scroll behavior appears to break Next's scroll-to-top affordance on
+  route changes, so we disable it here. (modern-css-reset sets smooth scroll
+	behavior by default.)
+*/
+html:focus-within {
+	scroll-behavior: auto;
+}
