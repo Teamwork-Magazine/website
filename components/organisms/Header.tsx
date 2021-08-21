@@ -21,12 +21,12 @@ export interface HeaderProps {
 export default function Header({ sections, pages }: HeaderProps) {
 	return (
 		<header className={classNames(styles.header, "u-layout-grid")}>
-			<SkipLink />
 			<nav
 				className={classNames(styles.nav, "u-layout-wide")}
 				role="navigation"
 				aria-label="Main navigation"
 			>
+				<SkipLink />
 				{/* Extended logo for wide displays */}
 				<Link href="/">
 					<a className={styles.home} data-logo-layout="extended">
