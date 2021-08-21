@@ -1,5 +1,5 @@
 import Prismic from "@prismicio/client";
-import BaseLayout from "../components/layouts/BaseLayout";
+import BaseLayout, { withLayoutProps } from "../components/layouts/BaseLayout";
 import { GetStaticProps } from "next";
 import { Navigation } from "../prismic/types/navigation";
 import { createClient } from "../prismic/client";
@@ -19,19 +19,17 @@ import { selectLeadStory } from "../prismic/selectors/stories";
 
 export interface HomePageProps {
 	leadStory: Story | null;
-	navigation: Navigation;
 	site: Site;
 	latestStories: Story[];
 }
 
 export default function HomePage({
 	leadStory,
-	navigation,
 	site,
 	latestStories,
 }: HomePageProps) {
 	return (
-		<BaseLayout site={site} navigation={navigation}>
+		<>
 			<SEO
 				title={site.title}
 				description={site.description}
@@ -60,26 +58,25 @@ export default function HomePage({
 					</Section>
 				) : null}
 			</main>
-		</BaseLayout>
+		</>
 	);
 }
 
-export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+export const getStaticProps = withLayoutProps<HomePageProps>(async () => {
 	const client = createClient();
-	const [stories, navigation, site] = await Promise.all([
-		getLatestStories(client, [], { pageSize: 16 }),
-		getNavigation(client),
+	const [stories, site] = await Promise.all([
+		getLatestStories(client, [], { pageSize: 17 }),
 		getSite(client),
 	]);
-
 	const leadStory = selectLeadStory(stories);
 
 	return {
 		props: {
-			leadStory,
-			navigation,
 			site,
-			latestStories: stories.filter((story) => story !== leadStory),
+			leadStory,
+			latestStories: stories
+				.filter((story) => story !== leadStory)
+				.slice(0, 16),
 		},
 	};
-};
+});

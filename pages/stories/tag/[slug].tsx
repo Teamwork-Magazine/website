@@ -1,16 +1,14 @@
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticPaths } from "next";
 import { ParsedUrlQuery } from "querystring";
-import BaseLayout from "../../../components/layouts/BaseLayout";
+import { withLayoutProps } from "../../../components/layouts/BaseLayout";
 import SEO from "../../../components/organisms/SEO";
 import ArticleIndex from "../../../components/templates/ArticleIndex";
 import { createClient } from "../../../prismic/client";
-import { getNavigation } from "../../../prismic/queries/navigation";
 import { getSite } from "../../../prismic/queries/site";
 import { getStoriesByTag } from "../../../prismic/queries/stories";
 import { getAllTags } from "../../../prismic/queries/tags";
 import { Routes } from "../../../prismic/routes";
 import { selectLeadStory } from "../../../prismic/selectors/stories";
-import { Navigation } from "../../../prismic/types/navigation";
 import { Site } from "../../../prismic/types/site";
 import { Story } from "../../../prismic/types/story";
 import { Tag } from "../../../prismic/types/tag";
@@ -19,7 +17,6 @@ export interface TagPageProps {
 	tag: Tag;
 	leadStory: Story | null;
 	otherStories: Story[];
-	navigation: Navigation;
 	site: Site;
 }
 
@@ -27,11 +24,10 @@ export default function CategoryPage({
 	tag,
 	leadStory,
 	otherStories,
-	navigation,
 	site,
 }: TagPageProps) {
 	return (
-		<BaseLayout site={site} navigation={navigation}>
+		<>
 			<SEO
 				title={tag.name}
 				description={`Browse all stories tagged ${tag.name} from ${site.title}`}
@@ -49,7 +45,7 @@ export default function CategoryPage({
 				leadStory={leadStory}
 				otherStories={otherStories}
 			/>
-		</BaseLayout>
+		</>
 	);
 }
 
@@ -57,48 +53,45 @@ interface TagPageQuery extends ParsedUrlQuery {
 	slug: string;
 }
 
-export const getStaticProps: GetStaticProps<
-	TagPageProps,
-	TagPageQuery
-> = async ({ params }) => {
-	const slug = params?.slug;
+export const getStaticProps = withLayoutProps<TagPageProps, { slug: string }>(
+	async ({ params }) => {
+		const slug = params?.slug;
 
-	if (!slug) {
+		if (!slug) {
+			return {
+				notFound: true,
+			};
+		}
+
+		const tag = decodeURIComponent(slug);
+		const client = createClient();
+
+		const [stories, site] = await Promise.all([
+			getStoriesByTag(client, tag),
+			getSite(client),
+		]);
+
+		if (stories.length === 0) {
+			return {
+				notFound: true,
+			};
+		}
+
+		const leadStory = selectLeadStory(stories);
+
 		return {
-			notFound: true,
-		};
-	}
-
-	const tag = decodeURIComponent(slug);
-	const client = createClient();
-
-	const [stories, navigation, site] = await Promise.all([
-		getStoriesByTag(client, tag),
-		getNavigation(client),
-		getSite(client),
-	]);
-
-	if (stories.length === 0) {
-		return {
-			notFound: true,
-		};
-	}
-
-	const leadStory = selectLeadStory(stories);
-
-	return {
-		props: {
-			tag: {
-				name: tag,
-				slug,
+			props: {
+				tag: {
+					name: tag,
+					slug,
+				},
+				leadStory,
+				otherStories: stories.filter((story) => story !== leadStory),
+				site,
 			},
-			leadStory,
-			otherStories: stories.filter((story) => story !== leadStory),
-			navigation,
-			site,
-		},
-	};
-};
+		};
+	}
+);
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const client = createClient();
