@@ -173,6 +173,8 @@ export const AliceInWonderland: Story = {
 			],
 		},
 	],
+	publishedAt: new Date().toISOString(),
+	updatedAt: new Date().toISOString(),
 	socialTitle: null,
 	socialDescription: null,
 };
@@ -208,6 +210,8 @@ export const TheOdyssey: Story = {
 	photographers: null,
 	tags: [],
 	body: [],
+	publishedAt: new Date().toISOString(),
+	updatedAt: null,
 	socialTitle: null,
 	socialDescription: null,
 };
@@ -248,6 +252,8 @@ export const PrideAndPrejudice: Story = {
 	],
 	tags: [],
 	body: [],
+	publishedAt: new Date().toISOString(),
+	updatedAt: null,
 	socialTitle: null,
 	socialDescription: null,
 };
@@ -280,6 +286,8 @@ export const TheGreatGatsby: Story = {
 	photographers: [],
 	tags: [],
 	body: [],
+	publishedAt: new Date().toISOString(),
+	updatedAt: null,
 	socialTitle: null,
 	socialDescription: null,
 };
@@ -319,6 +327,8 @@ export const GrimmsFairyTales: Story = {
 	photographers: null,
 	tags: [],
 	body: [],
+	publishedAt: new Date().toISOString(),
+	updatedAt: new Date().toISOString(),
 	socialTitle: null,
 	socialDescription: null,
 };
