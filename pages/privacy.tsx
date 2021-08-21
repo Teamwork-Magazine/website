@@ -1,29 +1,21 @@
 import { DateTime } from "luxon";
-import { GetStaticProps } from "next";
 import { useMemo } from "react";
-import BaseLayout from "../components/layouts/BaseLayout";
+import { withLayoutProps } from "../components/layouts/BaseLayout";
 import SEO from "../components/organisms/SEO";
 import PageTemplate from "../components/templates/Page";
 import { createClient } from "../prismic/client";
-import { getNavigation } from "../prismic/queries/navigation";
 import { getPrivacyPage } from "../prismic/queries/privacy";
 import { getSite } from "../prismic/queries/site";
 import { Routes } from "../prismic/routes";
-import { Navigation } from "../prismic/types/navigation";
 import { Page } from "../prismic/types/page";
 import { Site } from "../prismic/types/site";
 
 export interface PrivacyPageProps {
 	site: Site;
-	navigation: Navigation;
 	page: Page;
 }
 
-export default function PrivacyPage({
-	site,
-	navigation,
-	page,
-}: PrivacyPageProps) {
+export default function PrivacyPage({ site, page }: PrivacyPageProps) {
 	const { updatedAt: rawUpdatedAt } = page;
 
 	const updatedAt = useMemo(() => {
@@ -33,7 +25,7 @@ export default function PrivacyPage({
 	}, [rawUpdatedAt]);
 
 	return (
-		<BaseLayout site={site} navigation={navigation}>
+		<>
 			<SEO
 				title={page.title}
 				description={`Learn more about the ${site.title} privacy policy`}
@@ -50,16 +42,15 @@ export default function PrivacyPage({
 					</PageTemplate.Footer>
 				) : null}
 			</PageTemplate>
-		</BaseLayout>
+		</>
 	);
 }
 
-export const getStaticProps: GetStaticProps<PrivacyPageProps> = async () => {
+export const getStaticProps = withLayoutProps<PrivacyPageProps>(async () => {
 	const client = createClient();
-	const [page, site, navigation] = await Promise.all([
+	const [page, site] = await Promise.all([
 		getPrivacyPage(client),
 		getSite(client),
-		getNavigation(client),
 	]);
 
 	if (!page) {
@@ -72,7 +63,6 @@ export const getStaticProps: GetStaticProps<PrivacyPageProps> = async () => {
 		props: {
 			page,
 			site,
-			navigation,
 		},
 	};
-};
+});

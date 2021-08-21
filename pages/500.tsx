@@ -5,27 +5,27 @@ import { createClient } from "../prismic/client";
 import { getSite } from "../prismic/queries/site";
 import { Site } from "../prismic/types/site";
 
-export interface NotFoundPageProps {
+export interface ServerErrorPageProps {
 	site: Site;
 }
 
-export default function NotFoundPage({ site }: NotFoundPageProps) {
+export default function NotFoundPage({ site }: ServerErrorPageProps) {
 	return (
 		<>
 			<Head>
-				<title>404 - Not Found - {site.title}</title>
-				<meta name="description" content="This page could not be found." />
+				<title>500 - Server Error - {site.title}</title>
+				<meta name="description" content="A server error occurred." />
 			</Head>
 			<ErrorTemplate
-				status={404}
-				statusText="Not Found"
-				message="This page could not be found."
+				status={500}
+				statusText="Server Error"
+				message="A server error occurred."
 			/>
 		</>
 	);
 }
 
-export const getStaticProps = withLayoutProps<NotFoundPageProps>(
+export const getStaticProps = withLayoutProps<ServerErrorPageProps>(
 	async () => {
 		const client = createClient();
 		const site = await getSite(client);

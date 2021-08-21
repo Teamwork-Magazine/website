@@ -1,6 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import BaseLayout from "../../../components/layouts/BaseLayout";
+import BaseLayout, {
+	withLayoutProps,
+} from "../../../components/layouts/BaseLayout";
 import SEO from "../../../components/organisms/SEO";
 import ArticleIndex from "../../../components/templates/ArticleIndex";
 import { createClient } from "../../../prismic/client";
@@ -22,7 +24,6 @@ export interface CategoryPageProps {
 	category: Category;
 	leadStory: Story | null;
 	otherStories: Story[];
-	navigation: Navigation;
 	site: Site;
 }
 
@@ -30,11 +31,10 @@ export default function CategoryPage({
 	category,
 	leadStory,
 	otherStories,
-	navigation,
 	site,
 }: CategoryPageProps) {
 	return (
-		<BaseLayout site={site} navigation={navigation}>
+		<>
 			<SEO
 				title={category.name}
 				description={`Browse all ${category.name} stories from ${site.title}`}
@@ -53,18 +53,14 @@ export default function CategoryPage({
 				otherStories={otherStories}
 				kickerPrefer="tag"
 			/>
-		</BaseLayout>
+		</>
 	);
 }
 
-interface CategoryPageQuery extends ParsedUrlQuery {
-	slug: string;
-}
-
-export const getStaticProps: GetStaticProps<
+export const getStaticProps = withLayoutProps<
 	CategoryPageProps,
-	CategoryPageQuery
-> = async ({ params }) => {
+	{ slug: string }
+>(async ({ params }) => {
 	const slug = params?.slug!;
 	const client = createClient();
 	const category = await getCategory(client, slug);
@@ -75,9 +71,8 @@ export const getStaticProps: GetStaticProps<
 		};
 	}
 
-	const [stories, navigation, site] = await Promise.all([
+	const [stories, site] = await Promise.all([
 		getStoriesByCategory(client, category),
-		getNavigation(client),
 		getSite(client),
 	]);
 
@@ -88,11 +83,10 @@ export const getStaticProps: GetStaticProps<
 			category,
 			leadStory,
 			otherStories: stories.filter((story) => story !== leadStory),
-			navigation,
 			site,
 		},
 	};
-};
+});
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	const client = createClient();
