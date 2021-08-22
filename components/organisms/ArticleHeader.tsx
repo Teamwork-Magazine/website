@@ -71,7 +71,7 @@ export default function ArticleHeader({
 					</Stack>
 					<div className={styles.share}>
 						<Button
-							href={`https://facebook.com/sharer.php?u=${encodeURIComponent(
+							href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
 								url
 							)}`}
 							external
@@ -86,7 +86,7 @@ export default function ArticleHeader({
 							/>
 						</Button>
 						<Button
-							href={`https://twitter.com/share?u=${encodeURIComponent(url)}`}
+							href={`https://twitter.com/share?url=${encodeURIComponent(url)}`}
 							external
 							className={styles.shareButton}
 							aria-label="Share on Twitter"
