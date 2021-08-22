@@ -1,10 +1,11 @@
 import classNames from "classnames";
-import { RichText, RichTextBlock } from "prismic-reactjs";
+import { RichText } from "prismic-reactjs";
 import { Story } from "../../prismic/types/story";
 import Blurb from "../atoms/Blurb";
 import Byline from "../atoms/Byline";
 import Headline from "../atoms/Headline";
 import Stack from "../atoms/Stack";
+import ArticleKicker from "../molecules/ArticleKicker";
 import Image from "../molecules/Image";
 import styles from "./ArticleHeader.module.css";
 
@@ -30,15 +31,20 @@ export default function ArticleHeader({
 	story,
 	className,
 }: ArticleHeaderProps) {
+	const layout = getLayout(story);
+
 	return (
 		<header
 			className={classNames(styles.header, "u-layout-grid", className)}
-			data-layout={getLayout(story)}
+			data-layout={layout}
 		>
-			<Stack
-				gap="var(--space-s)"
-				className={classNames(styles.summary, "u-layout-pull-left")}
-			>
+			<Stack gap="var(--space-s)" className={styles.summary}>
+				<ArticleKicker
+					className={styles.kicker}
+					story={story}
+					size="lg"
+					prefer={["category", "tag"]}
+				/>
 				<Headline className={styles.headline} size="xl" accent>
 					{story.title}
 				</Headline>
@@ -60,7 +66,9 @@ export default function ArticleHeader({
 				// eslint-disable-next-line jsx-a11y/alt-text
 				<Image
 					{...story.coverImage}
-					className={classNames(styles.image, "u-layout-wide")}
+					className={classNames(styles.image, {
+						"u-layout-wide": layout === "landscape-image",
+					})}
 				/>
 			)}
 		</header>

@@ -1,8 +1,5 @@
-import { GetStaticPaths, GetStaticProps } from "next";
-import { ParsedUrlQuery } from "querystring";
-import BaseLayout, {
-	withLayoutProps,
-} from "../../../components/layouts/BaseLayout";
+import { GetStaticPaths } from "next";
+import { withLayoutProps } from "../../../components/layouts/BaseLayout";
 import SEO from "../../../components/organisms/SEO";
 import ArticleIndex from "../../../components/templates/ArticleIndex";
 import { createClient } from "../../../prismic/client";
@@ -10,13 +7,11 @@ import {
 	getAllCategories,
 	getCategory,
 } from "../../../prismic/queries/categories";
-import { getNavigation } from "../../../prismic/queries/navigation";
 import { getSite } from "../../../prismic/queries/site";
 import { getStoriesByCategory } from "../../../prismic/queries/stories";
 import { Routes } from "../../../prismic/routes";
 import { selectLeadStory } from "../../../prismic/selectors/stories";
 import { Category } from "../../../prismic/types/category";
-import { Navigation } from "../../../prismic/types/navigation";
 import { Site } from "../../../prismic/types/site";
 import { Story } from "../../../prismic/types/story";
 
@@ -51,7 +46,7 @@ export default function CategoryPage({
 				heading={category.name}
 				leadStory={leadStory}
 				otherStories={otherStories}
-				kickerPrefer="tag"
+				kickerPrefer={["tag", "category"]}
 			/>
 		</>
 	);

@@ -1,16 +1,11 @@
 .card {
+	--article-card-stack-gap: var(--space-3xs);
 	display: flex;
 }
 
 .body {
 	display: flex;
 	flex-direction: column;
-}
-
-.headline,
-.blurb,
-.byline {
-	margin-top: var(--article-card-stack-gap, var(--space-3xs));
 }
 
 .thumbnail,
