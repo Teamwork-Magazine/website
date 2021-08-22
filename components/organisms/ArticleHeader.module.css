@@ -44,3 +44,21 @@
 		margin-left: auto;
 	}
 }
+
+/* Layouts */
+
+@media (min-width: 1200px) {
+	.header[data-layout="portrait-image"] {
+		align-items: center;
+	}
+
+	.header[data-layout="portrait-image"] .image {
+		grid-row: 1;
+		grid-column-end: span 4;
+	}
+
+	.header[data-layout="portrait-image"] .summary {
+		grid-row: 1;
+		grid-column-start: span 4;
+	}
+}
