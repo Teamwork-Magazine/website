@@ -36,9 +36,21 @@ interface SharedButtonProps<T = Element> {
 
 export interface LinkButtonProps extends SharedButtonProps<HTMLAnchorElement> {
 	href: string;
+	external?: boolean;
 }
 
-function LinkButton({ href, ...props }: LinkButtonProps) {
+function LinkButton({ href, external = false, ...props }: LinkButtonProps) {
+	if (external) {
+		return (
+			<a
+				{...handleSharedProps(props)}
+				href={href}
+				target="_blank"
+				rel="noopener noreferrer"
+			/>
+		);
+	}
+
 	return (
 		<Link href={href}>
 			<a {...handleSharedProps(props)} />
@@ -47,7 +59,7 @@ function LinkButton({ href, ...props }: LinkButtonProps) {
 }
 
 export interface TrueButtonProps extends SharedButtonProps<HTMLButtonElement> {
-	type: JSX.IntrinsicElements["button"]["type"];
+	type?: JSX.IntrinsicElements["button"]["type"];
 }
 
 function TrueButton({ type = "button", ...props }: TrueButtonProps) {
@@ -60,8 +72,10 @@ function handleSharedProps<T>({
 	onClick,
 	size = "md",
 	theme = "subtle",
+	...props
 }: SharedButtonProps<T>) {
 	return {
+		...props,
 		className: classNames(styles.button, "u-text-accent", className),
 		"data-size": size,
 		"data-theme": theme,

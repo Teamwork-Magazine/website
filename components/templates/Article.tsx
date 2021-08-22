@@ -13,13 +13,19 @@ import RichTextSection from "../organisms/RichTextSection";
 import { useMemo } from "react";
 import { DateTime } from "luxon";
 import TagCloud from "../molecules/TagCloud";
+import { Site } from "../../prismic/types/site";
 
 export interface ArticleProps {
+	site: Site;
 	story: Story;
 	recommendedStories: Story[];
 }
 
-export default function Article({ story, recommendedStories }: ArticleProps) {
+export default function Article({
+	site,
+	story,
+	recommendedStories,
+}: ArticleProps) {
 	const { publishedAt: rawPublishedAt, updatedAt: rawUpdatedAt } = story;
 
 	const publishedAt = useMemo(() => {
@@ -40,7 +46,7 @@ export default function Article({ story, recommendedStories }: ArticleProps) {
 		<main>
 			<article>
 				<Stack gap="var(--space-xl)">
-					<ArticleHeader story={story} className={styles.header} />
+					<ArticleHeader story={story} site={site} className={styles.header} />
 					<div className={classNames(styles.body, "u-layout-grid")}>
 						{story.body.map((slice, i) => (
 							<ArticleBodySlice slice={slice} key={i} />

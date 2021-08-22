@@ -40,7 +40,11 @@ export default function StoryPage({
 				image={story.thumbnail}
 				openGraphType="article"
 			/>
-			<Article story={story} recommendedStories={recommendedStories} />
+			<Article
+				site={site}
+				story={story}
+				recommendedStories={recommendedStories}
+			/>
 		</>
 	);
 }
