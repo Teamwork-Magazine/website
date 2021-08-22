@@ -76,6 +76,7 @@ export default function ArticleHeader({
 							)}`}
 							external
 							className={styles.shareButton}
+							aria-label="Share on Facebook"
 							data-brand="facebook"
 						>
 							<Button.Icon
@@ -88,6 +89,7 @@ export default function ArticleHeader({
 							href={`https://twitter.com/share?u=${encodeURIComponent(url)}`}
 							external
 							className={styles.shareButton}
+							aria-label="Share on Twitter"
 							data-brand="twitter"
 						>
 							<Button.Icon
@@ -102,6 +104,7 @@ export default function ArticleHeader({
 							)}&body=${encodeURIComponent(url)}`}
 							external
 							className={styles.shareButton}
+							aria-label="Share via email"
 							data-brand="email"
 						>
 							<Button.Icon

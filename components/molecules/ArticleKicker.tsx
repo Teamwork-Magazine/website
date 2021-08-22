@@ -14,7 +14,11 @@ const fallback: KickerSource = {
 	toProps() {
 		return {
 			href: Routes.uncategorizedStories,
-			children: "Uncategorized",
+			children: (
+				<>
+					<span className="u-visually-hidden">Category: </span>Uncategorized
+				</>
+			),
 		};
 	},
 };
@@ -28,7 +32,12 @@ const category: KickerSource = {
 
 		return {
 			href: Routes.category({ slug }),
-			children: name,
+			children: (
+				<>
+					<span className="u-visually-hidden">Category: </span>
+					{name}
+				</>
+			),
 		};
 	},
 };
@@ -42,7 +51,12 @@ const tag: KickerSource = {
 
 		return {
 			href: Routes.tag({ slug }),
-			children: name,
+			children: (
+				<>
+					<span className="u-visually-hidden">Tag: </span>
+					{name}
+				</>
+			),
 		};
 	},
 };

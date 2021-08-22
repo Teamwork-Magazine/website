@@ -21,7 +21,7 @@ export default function TagCloud({
 			{tags.map(({ name, slug }) => (
 				<li key={slug}>
 					<Button href={Routes.tag({ slug })}>
-						<Button.Icon icon={TagIcon} /> {name}
+						<Button.Icon icon={TagIcon} title="More stories tagged" /> {name}
 					</Button>
 				</li>
 			))}
