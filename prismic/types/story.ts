@@ -35,6 +35,8 @@ export interface Story {
 	photographers: PersonLink[] | null;
 	tags: Tag[];
 	body: StorySlice[];
+	publishedAt: string | null;
+	updatedAt: string | null;
 	socialTitle: string | null;
 	socialDescription: string | null;
 }
@@ -118,6 +120,12 @@ export const StorySchema = new Schema<Document, Story>({
 
 			return slices;
 		}, [] as StorySlice[]);
+	},
+	publishedAt(doc) {
+		return doc.first_publication_date;
+	},
+	updatedAt(doc) {
+		return doc.last_publication_date;
 	},
 	socialTitle(doc) {
 		return (doc.data?.social_title as string) || null;

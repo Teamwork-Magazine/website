@@ -41,7 +41,12 @@ export default function HomePage({
 				{leadStory && (
 					<Section lead>
 						<h2 className="u-visually-hidden">Lead Story</h2>
-						<ArticleCard story={leadStory} level={3} layout="featured" />
+						<ArticleCard
+							story={leadStory}
+							level={3}
+							layout="featured"
+							kickerPrefer={["featured", "category", "tag"]}
+						/>
 					</Section>
 				)}
 				{latestStories.length > 0 ? (

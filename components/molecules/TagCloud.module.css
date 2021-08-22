@@ -1,0 +1,7 @@
+.cloud {
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--tag-cloud-gap, var(--space-xs));
+}

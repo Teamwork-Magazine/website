@@ -51,7 +51,13 @@ export default function ArticleIndex({
 							story={leadStory}
 							level={3}
 							layout="featured"
-							kickerPrefer={kickerPrefer}
+							kickerPrefer={
+								kickerPrefer
+									? (["featured"].concat(
+											kickerPrefer
+									  ) as ArticleCardKickerPreference)
+									: ["featured", "category", "tag"]
+							}
 						/>
 					</Section>
 				)}

@@ -10,24 +10,77 @@ import ArticleHeader from "../organisms/ArticleHeader";
 import Section from "../molecules/Section";
 import SectionHeader from "../molecules/SectionHeader";
 import RichTextSection from "../organisms/RichTextSection";
+import { useMemo } from "react";
+import { DateTime } from "luxon";
+import TagCloud from "../molecules/TagCloud";
+import { Site } from "../../prismic/types/site";
 
 export interface ArticleProps {
+	site: Site;
 	story: Story;
 	recommendedStories: Story[];
 }
 
-export default function Article({ story, recommendedStories }: ArticleProps) {
+export default function Article({
+	site,
+	story,
+	recommendedStories,
+}: ArticleProps) {
+	const { publishedAt: rawPublishedAt, updatedAt: rawUpdatedAt } = story;
+
+	const publishedAt = useMemo(() => {
+		if (!rawPublishedAt) return null;
+		return DateTime.fromISO(rawPublishedAt);
+	}, [rawPublishedAt]);
+
+	const updatedAt = useMemo(() => {
+		if (!rawUpdatedAt) return null;
+
+		const updatedAt = DateTime.fromISO(rawUpdatedAt);
+		if (publishedAt && updatedAt.equals(publishedAt)) return null;
+
+		return updatedAt;
+	}, [publishedAt, rawUpdatedAt]);
+
 	return (
 		<main>
 			<article>
 				<Stack gap="var(--space-xl)">
-					<ArticleHeader story={story} className={styles.header} />
+					<ArticleHeader story={story} site={site} className={styles.header} />
 					<div className={classNames(styles.body, "u-layout-grid")}>
 						{story.body.map((slice, i) => (
 							<ArticleBodySlice slice={slice} key={i} />
 						))}
 					</div>
 					<footer>
+						<Section className={styles.metadata}>
+							<div className={classNames(styles.dates, "u-layout-wide")}>
+								<Stack gap="var(--space-2xs)">
+									{publishedAt ? (
+										<p>
+											Published on{" "}
+											<time dateTime={publishedAt.toISO()}>
+												{publishedAt.toLocaleString(DateTime.DATE_FULL)}
+											</time>
+										</p>
+									) : null}
+									{updatedAt ? (
+										<p>
+											Last updated on{" "}
+											<time dateTime={updatedAt.toISO()}>
+												{updatedAt.toLocaleString(DateTime.DATETIME_FULL)}
+											</time>
+										</p>
+									) : null}
+								</Stack>
+							</div>
+							{story.tags.length ? (
+								<TagCloud
+									tags={story.tags}
+									className={classNames(styles.tags, "u-layout-wide")}
+								/>
+							) : null}
+						</Section>
 						<Section>
 							<Stack gap="var(--space-l-xl)" className="u-layout-wide">
 								<SectionHeader>

@@ -1,0 +1,64 @@
+.headline {
+	margin-top: var(--space-m);
+	margin-bottom: var(--space-m);
+}
+
+.secondary {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-s);
+}
+
+.share {
+	display: flex;
+	gap: var(--space-xs);
+}
+
+.shareButton {
+	padding: var(--space-2xs);
+}
+
+.shareIcon {
+	height: 16px;
+}
+
+.shareButton:hover .shareIcon {
+	color: var(--share-button-brand-color, var(--color-accent-500));
+}
+
+.shareButton[data-brand="facebook"] {
+	--share-button-brand-color: #1877f2;
+}
+
+.shareButton[data-brand="twitter"] {
+	--share-button-brand-color: #1da1f2;
+}
+
+@media (min-width: 440px) {
+	.secondary {
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.share {
+		margin-left: auto;
+	}
+}
+
+/* Layouts */
+
+@media (min-width: 1200px) {
+	.header[data-layout="portrait-image"] {
+		align-items: center;
+	}
+
+	.header[data-layout="portrait-image"] .image {
+		grid-row: 1;
+		grid-column-end: span 4;
+	}
+
+	.header[data-layout="portrait-image"] .summary {
+		grid-row: 1;
+		grid-column-start: span 4;
+	}
+}

@@ -11,6 +11,8 @@ import Byline from "../atoms/Byline";
 import Kicker from "../atoms/Kicker";
 import placeholder from "../../public/thumbnail-placeholder.png";
 import styles from "./ArticleCard.module.css";
+import ArticleKicker, { KickerPreference } from "./ArticleKicker";
+import Stack from "../atoms/Stack";
 
 const PLACEHOLDER_THUMBNAIL: ImageData = {
 	...placeholder,
@@ -18,7 +20,7 @@ const PLACEHOLDER_THUMBNAIL: ImageData = {
 	credit: null,
 };
 
-export type ArticleCardKickerPreference = "category" | "tag";
+export type ArticleCardKickerPreference = KickerPreference | KickerPreference[];
 
 type ArticleCardLayout = "normal" | "featured";
 
@@ -34,27 +36,24 @@ export default function ArticleCard({
 	story,
 	level = 3,
 	layout = "normal",
-	kickerPrefer = "category",
+	kickerPrefer,
 	className,
 }: ArticleCardProps) {
 	const isFeatured = layout === "featured";
 	const url = `/stories/${story.slug}`;
-
-	let kicker = "Uncategorized";
-	if (isFeatured && story.featured) {
-		kicker = "Featured";
-	} else if ((kickerPrefer === "tag" || !story.section) && story.tags.length) {
-		kicker = story.tags[0].name;
-	} else if (story.section) {
-		kicker = story.section.name;
-	}
 
 	return (
 		<article
 			className={classNames(styles.card, className)}
 			data-layout={layout}
 		>
-			<div className={styles.body}>
+			<Stack className={styles.body} gap={"var(--article-card-stack-gap)"}>
+				<ArticleKicker
+					className={styles.kicker}
+					story={story}
+					prefer={kickerPrefer}
+					size={isFeatured ? "lg" : "md"}
+				/>
 				<Headline
 					level={level}
 					className={styles.headline}
@@ -65,9 +64,6 @@ export default function ArticleCard({
 						<a className={styles.link}>{story.title}</a>
 					</Link>
 				</Headline>
-				<Kicker className={styles.kicker} size={isFeatured ? "lg" : "md"}>
-					{kicker}
-				</Kicker>
 				{story.blurb && !isFeatured && (
 					<Blurb className={styles.blurb}>
 						<RichText render={story.blurb} />
@@ -76,7 +72,7 @@ export default function ArticleCard({
 				{isFeatured && (
 					<Byline className={styles.byline} people={story.authors} size="lg" />
 				)}
-			</div>
+			</Stack>
 			<Link href={url}>
 				<a className={styles.thumbnail} tabIndex={-1} aria-hidden="true">
 					<Image

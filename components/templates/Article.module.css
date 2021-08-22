@@ -1,7 +1,24 @@
 .header {
-	margin-top: var(--space-2xl-3xl);
+	margin-top: var(--space-l-xl);
 }
 
 .body {
 	--grid-row-gap: var(--space-l-xl);
+}
+
+.dates {
+	color: var(--color-gray-500);
+	font-family: var(--font-family-accent);
+	font-size: var(--step--1);
+}
+
+@media screen and (min-width: 768px) {
+	.dates {
+		grid-column-end: span 4;
+	}
+
+	.tags {
+		grid-column-start: span 4;
+		justify-content: flex-end;
+	}
 }
