@@ -23,7 +23,8 @@
 	width: 100%;
 }
 
-.u-layout-grid > .u-layout-wide {
+.u-layout-grid > .u-layout-wide,
+.u-layout-grid > .u-layout-subgrid {
 	max-width: none;
 }
 

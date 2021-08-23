@@ -11,7 +11,7 @@ export interface Page {
 	id: string;
 	title: string;
 	slug: string;
-	description: RichTextBlock[] | null;
+	description: string | null;
 	body: PageSlice[];
 	publishedAt: string | null;
 	updatedAt: string | null;
@@ -40,8 +40,8 @@ export const PageSchema = new Schema<Document, Page>({
 		return doc.uid ?? doc.id;
 	},
 	description(doc) {
-		const { description = [] } = doc.data as { description?: RichTextBlock[] };
-		return description.length ? description : null;
+		const { description } = doc.data as { description?: string };
+		return description || null;
 	},
 	body(doc) {
 		if (!Array.isArray(doc.data.body)) {

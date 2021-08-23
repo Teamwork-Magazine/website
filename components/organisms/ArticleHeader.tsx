@@ -65,7 +65,7 @@ export default function ArticleHeader({
 				<div className={styles.secondary}>
 					<Stack className={styles.bylines} gap="var(--space-2xs)">
 						<Byline people={story.authors} />
-						{story.photographers && (
+						{story.photographers && story.photographers.length > 0 && (
 							<Byline people={story.photographers} prefix="Photos" />
 						)}
 					</Stack>

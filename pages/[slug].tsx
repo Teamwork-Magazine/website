@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import { RichText } from "prismic-reactjs";
 import { ParsedUrlQuery } from "querystring";
 import { withLayoutProps } from "../components/layouts/BaseLayout";
 import SEO from "../components/organisms/SEO";
@@ -25,10 +24,7 @@ export default function CatchAllPage({ site, page }: CatchAllPageProps) {
 			<SEO
 				title={page.socialTitle || page.title}
 				description={
-					socialDescription ||
-					(description
-						? RichText.asText(description)
-						: "No description provided")
+					socialDescription || description || "No description provided"
 				}
 				siteTitle={site.title}
 				url={site.url + Routes.page(page)}
