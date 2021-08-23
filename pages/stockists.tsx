@@ -1,9 +1,7 @@
 import classNames from "classnames";
-import flow from "lodash/flow";
 import { withLayoutProps } from "../components/layouts/BaseLayout";
 import PageLayout from "../components/layouts/PageLayout";
 import SEO from "../components/organisms/SEO";
-import { withFeatureFlag } from "../lib/feature-flags/getStaticProps";
 import { createClient } from "../prismic/client";
 import { getSite } from "../prismic/queries/site";
 import { getAllStockists } from "../prismic/queries/stockists";
@@ -47,8 +45,7 @@ export default function StockistsPage({ stockists, site }: StockistsPageProps) {
 	);
 }
 
-const wrapStaticProps = flow(withFeatureFlag("STOCKISTS"), withLayoutProps);
-export const getStaticProps = wrapStaticProps<StockistsPageProps>(async () => {
+export const getStaticProps = withLayoutProps<StockistsPageProps>(async () => {
 	const client = createClient();
 	const [stockists, site] = await Promise.all([
 		getAllStockists(client),

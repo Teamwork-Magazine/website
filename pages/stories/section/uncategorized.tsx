@@ -52,15 +52,6 @@ export const getStaticProps = withLayoutProps<UncategorizedPageProps>(
 			getSite(client),
 		]);
 
-		// FIXME: We should really just render an empty state, not 404 - this page
-		// should always be bookmark-able, since uncategorized stories can exist at
-		// any point.
-		if (!stories.length) {
-			return {
-				notFound: true,
-			};
-		}
-
 		const leadStory = selectLeadStory(stories);
 
 		return {
