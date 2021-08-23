@@ -3,6 +3,7 @@ import { LinkedDocument, PrismicSlice } from "../interfaces";
 import { Schema } from "../schema";
 import { PageLink, PageSchema } from "./page";
 import { CategoryLink, CategorySchema } from "./category";
+import { isEnabled } from "../../lib/feature-flags/check";
 
 interface NavigationSliceConfig {
 	location: "Header only" | "Footer only" | "Header and Footer" | null;
@@ -55,7 +56,7 @@ export const NavigationSchema = new Schema<Document, Navigation>({
 	},
 	pages(doc) {
 		const { body = [] } = doc.data as { body?: PrismicNavigationSlice[] };
-		return body.filter(isPageSlice).map(toPageLink);
+		return body.filter(isPageSlice).filter(isPageEnabled).map(toPageLink);
 	},
 });
 
@@ -75,6 +76,14 @@ function isPageSlice(
 		slice.slice_type === "link_to_page" &&
 		slice.primary.page?.isBroken === false
 	);
+}
+
+function isPageEnabled(slice: PrismicPageLinkSlice): boolean {
+	if (slice.primary.page?.type === "stockist" && !isEnabled("STOCKISTS")) {
+		return false;
+	}
+
+	return true;
 }
 
 function toSectionLink(slice: PrismicSectionLinkSlice): SectionLinkItem {

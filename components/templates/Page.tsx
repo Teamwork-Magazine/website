@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { ReactNode } from "react";
 import { Page, PageSlice } from "../../prismic/types/page";
+import PageLayout from "../layouts/PageLayout";
 import RichTextSection from "../organisms/RichTextSection";
 import styles from "./Page.module.css";
 
@@ -11,19 +12,17 @@ export interface PageTemplateProps {
 
 export default function PageTemplate({ page, children }: PageTemplateProps) {
 	return (
-		<main>
-			<article className={classNames(styles.article, "u-layout-grid")}>
-				<header className={styles.header}>
-					<h1>{page.title}</h1>
-				</header>
-				<div className={classNames(styles.body, "u-layout-grid")}>
-					{page.body.map((slice, i) => (
-						<PageBodySlice slice={slice} key={i} />
-					))}
-				</div>
-				{children}
-			</article>
-		</main>
+		<PageLayout>
+			<PageLayout.Header>
+				<h1>{page.title}</h1>
+			</PageLayout.Header>
+			<PageLayout.Body>
+				{page.body.map((slice, i) => (
+					<PageBodySlice slice={slice} key={i} />
+				))}
+			</PageLayout.Body>
+			{children}
+		</PageLayout>
 	);
 }
 

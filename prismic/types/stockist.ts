@@ -4,8 +4,8 @@ import { Schema } from "../schema";
 
 export interface Stockist {
 	id: string;
-	name: string;
-	location: string;
+	name: string | null;
+	location: string | null;
 }
 
 export const StockistSchema = new Schema<Document, Stockist>({
